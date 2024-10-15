@@ -1,6 +1,0 @@
-@UPT_HostAddress = http://localhost:5180
-
-GET {{UPT_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

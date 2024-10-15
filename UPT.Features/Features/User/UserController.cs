@@ -4,16 +4,18 @@ using UPT.Features.Base;
 
 namespace UPT.Features.Features.User;
 
-internal class UserController : BaseController
+/// <summary>
+/// Контроллер для User
+/// </summary>
+public class UserController : BaseController
 {
-    //[HttpPost]
-    //[ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
-    //public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request,
-    //[FromServices] IOperationContextFactory<CreateUserCommand, UserResponse> factory)
-    //{
-    //    var command = new CreateUserCommand(request: request, HttpContext.User);
-    //    var context = factory.Build(command);
-    //    var result = await Handle(context);
-    //    return result;
-    //}
+    /// <summary>
+    /// Получить пользователя
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public IActionResult Get()
+    {
+        return Ok(1);
+    }
 }

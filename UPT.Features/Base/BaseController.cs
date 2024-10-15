@@ -2,8 +2,11 @@
 
 namespace UPT.Features.Base;
 
+/// <summary>
+/// BaseController
+/// </summary>
 [ApiController]
 [Route("api/web/[controller]/[action]")]
-internal class BaseController : ControllerBase
+public class BaseController : ControllerBase
 {
 }

@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPT.Infrastructure", "UPT.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPT.Features", "UPT.Features\UPT.Features.csproj", "{3CA450C7-3078-4F4C-AF20-A7CA1F19D972}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPT.Data", "UPT.Data\UPT.Data.csproj", "{B94039C1-B5D4-4EF1-AA7E-897854E53E6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,12 +39,17 @@ Global
 		{3CA450C7-3078-4F4C-AF20-A7CA1F19D972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3CA450C7-3078-4F4C-AF20-A7CA1F19D972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3CA450C7-3078-4F4C-AF20-A7CA1F19D972}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B94039C1-B5D4-4EF1-AA7E-897854E53E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B94039C1-B5D4-4EF1-AA7E-897854E53E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B94039C1-B5D4-4EF1-AA7E-897854E53E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B94039C1-B5D4-4EF1-AA7E-897854E53E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3CA450C7-3078-4F4C-AF20-A7CA1F19D972} = {E33738A4-BA6C-42A1-AFCE-C6B8D011EB47}
+		{B94039C1-B5D4-4EF1-AA7E-897854E53E6A} = {C59AEF62-AEFC-4548-A9A3-9D704845031F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DA8D3065-3F6C-47A7-873B-82C76A2E0947}
