@@ -6,5 +6,5 @@ public class HasIdBase
 {
     [Key]
     [Required]
-    public int Id { get; protected set; }
+    public int Id { get; protected set; } = default!;
 }
