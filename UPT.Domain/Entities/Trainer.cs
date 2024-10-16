@@ -5,7 +5,7 @@ namespace UPT.Domain.Entities;
 
 public class Trainer : HasIdBase
 {
-    public Person Person { get; protected set; } = default!;
+    public User Person { get; protected set; } = default!;
 
     /// <summary>
     /// Стаж работы
@@ -31,10 +31,12 @@ public class Trainer : HasIdBase
     /// Восстановление опорно-двигательного аппарата
     /// </summary>
     public TrainingProgram TrainingProgram { get; protected set; } = default!;
-    
+
+    public List<Client> Clients { get; protected set; } = default!;
+
     public Gym Gym { get; protected set; } = default!;
 
-    public Trainer(Person person, int experience, bool medicGrade,
+    public Trainer(User person, int experience, bool medicGrade,
         bool workInjuries, bool workSportsmens, TrainingProgram trainingProgram, Gym gym)
     {
         Person = person;

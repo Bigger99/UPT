@@ -2,5 +2,5 @@
 
 public class HasNameBase : HasIdBase
 {
-    public string Name { get; protected set; } = default!;
+    public string? Name { get; protected set; } = default!;
 }

@@ -1,11 +1,15 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
 using UPT.Features.Base;
+using UPT.Features.Services.Autorization;
 using UPT.Infrastructure;
 using UPT.Infrastructure.Interfaces;
+using UPT.Infrastructure.Jwt;
+using UPT.Infrastructure.PasswordHasher;
 
 namespace UPT;
 
@@ -24,10 +28,11 @@ internal static class Settings
         {
             opt.UseNpgsql(
                 builder.Configuration.GetConnectionString("Default"),
-                x => x.MigrationsAssembly(typeof(T).Assembly.ToString()));
+                x => x.MigrationsAssembly(typeof(T).Assembly.ToString()))
+            .UseSnakeCaseNamingConvention();
         });
 
-        //builder.Services.AddDbContextAndQueryables<T>(sp => sp.GetRequiredService<T>());
+        // dotnet ef migrations add InitialCreate --project "..\UPT.Data\"
         return builder;
     }
 
@@ -46,6 +51,15 @@ internal static class Settings
                 }
             }
         }
+        return builder;
+    }
+    
+    public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<IJwtProvider, JwtProvider>();
+        builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+        builder.Services.AddScoped<IAutorizationService, AutorizationService>();
+
         return builder;
     }
 

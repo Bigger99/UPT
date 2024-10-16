@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPT", "UPT\UPT.csproj", "{0F3685EA-60EF-44C9-A46B-A86C21E5E855}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UPT", "UPT\UPT.csproj", "{0F3685EA-60EF-44C9-A46B-A86C21E5E855}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{C59AEF62-AEFC-4548-A9A3-9D704845031F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Features", "Features", "{E33738A4-BA6C-42A1-AFCE-C6B8D011EB47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPT.Domain", "UPT.Domain\UPT.Domain.csproj", "{3C5731C3-88F1-404B-8140-99E55BB83AC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UPT.Domain", "UPT.Domain\UPT.Domain.csproj", "{3C5731C3-88F1-404B-8140-99E55BB83AC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPT.Infrastructure", "UPT.Infrastructure\UPT.Infrastructure.csproj", "{08EC0E47-EBBD-4D70-BC22-72AA1B2C24A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UPT.Infrastructure", "UPT.Infrastructure\UPT.Infrastructure.csproj", "{08EC0E47-EBBD-4D70-BC22-72AA1B2C24A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPT.Features", "UPT.Features\UPT.Features.csproj", "{3CA450C7-3078-4F4C-AF20-A7CA1F19D972}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UPT.Features", "UPT.Features\UPT.Features.csproj", "{3CA450C7-3078-4F4C-AF20-A7CA1F19D972}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UPT.Data", "UPT.Data\UPT.Data.csproj", "{B94039C1-B5D4-4EF1-AA7E-897854E53E6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UPT.Data", "UPT.Data\UPT.Data.csproj", "{B94039C1-B5D4-4EF1-AA7E-897854E53E6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

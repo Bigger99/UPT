@@ -6,6 +6,7 @@ var builder = WebApplication
     .AddDatabase<UPTDbContext>()
     .AddControllersAndSwagger()
     .AddMapsterConfig()
+    .AddServices()
     .AddHealthChecks();
 
 var app = builder.Build();

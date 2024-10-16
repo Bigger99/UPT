@@ -11,10 +11,12 @@
 
 		<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 				<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+				<NoWarn>1701;1702;1591</NoWarn>
 		</PropertyGroup>
 
 		<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 				<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+				<NoWarn>1701;1702;1591</NoWarn>
 		</PropertyGroup>
 
 		<ItemGroup>
@@ -23,6 +25,10 @@
 
 		<ItemGroup>
 				<ProjectReference Include="..\UPT.Data\UPT.Data.csproj" />
+		</ItemGroup>
+
+		<ItemGroup>
+		  <Folder Include="Features\Autorization\Models\" />
 		</ItemGroup>
 
 </Project>

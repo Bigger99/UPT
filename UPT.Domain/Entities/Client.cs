@@ -4,7 +4,7 @@ namespace UPT.Domain.Entities;
 
 public class Client : HasIdBase
 {
-    public Person Person { get; protected set; } = default!;
+    public User Person { get; protected set; } = default!;
     public int Height { get; protected set; } = default!;
     public double Weight { get; protected set; } = default!;
     public double VolumeBreast { get; protected set; } = default!;
@@ -12,8 +12,9 @@ public class Client : HasIdBase
     public double VolumeAbdomen { get; protected set; } = default!;
     public double VolumeButtock { get; protected set; } = default!;
     public double VolumeHip { get; protected set; } = default!;
+    public Trainer Trainer { get; protected set; } = default!;
 
-    public Client(Person person, int height, double weight,
+    public Client(User person, int height, double weight,
     double volumeBreast, double volumeWaist, double volumeAbdomen,
     double volumeButtock, double volumeHip)
     {
@@ -25,6 +26,11 @@ public class Client : HasIdBase
         VolumeAbdomen = volumeAbdomen;
         VolumeButtock = volumeButtock;
         VolumeHip = volumeHip;
+    }
+
+    public void SetTrainer(Trainer trainer)
+    {
+        Trainer = trainer;
     }
 
     // for EF

@@ -5,7 +5,7 @@ namespace UPT.Data;
 
 public class UPTDbContext(DbContextOptions<UPTDbContext> options) : DbContext(options)
 {
-    public DbSet<Person> Persons => Set<Person>();
+    public DbSet<User> Users => Set<User>();
     public DbSet<City> Cities => Set<City>();
     public DbSet<Trainer> Trainers => Set<Trainer>();
     public DbSet<Client> Clients => Set<Client>();
@@ -13,6 +13,7 @@ public class UPTDbContext(DbContextOptions<UPTDbContext> options) : DbContext(op
     public DbSet<Chat> Chats => Set<Chat>();
     public DbSet<Feedback> Feedbacks => Set<Feedback>();
     public DbSet<Favorit> Favorits => Set<Favorit>();
+    public DbSet<Payment> Payments => Set<Payment>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
