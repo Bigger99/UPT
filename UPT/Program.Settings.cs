@@ -1,5 +1,4 @@
 ﻿using Mapster;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -35,18 +34,24 @@ internal static class Settings
         // dotnet ef migrations add InitialCreate --project "..\UPT.Data\"
         return builder;
     }
+    
+    public static WebApplicationBuilder AddOptions(this WebApplicationBuilder builder)
+    {
+        builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
+        return builder;
+    }
 
     public static WebApplicationBuilder AddMapsterConfig(this WebApplicationBuilder builder)
     {
-        TypeAdapterConfig.GlobalSettings.Scan(
-            _assemblies);
+        TypeAdapterConfig.GlobalSettings.Scan(_assemblies);
+
         foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
         {
             foreach (var type in assembly.GetTypes())
             {
                 if (typeof(IDto).IsAssignableFrom(type))
                 {
-                    // get the type handle for the class, invokes static constructor
+                    // invokes static constructor
                     System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(type.TypeHandle);
                 }
             }

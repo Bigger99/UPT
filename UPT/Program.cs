@@ -3,6 +3,7 @@ using UPT.Data;
 
 var builder = WebApplication
     .CreateBuilder(args)
+    .AddOptions()
     .AddDatabase<UPTDbContext>()
     .AddControllersAndSwagger()
     .AddMapsterConfig()
