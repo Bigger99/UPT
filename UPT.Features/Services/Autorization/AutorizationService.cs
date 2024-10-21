@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UPT.Data;
-using UPT.Domain.Entities;
 using UPT.Infrastructure.Jwt;
 using UPT.Infrastructure.PasswordHasher;
 
@@ -14,7 +13,7 @@ public class AutorizationService(
     public async Task Register(string email, string password)
     {
         var hashedPassword = passwordHasher.Generate(password);
-        var user = new User(email, hashedPassword);
+        var user = new Domain.Entities.User(email, hashedPassword);
         await dbContext.Users.AddAsync(user);
         await dbContext.SaveChangesAsync();
     }

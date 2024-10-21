@@ -3,7 +3,7 @@ using UPT.Features.Base;
 using UPT.Features.Features.Autorization.Requests;
 using UPT.Features.Services.Autorization;
 
-namespace UPT.Features.Features.User;
+namespace UPT.Features.Features.Autorization;
 
 /// <summary>
 /// Контроллер для Autorization

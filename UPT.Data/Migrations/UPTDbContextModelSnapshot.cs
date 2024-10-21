@@ -348,6 +348,10 @@ namespace UPT.Data.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("gender");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
                     b.Property<string>("Name")
                         .HasColumnType("text")
                         .HasColumnName("name");

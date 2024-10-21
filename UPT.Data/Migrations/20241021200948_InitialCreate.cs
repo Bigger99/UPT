@@ -53,6 +53,7 @@ namespace UPT.Data.Migrations
                     city_id = table.Column<int>(type: "integer", nullable: true),
                     role = table.Column<int>(type: "integer", nullable: true),
                     gender = table.Column<int>(type: "integer", nullable: true),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: false),
                     name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>

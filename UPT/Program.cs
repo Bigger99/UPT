@@ -4,7 +4,7 @@ using UPT.Data;
 var builder = WebApplication
     .CreateBuilder(args)
     .AddOptions()
-    .AddDatabase<UPTDbContext>()
+    .AddDatabase()
     .AddControllersAndSwagger()
     .AddMapsterConfig()
     .AddServices()
@@ -14,7 +14,7 @@ var app = builder.Build();
 app
     .UseControllers()
     .UseSwaggerAndSwaggerUI()
-    .ApplyMigrations<UPTDbContext>()
+    .ApplyMigrations()
     .MapHealthChecks();
 
 app.Run();

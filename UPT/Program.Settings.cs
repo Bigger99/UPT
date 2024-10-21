@@ -3,12 +3,15 @@ using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using UPT.Data;
 using UPT.Features.Base;
 using UPT.Features.Services.Autorization;
+using UPT.Features.Services.User;
 using UPT.Infrastructure;
 using UPT.Infrastructure.Interfaces;
 using UPT.Infrastructure.Jwt;
 using UPT.Infrastructure.PasswordHasher;
+using UPT.Data.SeedData;
 
 namespace UPT;
 
@@ -20,14 +23,13 @@ internal static class Settings
         typeof(BaseController).Assembly
     };
 
-    public static WebApplicationBuilder AddDatabase<T>(this WebApplicationBuilder builder)
-    where T : DbContext
+    public static WebApplicationBuilder AddDatabase(this WebApplicationBuilder builder)
     {
-        builder.Services.AddDbContext<T>(opt =>
+        builder.Services.AddDbContext<UPTDbContext>(opt =>
         {
             opt.UseNpgsql(
                 builder.Configuration.GetConnectionString("Default"),
-                x => x.MigrationsAssembly(typeof(T).Assembly.ToString()))
+                x => x.MigrationsAssembly(typeof(UPTDbContext).Assembly.ToString()))
             .UseSnakeCaseNamingConvention();
         });
 
@@ -64,6 +66,7 @@ internal static class Settings
         builder.Services.AddScoped<IJwtProvider, JwtProvider>();
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
         builder.Services.AddScoped<IAutorizationService, AutorizationService>();
+        builder.Services.AddScoped<IUserService, UserService>();
 
         return builder;
     }
@@ -130,15 +133,20 @@ internal static class Settings
         return app;
     }
 
-    public static WebApplication ApplyMigrations<T>(this WebApplication app)
-        where T : DbContext
+    public static WebApplication ApplyMigrations(this WebApplication app)
     {
         using var scope = app.Services.CreateScope();
         var services = scope.ServiceProvider;
 
-        var context = services.GetRequiredService<T>();
+        var context = services.GetRequiredService<UPTDbContext>();
+
+        if (app.Environment.IsDevelopment())
+        {
+            context.Database.EnsureDeleted();
+        }
+
         context.Database.Migrate();
-        //context.SeedData();
+        context.SeedData();
 
         return app;
     }

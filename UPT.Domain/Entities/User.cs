@@ -17,6 +17,7 @@ public class User : HasNameBase
     public City? City { get; protected set; } = default!;
     public Role? Role { get; protected set; } = default!;
     public Gender? Gender { get; protected set; } = default!;
+    public bool IsDeleted { get; protected set; } = false;
 
     public User(string email, string passwordHash)
     {
@@ -32,6 +33,11 @@ public class User : HasNameBase
         City = city;
         Role = role;
         Gender = gender;
+    }
+
+    public void Delete()
+    {
+        IsDeleted = true;
     }
 
     // for EF
