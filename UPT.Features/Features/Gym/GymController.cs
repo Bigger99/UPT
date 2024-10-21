@@ -7,7 +7,7 @@ namespace UPT.Features.Features.User;
 /// <summary>
 /// Контроллер для User
 /// </summary>
-public class GymController(IGymService gymService) : BaseController
+public class GymController(IGymService gymService) : BaseAuthorizeController
 {
     /// <summary>
     /// Получить зал

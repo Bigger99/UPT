@@ -8,7 +8,7 @@ namespace UPT.Features.Features.User;
 /// <summary>
 /// Контроллер для User
 /// </summary>
-public class UserController(IUserService userService) : BaseController
+public class UserController(IUserService userService) : BaseAuthorizeController
 {
     /// <summary>
     /// Получить пользователя

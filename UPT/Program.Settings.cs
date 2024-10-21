@@ -14,6 +14,11 @@ using UPT.Infrastructure.PasswordHasher;
 using UPT.Data.SeedData;
 using UPT.Infrastructure.Middlewars;
 using UPT.Features.Services.Gym;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Options;
+using UPT.Filters;
 
 namespace UPT;
 
@@ -42,6 +47,32 @@ internal static class Settings
     public static WebApplicationBuilder AddOptions(this WebApplicationBuilder builder)
     {
         builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
+        return builder;
+    }
+
+    public static WebApplicationBuilder AddAuth(this WebApplicationBuilder builder)
+    {
+        var preciseConfig = builder.Configuration.GetSection(nameof(JwtOptions)).Get<JwtOptions>() 
+            ?? throw new InvalidOperationException($"{nameof(JwtOptions)} is null");
+
+        builder.Services.AddAuthorization();
+
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.TokenValidationParameters = new()
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = preciseConfig.Issuer,
+                    ValidAudience = preciseConfig.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(preciseConfig.SecretKey))
+                };
+            });
+
         return builder;
     }
 
@@ -83,10 +114,10 @@ internal static class Settings
         builder.Services.AddCors();
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(c =>
+        builder.Services.AddSwaggerGen(options =>
         {
-            c.CustomSchemaIds(type => type.ToString());
-            c.SwaggerDoc("v1",
+            options.CustomSchemaIds(type => type.ToString());
+            options.SwaggerDoc("v1",
                 new OpenApiInfo
                 {
                     Title = "API - V1",
@@ -99,19 +130,20 @@ internal static class Settings
                 var path = Path.Combine(AppContext.BaseDirectory, filePath);
 
                 if (File.Exists(path))
-                    c.IncludeXmlComments(path);
+                    options.IncludeXmlComments(path);
             }
 
-            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+            options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                Description = "JWT Authorization header using the Bearer scheme.",
-                Name = "Authorization",
                 In = ParameterLocation.Header,
-                Type = SecuritySchemeType.ApiKey,
+                Description = "Please enter token",
+                Name = "Authorization",
+                Type = SecuritySchemeType.Http,
+                BearerFormat = "JWT",
                 Scheme = "Bearer"
             });
 
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement() 
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement() 
             {
                 {
                     new OpenApiSecurityScheme
@@ -125,6 +157,8 @@ internal static class Settings
                     new List<string>() 
                 }
             });
+
+            options.OperationFilter<AuthorizeLockChecker>();
         });
         return builder;
     }
@@ -151,6 +185,13 @@ internal static class Settings
         context.Database.Migrate();
         context.SeedData();
 
+        return app;
+    }
+
+    public static WebApplication UseAuth(this WebApplication app)
+    {
+        app.UseAuthentication();
+        app.UseAuthorization();
         return app;
     }
 
