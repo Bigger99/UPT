@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241021200948_InitialCreate")]
+    [Migration("20241021210318_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -214,6 +214,10 @@ namespace UPT.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CityId")
+                        .HasColumnType("integer")
+                        .HasColumnName("city_id");
+
                     b.Property<TimeOnly>("CloseTime")
                         .HasColumnType("time without time zone")
                         .HasColumnName("close_time");
@@ -233,6 +237,9 @@ namespace UPT.Data.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_gyms");
+
+                    b.HasIndex("CityId")
+                        .HasDatabaseName("ix_gyms_city_id");
 
                     b.ToTable("gyms", (string)null);
                 });
@@ -454,6 +461,18 @@ namespace UPT.Data.Migrations
                     b.Navigation("Creator");
 
                     b.Navigation("Trainer");
+                });
+
+            modelBuilder.Entity("UPT.Domain.Entities.Gym", b =>
+                {
+                    b.HasOne("UPT.Domain.Entities.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_gyms_cities_city_id");
+
+                    b.Navigation("City");
                 });
 
             modelBuilder.Entity("UPT.Domain.Entities.Payment", b =>

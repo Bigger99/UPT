@@ -34,11 +34,18 @@ namespace UPT.Data.Migrations
                     open_time = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     close_time = table.Column<TimeOnly>(type: "time without time zone", nullable: false),
                     location = table.Column<string>(type: "text", nullable: false),
+                    city_id = table.Column<int>(type: "integer", nullable: false),
                     name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_gyms", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_gyms_cities_city_id",
+                        column: x => x.city_id,
+                        principalTable: "cities",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,6 +257,11 @@ namespace UPT.Data.Migrations
                 name: "ix_feedbacks_trainer_id",
                 table: "feedbacks",
                 column: "trainer_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_gyms_city_id",
+                table: "gyms",
+                column: "city_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_payments_person_id",

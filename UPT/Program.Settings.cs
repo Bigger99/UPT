@@ -13,6 +13,7 @@ using UPT.Infrastructure.Jwt;
 using UPT.Infrastructure.PasswordHasher;
 using UPT.Data.SeedData;
 using UPT.Infrastructure.Middlewars;
+using UPT.Features.Services.Gym;
 
 namespace UPT;
 
@@ -68,6 +69,7 @@ internal static class Settings
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
         builder.Services.AddScoped<IAutorizationService, AutorizationService>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IGymService, GymService>();
 
         return builder;
     }
