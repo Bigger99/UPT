@@ -12,6 +12,7 @@ using UPT.Infrastructure.Interfaces;
 using UPT.Infrastructure.Jwt;
 using UPT.Infrastructure.PasswordHasher;
 using UPT.Data.SeedData;
+using UPT.Infrastructure.Middlewars;
 
 namespace UPT;
 

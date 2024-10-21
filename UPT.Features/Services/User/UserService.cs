@@ -4,6 +4,7 @@ using UPT.Data;
 using UPT.Domain.Entities;
 using UPT.Features.Features.User.Dto;
 using UPT.Infrastructure.Enums;
+using UPT.Infrastructure.Middlewars;
 
 namespace UPT.Features.Services.User;
 
@@ -13,7 +14,7 @@ public class UserService(UPTDbContext dbContext) : IUserService
     {
         var user = await dbContext.Users
             .Include(x => x.City)
-            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new InvalidOperationException("User not found");
+            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
         return user.Adapt<UserDto>();
     }
@@ -22,7 +23,7 @@ public class UserService(UPTDbContext dbContext) : IUserService
     {
         var user = await dbContext.Users
             .Include(x => x.City)
-            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new InvalidOperationException("User not found");
+            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
         user.AddUserData(name, phoneNumber, emailAddress, city, role, gender);
         await dbContext.SaveChangesAsync();
@@ -33,7 +34,7 @@ public class UserService(UPTDbContext dbContext) : IUserService
     {
         var user = await dbContext.Users
             .Include(x => x.City)
-            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new InvalidOperationException("User not found");
+            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
         user.Delete();
         await dbContext.SaveChangesAsync();
