@@ -20,6 +20,7 @@ using System.Text;
 using UPT.Filters;
 using UPT.Features.Services.Trainer;
 using UPT.Features.Services.Client;
+using UPT.Features.Services.City;
 
 namespace UPT;
 
@@ -104,6 +105,7 @@ internal static class Settings
         builder.Services.AddScoped<IGymService, GymService>();
         builder.Services.AddScoped<ITrainerService, TrainerService>();
         builder.Services.AddScoped<IClientService, ClientService>();
+        builder.Services.AddScoped<ICityService, CityService>();
 
         return builder;
     }
