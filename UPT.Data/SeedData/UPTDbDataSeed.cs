@@ -1,4 +1,5 @@
-﻿using UPT.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using UPT.Domain.Entities;
 using UPT.Infrastructure.Enums;
 
 namespace UPT.Data.SeedData;
@@ -7,6 +8,13 @@ internal class UPTDbDataSeed
 {
     private readonly UPTDbContext _dbContext;
 
+    public const string Client1 = "Client1";
+    public const string Client2 = "Client2";
+    public const string Client3 = "Client3";
+
+    public const string Trainer1 = "Trainer1";
+    public const string Trainer2 = "Trainer2";
+    public const string Trainer3 = "Trainer3";
 
     private UPTDbDataSeed(UPTDbContext dbContext)
     {
@@ -31,6 +39,7 @@ internal class UPTDbDataSeed
             SetUserSeed();
             SetGymsSeed();
             SetTrainersSeed();
+            SetClientsSeed();
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();
@@ -56,10 +65,25 @@ internal class UPTDbDataSeed
     {
         var city = _dbContext.Cities.First();
 
-        var user = new User("test@mai.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        user.AddUserData("TestName", "+79999999999", "test@mai.ru", city, Role.Client, Gender.Male);
+        var client1 = new User($"{Client1}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
+        client1.AddUserData(Client1, "+79999999999", $"{Client1}@mail.ru", city, Gender.Male);
 
-        _dbContext.Users.Add(user);
+        var client2 = new User($"{Client2}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
+        client2.AddUserData(Client2, "+79999999999", $"{Client2}@mail.ru", city, Gender.Male);
+
+        var client3 = new User($"{Client3}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
+        client3.AddUserData(Client3, "+79999999999", $"{Client3}@mail.ru", city, Gender.Male);
+
+        var trainer1 = new User($"{Trainer1}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
+        trainer1.AddUserData(Trainer1, "+79999999999", $"{Trainer1}@mail.ru", city, Gender.Male);
+
+        var trainer2 = new User($"{Trainer2}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
+        trainer2.AddUserData(Trainer2, "+79999999999", $"{Trainer2}@mail.ru", city, Gender.Male);
+
+        var trainer3 = new User($"{Trainer3}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
+        trainer3.AddUserData(Trainer3, "+79999999999", $"{Trainer3}@mail.ru", city, Gender.Male);
+
+        _dbContext.Users.AddRange([client1, client2, client3, trainer1, trainer2, trainer3]);
         _dbContext.SaveChanges();
     }
 
@@ -81,24 +105,68 @@ internal class UPTDbDataSeed
             new("Gym10", new TimeOnly(6, 0), new TimeOnly(23, 0), city, "55.7522, 37.6165")
         };
 
-        var user = new User("test@mai.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        user.AddUserData("TestName", "+79999999999", "test@mai.ru", city, Role.Client, Gender.Male);
-
         _dbContext.Gyms.AddRange(gyms);
         _dbContext.SaveChanges();
     }
 
     private void SetTrainersSeed()
     {
-        var user = _dbContext.Users.First();
-
+        var trainer1 = _dbContext.Users.First(x => x.Name == Trainer1);
+        var trainer2 = _dbContext.Users.First(x => x.Name == Trainer2);
+        var trainer3 = _dbContext.Users.First(x => x.Name == Trainer3);
         var gyms = _dbContext.Gyms.First();
 
-        var trainer = new Trainer(user, 5, true, true, true, 
-            [TrainingProgram.CorrectionAndWeightLoss, TrainingProgram.MuscleGain, TrainingProgram.CompetitionsPreparation, TrainingProgram.RestorationMusculoskeletalSystem],
-            gyms);
+        var trainers = new List<Trainer>
+        {
+            new(trainer1, 3, true, true, true,
+            [
+                TrainingProgram.CorrectionAndWeightLoss, 
+                TrainingProgram.MuscleGain, 
+                TrainingProgram.CompetitionsPreparation, 
+                TrainingProgram.RestorationMusculoskeletalSystem
+            ], gyms),
+            new(trainer2, 5, true, true, true,
+            [
+                TrainingProgram.CorrectionAndWeightLoss,
+                TrainingProgram.MuscleGain,
+            ], gyms),
+            new(trainer3, 6, true, true, true,
+            [
+                TrainingProgram.CompetitionsPreparation,
+                TrainingProgram.RestorationMusculoskeletalSystem
+            ], gyms)
+        };
 
-        _dbContext.Trainers.Add(trainer);
+        _dbContext.Trainers.AddRange(trainers);
+        _dbContext.SaveChanges();
+    }
+
+    private void SetClientsSeed()
+    {
+        var user1 = _dbContext.Users.First(x => x.Name == Client1);
+        var user2 = _dbContext.Users.First(x => x.Name == Client2);
+        var user3 = _dbContext.Users.First(x => x.Name == Client3);
+        var trainer1 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer1);
+        var trainer2 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer2);
+        var trainer3 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer3);
+
+        var client1 = new Client(user1, height: 170, weight: 70,
+                volumeBreast: 10.0, volumeWaist: 20.0, volumeAbdomen: 30.0,
+                volumeButtock: 40.0, volumeHip: 50.0);
+        client1.SetTrainer(trainer1);
+
+        var client2 = new Client(user2, height: 170, weight: 70,
+                volumeBreast: 10.0, volumeWaist: 20.0, volumeAbdomen: 30.0,
+                volumeButtock: 40.0, volumeHip: 50.0);
+        client2.SetTrainer(trainer2);
+
+        var client3 = new Client(user3, height: 170, weight: 70,
+            volumeBreast: 10.0, volumeWaist: 20.0, volumeAbdomen: 30.0,
+            volumeButtock: 40.0, volumeHip: 50.0);
+        client3.SetTrainer(trainer3);
+
+
+        _dbContext.Clients.AddRange([client1, client2, client3]);
         _dbContext.SaveChanges();
     }
 }

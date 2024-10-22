@@ -26,7 +26,7 @@ public class UserController(IUserService userService) : BaseAuthorizeController
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
     {
-        var user = await userService.Update(command.Id, command.Name, command.PhoneNumber, command.EmailAddress, command.City, command.Role, command.Gender);
+        var user = await userService.Update(command.Id, command.Name, command.PhoneNumber, command.EmailAddress, command.City, command.Gender);
         return Ok(user);
     }
 

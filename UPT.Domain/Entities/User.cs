@@ -15,7 +15,6 @@ public class User : HasNameBase
 
     public string? PhoneNumber { get; protected set; } = default!;
     public City? City { get; protected set; } = default!;
-    public Role? Role { get; protected set; } = default!;
     public Gender? Gender { get; protected set; } = default!;
     public bool IsDeleted { get; protected set; } = false;
 
@@ -25,13 +24,12 @@ public class User : HasNameBase
         PasswordHash = passwordHash;
     }
 
-    public void AddUserData(string name, string phoneNumber, string emailAddress, City city, Role role, Gender gender)
+    public void AddUserData(string name, string phoneNumber, string emailAddress, City city, Gender gender)
     {
         Name = name;
         PhoneNumber = phoneNumber;
         EmailAddress = emailAddress;
         City = city;
-        Role = role;
         Gender = gender;
     }
 

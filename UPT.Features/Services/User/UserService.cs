@@ -20,14 +20,14 @@ public class UserService(UPTDbContext dbContext) : IUserService
         return user.Adapt<UserDto>();
     }
 
-    public async Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, City city, Role role, Gender gender)
+    public async Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, City city, Gender gender)
     {
         var user = await dbContext.Users
             .Include(x => x.City)
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
-        user.AddUserData(name, phoneNumber, emailAddress, city, role, gender);
+        user.AddUserData(name, phoneNumber, emailAddress, city, gender);
         await dbContext.SaveChangesAsync();
         return user.Adapt<UserDto>();
     }

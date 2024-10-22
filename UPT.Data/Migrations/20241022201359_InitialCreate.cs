@@ -58,7 +58,6 @@ namespace UPT.Data.Migrations
                     password_hash = table.Column<string>(type: "text", nullable: false),
                     phone_number = table.Column<string>(type: "text", nullable: true),
                     city_id = table.Column<int>(type: "integer", nullable: true),
-                    role = table.Column<int>(type: "integer", nullable: true),
                     gender = table.Column<int>(type: "integer", nullable: true),
                     is_deleted = table.Column<bool>(type: "boolean", nullable: false),
                     name = table.Column<string>(type: "text", nullable: true)
@@ -117,7 +116,7 @@ namespace UPT.Data.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    person_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
                     height = table.Column<int>(type: "integer", nullable: false),
                     weight = table.Column<double>(type: "double precision", nullable: false),
                     volume_breast = table.Column<double>(type: "double precision", nullable: false),
@@ -132,8 +131,8 @@ namespace UPT.Data.Migrations
                 {
                     table.PrimaryKey("pk_clients", x => x.id);
                     table.ForeignKey(
-                        name: "fk_clients_users_person_id",
-                        column: x => x.person_id,
+                        name: "fk_clients_users_user_id",
+                        column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -236,14 +235,14 @@ namespace UPT.Data.Migrations
                 column: "trainer_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_clients_person_id",
-                table: "clients",
-                column: "person_id");
-
-            migrationBuilder.CreateIndex(
                 name: "ix_clients_trainer_id",
                 table: "clients",
                 column: "trainer_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_clients_user_id",
+                table: "clients",
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_favorits_client_id",

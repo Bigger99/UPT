@@ -1,10 +1,11 @@
-﻿using UPT.Infrastructure.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using UPT.Infrastructure.Enums;
 
 namespace UPT.Features.Features.Trainer.Requests;
 
 public class CreateTrainerCommand
 {
-    public int UserId { get; set; } = default!;
+    [Required] public int UserId { get; set; } = default!;
 
     /// <summary>
     /// Стаж работы
@@ -26,7 +27,7 @@ public class CreateTrainerCommand
     /// </summary>
     public bool WorkSportsmens { get; set; } = default!;
 
-    public List<TrainingProgram> TrainingPrograms { get; set; } = default!;
+    [Required] public List<TrainingProgram> TrainingPrograms { get; set; } = default!;
 
-    public int GymId { get; set; } = default!;
+    [Required] public int GymId { get; set; } = default!;
 }

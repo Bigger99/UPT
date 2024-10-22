@@ -88,7 +88,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
             .Include(x => x.Gym)
             .Include(x => x.Clients)
             .Where(x => !x.IsDeleted)
-            .FirstOrDefaultAsync(x => x.User.Id == id) ?? throw new BackendException("Trainer not found");
+            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("Trainer not found");
 
         var gym = await dbContext.Gyms
             .FirstOrDefaultAsync(x => x.Id == gymId) ?? throw new BackendException($"Gym with id = {gymId} not found");

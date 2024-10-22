@@ -8,5 +8,5 @@ public interface IUserService
 {
     Task<UserDto> Get(int id);
     Task Delete(int id);
-    Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, City city, Role role, Gender gender);
+    Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, City city, Gender gender);
 }

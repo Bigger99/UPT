@@ -11,6 +11,5 @@ public class UpdateUserCommand
     [Required] public string PhoneNumber { get; set; } = default!;
     [Required] public string EmailAddress { get; set; } = default!;
     [Required] public City City { get; set; } = default!;
-    [Required] public Role Role { get; set; } = default!;
     [Required] public Gender Gender { get; set; } = default!;
 }

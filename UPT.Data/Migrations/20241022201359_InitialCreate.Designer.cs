@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241022194207_InitialCreate")]
+    [Migration("20241022201359_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -100,13 +100,13 @@ namespace UPT.Data.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("integer")
-                        .HasColumnName("person_id");
-
                     b.Property<int>("TrainerId")
                         .HasColumnType("integer")
                         .HasColumnName("trainer_id");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
 
                     b.Property<double>("VolumeAbdomen")
                         .HasColumnType("double precision")
@@ -135,11 +135,11 @@ namespace UPT.Data.Migrations
                     b.HasKey("Id")
                         .HasName("pk_clients");
 
-                    b.HasIndex("PersonId")
-                        .HasDatabaseName("ix_clients_person_id");
-
                     b.HasIndex("TrainerId")
                         .HasDatabaseName("ix_clients_trainer_id");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_clients_user_id");
 
                     b.ToTable("clients", (string)null);
                 });
@@ -384,10 +384,6 @@ namespace UPT.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("phone_number");
 
-                    b.Property<int?>("Role")
-                        .HasColumnType("integer")
-                        .HasColumnName("role");
-
                     b.HasKey("Id")
                         .HasName("pk_users");
 
@@ -420,13 +416,6 @@ namespace UPT.Data.Migrations
 
             modelBuilder.Entity("UPT.Domain.Entities.Client", b =>
                 {
-                    b.HasOne("UPT.Domain.Entities.User", "Person")
-                        .WithMany()
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_clients_users_person_id");
-
                     b.HasOne("UPT.Domain.Entities.Trainer", "Trainer")
                         .WithMany("Clients")
                         .HasForeignKey("TrainerId")
@@ -434,9 +423,16 @@ namespace UPT.Data.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_clients_trainers_trainer_id");
 
-                    b.Navigation("Person");
+                    b.HasOne("UPT.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_clients_users_user_id");
 
                     b.Navigation("Trainer");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UPT.Domain.Entities.Favorit", b =>

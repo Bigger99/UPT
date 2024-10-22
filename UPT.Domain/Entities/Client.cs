@@ -4,7 +4,7 @@ namespace UPT.Domain.Entities;
 
 public class Client : HasIdBase
 {
-    public User Person { get; protected set; } = default!;
+    public User User { get; protected set; } = default!;
     public int Height { get; protected set; } = default!;
     public double Weight { get; protected set; } = default!;
     public double VolumeBreast { get; protected set; } = default!;
@@ -16,11 +16,11 @@ public class Client : HasIdBase
 
     public bool IsDeleted { get; protected set; } = false;
 
-    public Client(User person, int height, double weight,
+    public Client(User user, int height, double weight,
     double volumeBreast, double volumeWaist, double volumeAbdomen,
     double volumeButtock, double volumeHip)
     {
-        Person = person;
+        User = user;
         Height = height;
         Weight = weight;
         VolumeBreast = volumeBreast;

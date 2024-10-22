@@ -11,7 +11,6 @@ public class UserDto : IDto
     public string EmailAddress { get; protected set; } = default!;
     public string? PhoneNumber { get; protected set; } = default!;
     public string? City { get; protected set; } = default!;
-    public Role? Role { get; protected set; } = default!;
     public Gender? Gender { get; protected set; } = default!;
     public bool IsDeleted { get; protected set; } = false;
 
