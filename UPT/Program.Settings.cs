@@ -21,6 +21,7 @@ using UPT.Filters;
 using UPT.Features.Services.Trainer;
 using UPT.Features.Services.Client;
 using UPT.Features.Services.City;
+using UPT.Features.Services.Favorit;
 
 namespace UPT;
 
@@ -106,6 +107,7 @@ internal static class Settings
         builder.Services.AddScoped<ITrainerService, TrainerService>();
         builder.Services.AddScoped<IClientService, ClientService>();
         builder.Services.AddScoped<ICityService, CityService>();
+        builder.Services.AddScoped<IFavoritService, FavoritService>();
 
         return builder;
     }

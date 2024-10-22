@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241022211314_InitialCreate")]
+    [Migration("20241022220405_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -148,7 +148,7 @@ namespace UPT.Data.Migrations
                     b.ToTable("clients", (string)null);
                 });
 
-            modelBuilder.Entity("UPT.Domain.Entities.Favorit", b =>
+            modelBuilder.Entity("UPT.Domain.Entities.Favorite", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,11 +161,18 @@ namespace UPT.Data.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("client_id");
 
+                    b.Property<int>("TrainerId")
+                        .HasColumnType("integer")
+                        .HasColumnName("trainer_id");
+
                     b.HasKey("Id")
                         .HasName("pk_favorits");
 
                     b.HasIndex("ClientId")
                         .HasDatabaseName("ix_favorits_client_id");
+
+                    b.HasIndex("TrainerId")
+                        .HasDatabaseName("ix_favorits_trainer_id");
 
                     b.ToTable("favorits", (string)null);
                 });
@@ -306,10 +313,6 @@ namespace UPT.Data.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("experience");
 
-                    b.Property<int?>("FavoritId")
-                        .HasColumnType("integer")
-                        .HasColumnName("favorit_id");
-
                     b.Property<int>("GymId")
                         .HasColumnType("integer")
                         .HasColumnName("gym_id");
@@ -341,9 +344,6 @@ namespace UPT.Data.Migrations
 
                     b.HasKey("Id")
                         .HasName("pk_trainers");
-
-                    b.HasIndex("FavoritId")
-                        .HasDatabaseName("ix_trainers_favorit_id");
 
                     b.HasIndex("GymId")
                         .HasDatabaseName("ix_trainers_gym_id");
@@ -444,7 +444,7 @@ namespace UPT.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("UPT.Domain.Entities.Favorit", b =>
+            modelBuilder.Entity("UPT.Domain.Entities.Favorite", b =>
                 {
                     b.HasOne("UPT.Domain.Entities.Client", "Client")
                         .WithMany()
@@ -453,7 +453,16 @@ namespace UPT.Data.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_favorits_clients_client_id");
 
+                    b.HasOne("UPT.Domain.Entities.Trainer", "Trainer")
+                        .WithMany()
+                        .HasForeignKey("TrainerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_favorits_trainers_trainer_id");
+
                     b.Navigation("Client");
+
+                    b.Navigation("Trainer");
                 });
 
             modelBuilder.Entity("UPT.Domain.Entities.Feedback", b =>
@@ -503,11 +512,6 @@ namespace UPT.Data.Migrations
 
             modelBuilder.Entity("UPT.Domain.Entities.Trainer", b =>
                 {
-                    b.HasOne("UPT.Domain.Entities.Favorit", null)
-                        .WithMany("Trainer")
-                        .HasForeignKey("FavoritId")
-                        .HasConstraintName("fk_trainers_favorits_favorit_id");
-
                     b.HasOne("UPT.Domain.Entities.Gym", "Gym")
                         .WithMany("Trainers")
                         .HasForeignKey("GymId")
@@ -535,11 +539,6 @@ namespace UPT.Data.Migrations
                         .HasConstraintName("fk_users_cities_city_id");
 
                     b.Navigation("City");
-                });
-
-            modelBuilder.Entity("UPT.Domain.Entities.Favorit", b =>
-                {
-                    b.Navigation("Trainer");
                 });
 
             modelBuilder.Entity("UPT.Domain.Entities.Gym", b =>

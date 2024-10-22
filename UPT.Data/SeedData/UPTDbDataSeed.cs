@@ -40,6 +40,7 @@ internal class UPTDbDataSeed
             SetGymsSeed();
             SetTrainersSeed();
             SetClientsSeed();
+            SetFavoriteSeed();
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();
@@ -167,6 +168,27 @@ internal class UPTDbDataSeed
 
 
         _dbContext.Clients.AddRange([client1, client2, client3]);
+        _dbContext.SaveChanges();
+    }
+
+    private void SetFavoriteSeed()
+    {
+        var client1 = _dbContext.Clients.Include(x => x.User).First(x => x.User.Name == Client1);
+        var client2 = _dbContext.Clients.Include(x => x.User).First(x => x.User.Name == Client2);
+        var client3 = _dbContext.Clients.Include(x => x.User).First(x => x.User.Name == Client3);
+        var trainer1 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer1);
+        var trainer2 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer2);
+        var trainer3 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer3);
+
+        var favorites = new List<Favorite>
+        {
+            new (client1, trainer1),
+            new (client2, trainer2),
+            new (client3, trainer1),
+            new (client3, trainer3),
+        };
+
+        _dbContext.Favorits.AddRange(favorites);
         _dbContext.SaveChanges();
     }
 }

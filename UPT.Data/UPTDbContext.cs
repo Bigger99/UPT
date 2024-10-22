@@ -12,7 +12,7 @@ public class UPTDbContext(DbContextOptions<UPTDbContext> options) : DbContext(op
     public DbSet<Gym> Gyms => Set<Gym>();
     public DbSet<Chat> Chats => Set<Chat>();
     public DbSet<Feedback> Feedbacks => Set<Feedback>();
-    public DbSet<Favorit> Favorits => Set<Favorit>();
+    public DbSet<Favorite> Favorits => Set<Favorite>();
     public DbSet<Payment> Payments => Set<Payment>();
 
     protected override void OnModelCreating(ModelBuilder builder)
