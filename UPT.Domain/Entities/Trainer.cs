@@ -5,7 +5,7 @@ namespace UPT.Domain.Entities;
 
 public class Trainer : HasIdBase
 {
-    public User Person { get; protected set; } = default!;
+    public User User { get; protected set; } = default!;
 
     /// <summary>
     /// Стаж работы
@@ -27,30 +27,45 @@ public class Trainer : HasIdBase
     /// </summary>
     public bool WorkSportsmens { get; protected set; } = default!;
 
-    /// <summary>
-    /// Восстановление опорно-двигательного аппарата
-    /// </summary>
-    public TrainingProgram TrainingProgram { get; protected set; } = default!;
+    public List<TrainingProgram> TrainingPrograms { get; protected set; } = default!;
 
     public List<Client> Clients { get; protected set; } = default!;
 
     public Gym Gym { get; protected set; } = default!;
 
-    public Trainer(User person, int experience, bool medicGrade,
-        bool workInjuries, bool workSportsmens, TrainingProgram trainingProgram, Gym gym)
+    public bool IsDeleted { get; protected set; } = false;
+
+    public Trainer(User user, int experience, bool medicGrade,
+        bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingPrograms, Gym gym)
     {
-        Person = person;
+        User = user;
         Experience = experience;
         MedicGrade = medicGrade;
         WorkInjuries = workInjuries;
         WorkSportsmens = workSportsmens;
-        TrainingProgram = trainingProgram;
+        TrainingPrograms = trainingPrograms;
         Gym = gym;
+    }
+
+    public void Delete()
+    {
+        IsDeleted = true;
     }
 
     // for EF
     protected Trainer()
     {
 
+    }
+
+    public void Update(int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingPrograms, List<Client> clients, Gym gym)
+    {
+        Experience = experience;
+        MedicGrade = medicGrade;
+        WorkInjuries = workInjuries;
+        WorkSportsmens = workSportsmens;
+        TrainingPrograms = trainingPrograms;
+        Clients = clients;
+        Gym = gym;
     }
 }

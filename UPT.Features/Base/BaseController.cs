@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace UPT.Features.Base;
 
 /// <summary>
-/// BaseAuthorizeControllery
+/// BaseController
 /// </summary>
-[Authorize]
-public class BaseAuthorizeController : BaseController
+[ApiController]
+[Route("api/web/[controller]/[action]")]
+public class BaseController : ControllerBase
 {
 }

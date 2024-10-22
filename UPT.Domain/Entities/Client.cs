@@ -14,6 +14,8 @@ public class Client : HasIdBase
     public double VolumeHip { get; protected set; } = default!;
     public Trainer Trainer { get; protected set; } = default!;
 
+    public bool IsDeleted { get; protected set; } = false;
+
     public Client(User person, int height, double weight,
     double volumeBreast, double volumeWaist, double volumeAbdomen,
     double volumeButtock, double volumeHip)
@@ -31,6 +33,11 @@ public class Client : HasIdBase
     public void SetTrainer(Trainer trainer)
     {
         Trainer = trainer;
+    }
+
+    public void Delete()
+    {
+        IsDeleted = true;
     }
 
     // for EF

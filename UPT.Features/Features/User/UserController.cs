@@ -21,16 +21,6 @@ public class UserController(IUserService userService) : BaseAuthorizeController
     }
 
     /// <summary>
-    /// Удалить пользователя
-    /// </summary>
-    [HttpDelete]
-    public async Task<IActionResult> Delete([FromQuery] int id)
-    {
-        await userService.Delete(id);
-        return Ok();
-    }
-
-    /// <summary>
     /// Изменить пользователя
     /// </summary>
     [HttpPut]
@@ -38,5 +28,15 @@ public class UserController(IUserService userService) : BaseAuthorizeController
     {
         var user = await userService.Update(command.Id, command.Name, command.PhoneNumber, command.EmailAddress, command.City, command.Role, command.Gender);
         return Ok(user);
+    }
+
+    /// <summary>
+    /// Удалить пользователя
+    /// </summary>
+    [HttpDelete]
+    public async Task<IActionResult> Delete([FromQuery] int id)
+    {
+        await userService.Delete(id);
+        return Ok();
     }
 }

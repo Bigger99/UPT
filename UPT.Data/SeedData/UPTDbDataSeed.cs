@@ -30,6 +30,7 @@ internal class UPTDbDataSeed
             SetCitiesSeed();
             SetUserSeed();
             SetGymsSeed();
+            SetTrainersSeed();
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();
@@ -84,6 +85,20 @@ internal class UPTDbDataSeed
         user.AddUserData("TestName", "+79999999999", "test@mai.ru", city, Role.Client, Gender.Male);
 
         _dbContext.Gyms.AddRange(gyms);
+        _dbContext.SaveChanges();
+    }
+
+    private void SetTrainersSeed()
+    {
+        var user = _dbContext.Users.First();
+
+        var gyms = _dbContext.Gyms.First();
+
+        var trainer = new Trainer(user, 5, true, true, true, 
+            [TrainingProgram.CorrectionAndWeightLoss, TrainingProgram.MuscleGain, TrainingProgram.CompetitionsPreparation, TrainingProgram.RestorationMusculoskeletalSystem],
+            gyms);
+
+        _dbContext.Trainers.Add(trainer);
         _dbContext.SaveChanges();
     }
 }

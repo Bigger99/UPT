@@ -125,7 +125,8 @@ namespace UPT.Data.Migrations
                     volume_abdomen = table.Column<double>(type: "double precision", nullable: false),
                     volume_buttock = table.Column<double>(type: "double precision", nullable: false),
                     volume_hip = table.Column<double>(type: "double precision", nullable: false),
-                    trainer_id = table.Column<int>(type: "integer", nullable: false)
+                    trainer_id = table.Column<int>(type: "integer", nullable: false),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -163,13 +164,14 @@ namespace UPT.Data.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    person_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
                     experience = table.Column<int>(type: "integer", nullable: false),
                     medic_grade = table.Column<bool>(type: "boolean", nullable: false),
                     work_injuries = table.Column<bool>(type: "boolean", nullable: false),
                     work_sportsmens = table.Column<bool>(type: "boolean", nullable: false),
-                    training_program = table.Column<int>(type: "integer", nullable: false),
+                    training_programs = table.Column<int[]>(type: "integer[]", nullable: false),
                     gym_id = table.Column<int>(type: "integer", nullable: false),
+                    is_deleted = table.Column<bool>(type: "boolean", nullable: false),
                     favorit_id = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -187,8 +189,8 @@ namespace UPT.Data.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "fk_trainers_users_person_id",
-                        column: x => x.person_id,
+                        name: "fk_trainers_users_user_id",
+                        column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -279,9 +281,9 @@ namespace UPT.Data.Migrations
                 column: "gym_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_trainers_person_id",
+                name: "ix_trainers_user_id",
                 table: "trainers",
-                column: "person_id");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_users_city_id",

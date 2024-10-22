@@ -14,6 +14,7 @@ public class UserService(UPTDbContext dbContext) : IUserService
     {
         var user = await dbContext.Users
             .Include(x => x.City)
+            .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
         return user.Adapt<UserDto>();
@@ -23,6 +24,7 @@ public class UserService(UPTDbContext dbContext) : IUserService
     {
         var user = await dbContext.Users
             .Include(x => x.City)
+            .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
         user.AddUserData(name, phoneNumber, emailAddress, city, role, gender);
@@ -34,6 +36,7 @@ public class UserService(UPTDbContext dbContext) : IUserService
     {
         var user = await dbContext.Users
             .Include(x => x.City)
+            .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
         user.Delete();

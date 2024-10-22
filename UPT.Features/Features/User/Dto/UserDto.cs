@@ -6,6 +6,7 @@ namespace UPT.Features.Features.User.Dto;
 
 public class UserDto : IDto
 {
+    public int Id { get; protected set; } = default!;
     public string? Name { get; protected set; } = default!;
     public string EmailAddress { get; protected set; } = default!;
     public string? PhoneNumber { get; protected set; } = default!;

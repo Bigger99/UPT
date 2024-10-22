@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241021210318_InitialCreate")]
+    [Migration("20241022194207_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -95,6 +95,10 @@ namespace UPT.Data.Migrations
                     b.Property<int>("Height")
                         .HasColumnType("integer")
                         .HasColumnName("height");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
 
                     b.Property<int>("PersonId")
                         .HasColumnType("integer")
@@ -301,17 +305,22 @@ namespace UPT.Data.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("gym_id");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_deleted");
+
                     b.Property<bool>("MedicGrade")
                         .HasColumnType("boolean")
                         .HasColumnName("medic_grade");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("integer")
-                        .HasColumnName("person_id");
+                    b.Property<int[]>("TrainingPrograms")
+                        .IsRequired()
+                        .HasColumnType("integer[]")
+                        .HasColumnName("training_programs");
 
-                    b.Property<int>("TrainingProgram")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer")
-                        .HasColumnName("training_program");
+                        .HasColumnName("user_id");
 
                     b.Property<bool>("WorkInjuries")
                         .HasColumnType("boolean")
@@ -330,8 +339,8 @@ namespace UPT.Data.Migrations
                     b.HasIndex("GymId")
                         .HasDatabaseName("ix_trainers_gym_id");
 
-                    b.HasIndex("PersonId")
-                        .HasDatabaseName("ix_trainers_person_id");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_trainers_user_id");
 
                     b.ToTable("trainers", (string)null);
                 });
@@ -501,16 +510,16 @@ namespace UPT.Data.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_trainers_gyms_gym_id");
 
-                    b.HasOne("UPT.Domain.Entities.User", "Person")
+                    b.HasOne("UPT.Domain.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_trainers_users_person_id");
+                        .HasConstraintName("fk_trainers_users_user_id");
 
                     b.Navigation("Gym");
 
-                    b.Navigation("Person");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UPT.Domain.Entities.User", b =>

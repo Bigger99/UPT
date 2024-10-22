@@ -17,7 +17,6 @@ using UPT.Features.Services.Gym;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Extensions.Options;
 using UPT.Filters;
 
 namespace UPT;
@@ -101,6 +100,7 @@ internal static class Settings
         builder.Services.AddScoped<IAutorizationService, AutorizationService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IGymService, GymService>();
+        builder.Services.AddScoped<ITrainerService, TrainerService>();
 
         return builder;
     }
