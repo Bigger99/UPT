@@ -4,7 +4,7 @@ namespace UPT.Features.Services.City
 {
     public interface ICityService
     {
-        Task<City> Get(int id);
-        Task<List<City>> GetAll();
+        Task<Domain.Entities.City> Get(int id);
+        Task<List<Domain.Entities.City>> GetAll();
     }
 }

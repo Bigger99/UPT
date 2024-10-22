@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
 using UPT.Data;
-using UPT.Domain.Entities;
 using UPT.Features.Features.UserFeatures.Dto;
 using UPT.Infrastructure.Enums;
 using UPT.Infrastructure.Middlewars;
@@ -20,7 +19,7 @@ public class UserService(UPTDbContext dbContext) : IUserService
         return user.Adapt<UserDto>();
     }
 
-    public async Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, City city, Gender gender)
+    public async Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, Domain.Entities.City city, Gender gender)
     {
         var user = await dbContext.Users
             .Include(x => x.City)
