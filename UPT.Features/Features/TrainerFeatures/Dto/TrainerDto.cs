@@ -39,6 +39,8 @@ public class TrainerDto : IDto
 
     public int GymId { get; protected set; } = default!;
 
+    public string Description { get; set; } = default!;
+
     static TrainerDto()
     {
         TypeAdapterConfig<Trainer, TrainerDto>

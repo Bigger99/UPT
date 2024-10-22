@@ -68,7 +68,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         return result;
     }
 
-    public async Task<int> Create(int userId, int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingProgram, int gymId)
+    public async Task<int> Create(int userId, int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingProgram, int gymId, string? description)
     {
         var gym = await dbContext.Gyms
             .FirstOrDefaultAsync(x => x.Id == gymId) ?? throw new BackendException($"Gym with id = {gymId} not found");
@@ -77,13 +77,13 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == userId) ?? throw new BackendException("User not found");
 
-        var trainer = new Domain.Entities.Trainer(user, experience, medicGrade, workInjuries, workSportsmens, trainingProgram, gym);
+        var trainer = new Domain.Entities.Trainer(user, experience, medicGrade, workInjuries, workSportsmens, trainingProgram, gym, description);
         await dbContext.Trainers.AddAsync(trainer);
         await dbContext.SaveChangesAsync();
         return trainer.Id;
     }
 
-    public async Task<TrainerDto> Update(int id, int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingProgram, int gymId)
+    public async Task<TrainerDto> Update(int id, int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingProgram, int gymId, string? description)
     {
         var trainer = await dbContext.Trainers
             .Include(x => x.User)
@@ -96,7 +96,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         var gym = await dbContext.Gyms
             .FirstOrDefaultAsync(x => x.Id == gymId) ?? throw new BackendException($"Gym with id = {gymId} not found");
 
-        trainer.Update(experience, medicGrade, workInjuries, workSportsmens, trainingProgram, gym);
+        trainer.Update(experience, medicGrade, workInjuries, workSportsmens, trainingProgram, gym, description);
         await dbContext.SaveChangesAsync();
         return trainer.Adapt<TrainerDto>();
     }

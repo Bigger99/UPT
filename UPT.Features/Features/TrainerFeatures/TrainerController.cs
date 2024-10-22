@@ -47,7 +47,7 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateTrainerCommand command)
     {
-        var trainer = await trainerService.Create(command.UserId, command.Experience, command.MedicGrade, command.WorkInjuries, command.WorkSportsmens, command.TrainingPrograms, command.GymId);
+        var trainer = await trainerService.Create(command.UserId, command.Experience, command.MedicGrade, command.WorkInjuries, command.WorkSportsmens, command.TrainingPrograms, command.GymId, command.Description);
         return Ok(trainer);
     }
 
@@ -57,7 +57,7 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateTrainerCommand command)
     {
-        var trainer = await trainerService.Update(command.TrainerId, command.Experience, command.MedicGrade, command.WorkInjuries, command.WorkSportsmens, command.TrainingPrograms, command.GymId);
+        var trainer = await trainerService.Update(command.TrainerId, command.Experience, command.MedicGrade, command.WorkInjuries, command.WorkSportsmens, command.TrainingPrograms, command.GymId, command.Description);
         return Ok(trainer);
     }
 

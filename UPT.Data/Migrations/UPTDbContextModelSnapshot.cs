@@ -294,6 +294,11 @@ namespace UPT.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("description");
+
                     b.Property<int>("Experience")
                         .HasColumnType("integer")
                         .HasColumnName("experience");

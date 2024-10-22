@@ -32,4 +32,6 @@ public class UpdateTrainerCommand
     [Required] public List<int> ClientsIds { get; set; } = default!;
 
     [Required] public int GymId { get; set; } = default!;
+
+    public string? Description { get; set; } = default!;
 }

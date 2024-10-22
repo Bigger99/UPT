@@ -124,17 +124,17 @@ internal class UPTDbDataSeed
                 TrainingProgram.MuscleGain, 
                 TrainingProgram.CompetitionsPreparation, 
                 TrainingProgram.RestorationMusculoskeletalSystem
-            ], gyms),
+            ], gyms, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
             new(trainer2, 5, true, true, true,
             [
                 TrainingProgram.CorrectionAndWeightLoss,
                 TrainingProgram.MuscleGain,
-            ], gyms),
+            ], gyms, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."),
             new(trainer3, 6, true, true, true,
             [
                 TrainingProgram.CompetitionsPreparation,
                 TrainingProgram.RestorationMusculoskeletalSystem
-            ], gyms)
+            ], gyms, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
         };
 
         _dbContext.Trainers.AddRange(trainers);

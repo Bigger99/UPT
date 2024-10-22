@@ -165,6 +165,7 @@ namespace UPT.Data.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     user_id = table.Column<int>(type: "integer", nullable: false),
+                    description = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
                     experience = table.Column<int>(type: "integer", nullable: false),
                     medic_grade = table.Column<bool>(type: "boolean", nullable: false),
                     work_injuries = table.Column<bool>(type: "boolean", nullable: false),

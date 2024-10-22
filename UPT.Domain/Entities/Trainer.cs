@@ -1,4 +1,5 @@
-﻿using UPT.Domain.Base;
+﻿using System.ComponentModel.DataAnnotations;
+using UPT.Domain.Base;
 using UPT.Infrastructure.Enums;
 
 namespace UPT.Domain.Entities;
@@ -6,6 +7,12 @@ namespace UPT.Domain.Entities;
 public class Trainer : HasIdBase
 {
     public User User { get; protected set; } = default!;
+
+    /// <summary>
+    /// Описаие тренера на странице профиля
+    /// </summary>
+    [MaxLength(255)]
+    public string? Description { get; protected set; } = default!;
 
     /// <summary>
     /// Стаж работы
@@ -39,7 +46,7 @@ public class Trainer : HasIdBase
     public bool IsDeleted { get; protected set; } = false;
 
     public Trainer(User user, int experience, bool medicGrade,
-        bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingPrograms, Gym gym)
+        bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingPrograms, Gym gym, string? description)
     {
         User = user;
         Experience = experience;
@@ -48,6 +55,7 @@ public class Trainer : HasIdBase
         WorkSportsmens = workSportsmens;
         TrainingPrograms = trainingPrograms;
         Gym = gym;
+        Description = description;
     }
 
     public void SetClients(List<Client> clients)
@@ -60,7 +68,7 @@ public class Trainer : HasIdBase
         IsDeleted = true;
     }
 
-    public void Update(int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingPrograms, Gym gym)
+    public void Update(int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingPrograms, Gym gym, string? description)
     {
         Experience = experience;
         MedicGrade = medicGrade;
@@ -68,6 +76,7 @@ public class Trainer : HasIdBase
         WorkSportsmens = workSportsmens;
         TrainingPrograms = trainingPrograms;
         Gym = gym;
+        Description = description;
     }
 
     // for EF

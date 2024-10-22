@@ -30,4 +30,6 @@ public class CreateTrainerCommand
     [Required] public List<TrainingProgram> TrainingPrograms { get; set; } = default!;
 
     [Required] public int GymId { get; set; } = default!;
+
+    public string? Description { get; set; } = default!;
 }
