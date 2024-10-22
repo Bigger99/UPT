@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UPT.Features.Base;
-using UPT.Features.Features.Autorization.Requests;
+using UPT.Features.Features.AutorizationFeatures.Requests;
 using UPT.Features.Services.Autorization;
 
-namespace UPT.Features.Features.Autorization;
+namespace UPT.Features.Features.AutorizationFeatures;
 
 /// <summary>
 /// Контроллер для Autorization

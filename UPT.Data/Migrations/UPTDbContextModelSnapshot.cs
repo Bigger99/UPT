@@ -101,6 +101,10 @@ namespace UPT.Data.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("trainer_id");
 
+                    b.Property<int>("TrainingProgram")
+                        .HasColumnType("integer")
+                        .HasColumnName("training_program");
+
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
                         .HasColumnName("user_id");

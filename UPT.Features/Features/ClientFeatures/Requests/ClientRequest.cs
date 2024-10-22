@@ -1,11 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UPT.Infrastructure.Enums;
 
-namespace UPT.Features.Features.Trainer.Requests;
+namespace UPT.Features.Features.ClientFeatures.Requests;
 
-public class TrainerRequest
+public class ClientRequest
 {
     [Required] public TrainingProgram TrainingProgram { get; set; } = default!;
-
-    public int? GymId { get; set; } = default!;
 }

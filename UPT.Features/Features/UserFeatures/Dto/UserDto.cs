@@ -2,7 +2,7 @@
 using UPT.Infrastructure.Enums;
 using UPT.Infrastructure.Interfaces;
 
-namespace UPT.Features.Features.User.Dto;
+namespace UPT.Features.Features.UserFeatures.Dto;
 
 public class UserDto : IDto
 {
@@ -12,7 +12,6 @@ public class UserDto : IDto
     public string? PhoneNumber { get; protected set; } = default!;
     public string? City { get; protected set; } = default!;
     public Gender? Gender { get; protected set; } = default!;
-    public bool IsDeleted { get; protected set; } = false;
 
     static UserDto()
     {

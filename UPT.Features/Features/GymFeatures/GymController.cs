@@ -2,7 +2,7 @@
 using UPT.Features.Base;
 using UPT.Features.Services.Gym;
 
-namespace UPT.Features.Features.User;
+namespace UPT.Features.Features.GymFeatures;
 
 /// <summary>
 /// Контроллер для User

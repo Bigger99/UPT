@@ -27,6 +27,9 @@ public class Trainer : HasIdBase
     /// </summary>
     public bool WorkSportsmens { get; protected set; } = default!;
 
+    /// <summary>
+    /// Программы тренировок по которым тренер тренирует
+    /// </summary>
     public List<TrainingProgram> TrainingPrograms { get; protected set; } = default!;
 
     public List<Client> Clients { get; protected set; } = default!;
@@ -47,25 +50,29 @@ public class Trainer : HasIdBase
         Gym = gym;
     }
 
+    public void SetClients(List<Client> clients)
+    {
+        Clients = clients;
+    }
+
     public void Delete()
     {
         IsDeleted = true;
     }
 
-    // for EF
-    protected Trainer()
-    {
-
-    }
-
-    public void Update(int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingPrograms, List<Client> clients, Gym gym)
+    public void Update(int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingPrograms, Gym gym)
     {
         Experience = experience;
         MedicGrade = medicGrade;
         WorkInjuries = workInjuries;
         WorkSportsmens = workSportsmens;
         TrainingPrograms = trainingPrograms;
-        Clients = clients;
         Gym = gym;
+    }
+
+    // for EF
+    protected Trainer()
+    {
+
     }
 }

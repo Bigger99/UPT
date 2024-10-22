@@ -1,10 +1,10 @@
 ﻿using Mapster;
 using UPT.Domain.Entities;
-using UPT.Features.Features.User.Dto;
+using UPT.Features.Features.UserFeatures.Dto;
 using UPT.Infrastructure.Enums;
 using UPT.Infrastructure.Interfaces;
 
-namespace UPT.Features.Features.Trainer.Dto;
+namespace UPT.Features.Features.TrainerFeatures.Dto;
 
 public class TrainerDto : IDto
 {
@@ -41,7 +41,7 @@ public class TrainerDto : IDto
 
     static TrainerDto()
     {
-        TypeAdapterConfig<Domain.Entities.Trainer, TrainerDto>
+        TypeAdapterConfig<Trainer, TrainerDto>
             .NewConfig()
             .Map(dest => dest.User, src => src.User.Adapt<UserDto>())
             .Map(dest => dest.GymId, src => src.Gym.Id)

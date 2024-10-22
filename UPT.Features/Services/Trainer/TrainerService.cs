@@ -1,14 +1,13 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
 using UPT.Data;
-using UPT.Domain.Entities;
-using UPT.Features.Features.Trainer.Dto;
-using UPT.Features.Features.Trainer.Requests;
+using UPT.Features.Features.TrainerFeatures.Dto;
+using UPT.Features.Features.TrainerFeatures.Requests;
 using UPT.Infrastructure.Enums;
 using UPT.Infrastructure.Middlewars;
 using UPT.Infrastructure.Models;
 
-namespace UPT.Features.Services.User;
+namespace UPT.Features.Services.Trainer;
 
 public class TrainerService(UPTDbContext dbContext) : ITrainerService
 {
@@ -17,6 +16,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         var trainer = await dbContext.Trainers
             .AsNoTracking()
             .Include(x => x.User)
+                .ThenInclude(x => x.City)
             .Include(x => x.Gym)
             .Include(x => x.Clients)
             .Where(x => !x.IsDeleted)
@@ -30,6 +30,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         var trainer = await dbContext.Trainers
             .AsNoTracking()
             .Include(x => x.User)
+                .ThenInclude(x => x.City)
             .Include(x => x.Gym)
             .Include(x => x.Clients)
             .Where(x => !x.IsDeleted)
@@ -45,6 +46,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         var trainersRequest = dbContext.Trainers
             .AsNoTracking()
             .Include(x => x.User)
+                .ThenInclude(x => x.City)
             .Include(x => x.Gym)
             .Include(x => x.Clients)
             .Where(x => !x.IsDeleted)
@@ -75,16 +77,17 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == userId) ?? throw new BackendException("User not found");
 
-        var trainer = new Trainer(user, experience, medicGrade, workInjuries, workSportsmens, trainingProgram, gym);
+        var trainer = new Domain.Entities.Trainer(user, experience, medicGrade, workInjuries, workSportsmens, trainingProgram, gym);
         await dbContext.Trainers.AddAsync(trainer);
         await dbContext.SaveChangesAsync();
         return trainer.Id;
     }
 
-    public async Task<TrainerDto> Update(int id, int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingProgram, List<int> clientsIds, int gymId)
+    public async Task<TrainerDto> Update(int id, int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingProgram, int gymId)
     {
         var trainer = await dbContext.Trainers
             .Include(x => x.User)
+                .ThenInclude(x => x.City)
             .Include(x => x.Gym)
             .Include(x => x.Clients)
             .Where(x => !x.IsDeleted)
@@ -93,16 +96,25 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         var gym = await dbContext.Gyms
             .FirstOrDefaultAsync(x => x.Id == gymId) ?? throw new BackendException($"Gym with id = {gymId} not found");
 
-        var clients = new List<Client>();
+        trainer.Update(experience, medicGrade, workInjuries, workSportsmens, trainingProgram, gym);
+        await dbContext.SaveChangesAsync();
+        return trainer.Adapt<TrainerDto>();
+    }
 
-        if (clientsIds.Count != 0)
-        {
-            clients = await dbContext.Clients
+    public async Task<TrainerDto> SetClients(int trainerId, List<int> clientsIds)
+    {
+        var trainer = await dbContext.Trainers
+           .Include(x => x.User)
+           .Include(x => x.Gym)
+           .Include(x => x.Clients)
+           .Where(x => !x.IsDeleted)
+           .FirstOrDefaultAsync(x => x.Id == trainerId) ?? throw new BackendException("Trainer not found");
+
+        var clients = await dbContext.Clients
             .Where(x => clientsIds.Contains(x.Id))
             .ToListAsync();
-        }
 
-        trainer.Update(experience, medicGrade, workInjuries, workSportsmens, trainingProgram, clients, gym);
+        trainer.SetClients(clients);
         await dbContext.SaveChangesAsync();
         return trainer.Adapt<TrainerDto>();
     }

@@ -2,7 +2,7 @@
 using UPT.Features.Base;
 using UPT.Infrastructure.Enums;
 
-namespace UPT.Features.Features.Program;
+namespace UPT.Features.Features.TrainingProgramFeatures;
 
 public class ProgramController : BaseAuthorizeController
 {

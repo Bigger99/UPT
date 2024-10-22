@@ -125,6 +125,7 @@ namespace UPT.Data.Migrations
                     volume_buttock = table.Column<double>(type: "double precision", nullable: false),
                     volume_hip = table.Column<double>(type: "double precision", nullable: false),
                     trainer_id = table.Column<int>(type: "integer", nullable: false),
+                    training_program = table.Column<int>(type: "integer", nullable: false),
                     is_deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>

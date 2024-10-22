@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UPT.Features.Base;
-using UPT.Features.Features.Trainer.Requests;
-using UPT.Features.Services.User;
+using UPT.Features.Features.TrainerFeatures.Requests;
+using UPT.Features.Services.Trainer;
 using UPT.Infrastructure.Models;
 
-namespace UPT.Features.Features.User;
+namespace UPT.Features.Features.TrainerFeatures;
 
 /// <summary>
 /// Контроллер для Trainer
@@ -15,9 +15,9 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     /// Получить тренера
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> Get([FromQuery] int id)
+    public async Task<IActionResult> Get([FromQuery] int trainerId)
     {
-        var user = await trainerService.Get(id);
+        var user = await trainerService.Get(trainerId);
         return Ok(user);
     }
 
@@ -25,9 +25,9 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     /// Получить тренера
     /// </summary>
     [HttpGet]
-    public async Task<IActionResult> GetByUserId([FromQuery] int id)
+    public async Task<IActionResult> GetByUserId([FromQuery] int userId)
     {
-        var trainer = await trainerService.GetByUserId(id);
+        var trainer = await trainerService.GetByUserId(userId);
         return Ok(trainer);
     }
 
@@ -57,7 +57,17 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateTrainerCommand command)
     {
-        var trainer = await trainerService.Update(command.TrainerId, command.Experience, command.MedicGrade, command.WorkInjuries, command.WorkSportsmens, command.TrainingPrograms, command.ClientsIds, command.GymId);
+        var trainer = await trainerService.Update(command.TrainerId, command.Experience, command.MedicGrade, command.WorkInjuries, command.WorkSportsmens, command.TrainingPrograms, command.GymId);
+        return Ok(trainer);
+    }
+
+    /// <summary>
+    /// Назначить тренеру клиентов
+    /// </summary>
+    [HttpPut]
+    public async Task<IActionResult> SetClients([FromBody] SetTrainerClientsCommand command)
+    {
+        var trainer = await trainerService.SetClients(command.TrainerId, command.ClientIds);
         return Ok(trainer);
     }
 
@@ -65,9 +75,9 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     /// Удалить тренера
     /// </summary>
     [HttpDelete]
-    public async Task<IActionResult> Delete([FromQuery] int id)
+    public async Task<IActionResult> Delete([FromQuery] int trainerId)
     {
-        await trainerService.Delete(id);
+        await trainerService.Delete(trainerId);
         return Ok();
     }
 }

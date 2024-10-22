@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using UPT.Data;
 using UPT.Domain.Entities;
-using UPT.Features.Features.User.Dto;
+using UPT.Features.Features.UserFeatures.Dto;
 using UPT.Infrastructure.Enums;
 using UPT.Infrastructure.Middlewars;
 

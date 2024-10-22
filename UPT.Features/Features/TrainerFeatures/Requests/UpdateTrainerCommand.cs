@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UPT.Infrastructure.Enums;
 
-namespace UPT.Features.Features.Trainer.Requests;
+namespace UPT.Features.Features.TrainerFeatures.Requests;
 
 public class UpdateTrainerCommand
 {

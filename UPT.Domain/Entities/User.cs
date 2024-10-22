@@ -14,8 +14,11 @@ public class User : HasNameBase
     public string PasswordHash { get; protected set; } = default!;
 
     public string? PhoneNumber { get; protected set; } = default!;
+
     public City? City { get; protected set; } = default!;
+
     public Gender? Gender { get; protected set; } = default!;
+
     public bool IsDeleted { get; protected set; } = false;
 
     public User(string email, string passwordHash)

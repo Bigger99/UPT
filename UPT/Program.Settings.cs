@@ -18,6 +18,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using UPT.Filters;
+using UPT.Features.Services.Trainer;
+using UPT.Features.Services.Client;
 
 namespace UPT;
 
@@ -101,6 +103,7 @@ internal static class Settings
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IGymService, GymService>();
         builder.Services.AddScoped<ITrainerService, TrainerService>();
+        builder.Services.AddScoped<IClientService, ClientService>();
 
         return builder;
     }

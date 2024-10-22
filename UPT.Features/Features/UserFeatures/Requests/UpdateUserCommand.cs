@@ -2,7 +2,7 @@
 using UPT.Domain.Entities;
 using UPT.Infrastructure.Enums;
 
-namespace UPT.Features.Features.User.Requests;
+namespace UPT.Features.Features.UserFeatures.Requests;
 
 public class UpdateUserCommand
 {

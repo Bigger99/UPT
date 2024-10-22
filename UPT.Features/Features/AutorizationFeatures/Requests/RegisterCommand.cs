@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UPT.Features.Features.Autorization.Requests;
+namespace UPT.Features.Features.AutorizationFeatures.Requests;
 
 public class RegisterCommand
 {

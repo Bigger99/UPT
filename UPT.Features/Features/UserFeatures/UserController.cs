@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UPT.Features.Base;
-using UPT.Features.Features.User.Requests;
+using UPT.Features.Features.UserFeatures.Requests;
 using UPT.Features.Services.User;
 
-namespace UPT.Features.Features.User;
+namespace UPT.Features.Features.UserFeatures;
 
 /// <summary>
 /// Контроллер для User

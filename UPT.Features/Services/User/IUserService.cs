@@ -1,5 +1,5 @@
 ﻿using UPT.Domain.Entities;
-using UPT.Features.Features.User.Dto;
+using UPT.Features.Features.UserFeatures.Dto;
 using UPT.Infrastructure.Enums;
 
 namespace UPT.Features.Services.User;

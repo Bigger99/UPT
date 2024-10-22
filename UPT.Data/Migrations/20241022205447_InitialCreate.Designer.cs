@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241022201359_InitialCreate")]
+    [Migration("20241022205447_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -103,6 +103,10 @@ namespace UPT.Data.Migrations
                     b.Property<int>("TrainerId")
                         .HasColumnType("integer")
                         .HasColumnName("trainer_id");
+
+                    b.Property<int>("TrainingProgram")
+                        .HasColumnType("integer")
+                        .HasColumnName("training_program");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
