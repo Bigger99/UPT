@@ -1,7 +1,12 @@
-﻿version: '1.0'
+﻿version: '3.9'
+
+networks:
+  upt-dev:
+    driver: bridge
 
 services:
   webapp:
+    container_name: webapp
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,10 +14,13 @@ services:
       - "8080:80"
     depends_on:
       - postgres_backend
+    networks:
+      - upt-dev
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 
   postgres_backend:
+    container_name: postgres_backend
     image: postgres:15
     restart: always
     environment:
@@ -20,6 +28,8 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
+    networks:
+      - upt-dev
     volumes:
       - postgres_data:/var/lib/postgresql/data
       

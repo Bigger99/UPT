@@ -5,12 +5,12 @@ namespace UPT.Domain.Entities;
 public class Favorite : HasIdBase
 {
     public Client Client { get; protected set; } = default!;
-    public Trainer Trainer { get; protected set; } = default!;
+    public List<Trainer> Trainers { get; protected set; } = default!;
 
-    public Favorite(Client client, Trainer trainer)
+    public Favorite(Client client, List<Trainer> trainers)
     {
         Client = client;
-        Trainer = trainer;
+        Trainers = trainers;
     }
 
     // for EF

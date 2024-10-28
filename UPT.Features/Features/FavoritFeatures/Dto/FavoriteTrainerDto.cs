@@ -28,9 +28,9 @@ public class FavoriteTrainerDto : IDto
     public bool WorkSportsmens { get; protected set; } = default!;
 
     /// <summary>
-    /// Восстановление опорно-двигательного аппарата
+    /// Программа тренировок
     /// </summary>
-    public TrainingProgram TrainingProgram { get; protected set; } = default!;
+    public List<TrainingProgram> TrainingPrograms { get; protected set; } = default!;
 
     public int GymId { get; protected set; } = default!;
 

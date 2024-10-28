@@ -1,28 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using UPT.Data;
+using UPT.Features.Features.GymFeatures.Dto;
 using UPT.Infrastructure.Middlewars;
 
 namespace UPT.Features.Services.Gym;
 
 public class GymService(UPTDbContext dbContext) : IGymService
 {
-    public async Task<List<Domain.Entities.Gym>> GetAll()
+    public async Task<List<GymDto>> GetAll()
     {
         var gyms = await dbContext.Gyms
             .Include(x => x.City)
             .Include(x => x.Trainers)
             .ToListAsync();
 
-        return gyms;
+        return gyms.Select(x => x.Adapt<GymDto>()).ToList();
     }
 
-    public async Task<Domain.Entities.Gym> Get(int id)
+    public async Task<GymDto> Get(int id)
     {
         var gym = await dbContext.Gyms
             .Include(x => x.City)
             .Include(x => x.Trainers)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("Gym not found");
 
-        return gym;
+        return gym.Adapt<GymDto>();
     }
 }

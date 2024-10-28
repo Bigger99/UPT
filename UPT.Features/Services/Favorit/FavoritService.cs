@@ -8,17 +8,22 @@ namespace UPT.Features.Services.Favorit;
 
 public class FavoritService(UPTDbContext dbContext) : IFavoritService
 {
-    public async Task<List<FavoriteDto>> Get(int clientId)
+    public async Task<FavoriteDto?> Get(int clientId)
     {
         var client = await dbContext.Clients
             .FirstOrDefaultAsync(x => x.Id == clientId) ?? throw new BackendException("Client not found");
 
         var favorite = await dbContext.Favorits
-            .Include(x => x.Trainer)
-            .Where(x => x.Client == client)
-            .ToListAsync();
+            .Include(x => x.Trainers)
+                .ThenInclude(x => x.Gym)
+            .FirstOrDefaultAsync(x => x.Client == client);
 
-        return favorite.Select(x => x.Adapt<FavoriteDto>()).ToList();
+        if (favorite is null)
+        {
+            return null;
+        }
+
+        return favorite.Adapt<FavoriteDto>();
     }
 
     public async Task<FavoriteDto> Add(int clientId, int trainerId)
@@ -30,16 +35,26 @@ public class FavoritService(UPTDbContext dbContext) : IFavoritService
             .FirstOrDefaultAsync(x => x.Id == trainerId) ?? throw new BackendException("Trainer not found");
 
         var favorite = await dbContext.Favorits
-            .Include(x => x.Trainer)
-            .FirstOrDefaultAsync(x => x.Client == client && x.Trainer == trainer);
+            .Include(x => x.Trainers)
+            .FirstOrDefaultAsync(x => x.Client == client);
 
-        if (favorite is not null )
+        if (favorite is not null)
         {
-             throw new BackendException("Trainer exists in the favorite list");
-        }
+            var existsTrainer = favorite.Trainers.Contains(trainer);
 
-        var newFavorite = new Domain.Entities.Favorite(client, trainer);
-        await dbContext.Favorits.AddAsync(newFavorite);
+            if (existsTrainer)
+            {
+                throw new BackendException("Trainer exists in the favorite list");
+            }
+
+            favorite.Trainers.Add(trainer);
+        }
+        else
+        {
+            var newFavorite = new Domain.Entities.Favorite(client, [trainer]);
+            await dbContext.SaveChangesAsync();
+        }
+        
         await dbContext.SaveChangesAsync();
 
         return favorite.Adapt<FavoriteDto>();
@@ -54,13 +69,19 @@ public class FavoritService(UPTDbContext dbContext) : IFavoritService
             .FirstOrDefaultAsync(x => x.Id == trainerId) ?? throw new BackendException("Trainer not found");
 
         var favorite = await dbContext.Favorits
-            .Include(x => x.Trainer)
-            .FirstOrDefaultAsync(x => x.Client == client && x.Trainer == trainer);
+            .Include(x => x.Trainers)
+            .FirstOrDefaultAsync(x => x.Client == client);
 
-        if (favorite is not null)
+        if (favorite is null)
+        {
+            return;
+        }
+
+        if (favorite.Trainers.Contains(trainer))
         {
             dbContext.Favorits.Remove(favorite);
             await dbContext.SaveChangesAsync();
+
         }
     }
 }

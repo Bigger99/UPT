@@ -16,18 +16,18 @@ public class FavoritController(IFavoritService favoritService) : BaseAuthorizeCo
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] int clientId)
     {
-        var user = await favoritService.Get(clientId);
-        return Ok(user);
+        var favoriteList = await favoritService.Get(clientId);
+        return Ok(favoriteList);
     }
 
     /// <summary>
     /// Добавить в список избранного
     /// </summary>
-    [HttpPut]
+    [HttpPost]
     public async Task<IActionResult> Add([FromBody] AddFavoritCommand command)
     {
-        var user = await favoritService.Add(command.ClientId, command.TrainerId);
-        return Ok(user);
+        var favoriteList = await favoritService.Add(command.ClientId, command.TrainerId);
+        return Ok(favoriteList);
     }
 
     /// <summary>

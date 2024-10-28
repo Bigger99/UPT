@@ -1,10 +1,10 @@
-﻿using UPT.Domain.Entities;
+﻿using UPT.Features.Features.CityFeatures.Dto;
 
 namespace UPT.Features.Services.City
 {
     public interface ICityService
     {
-        Task<Domain.Entities.City> Get(int id);
-        Task<List<Domain.Entities.City>> GetAll();
+        Task<CityDto> Get(int id);
+        Task<List<CityDto>> GetAll();
     }
 }

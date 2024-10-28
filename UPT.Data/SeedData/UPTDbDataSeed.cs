@@ -182,10 +182,9 @@ internal class UPTDbDataSeed
 
         var favorites = new List<Favorite>
         {
-            new (client1, trainer1),
-            new (client2, trainer2),
-            new (client3, trainer1),
-            new (client3, trainer3),
+            new (client1, [trainer1]),
+            new (client2, [trainer2]),
+            new (client3, [trainer1, trainer3]),
         };
 
         _dbContext.Favorits.AddRange(favorites);

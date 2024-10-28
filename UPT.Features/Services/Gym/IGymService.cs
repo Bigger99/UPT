@@ -1,7 +1,9 @@
-﻿namespace UPT.Features.Services.Gym;
+﻿using UPT.Features.Features.GymFeatures.Dto;
+
+namespace UPT.Features.Services.Gym;
 
 public interface IGymService
 {
-    Task<Domain.Entities.Gym> Get(int id);
-    Task<List<Domain.Entities.Gym>> GetAll();
+    Task<GymDto> Get(int id);
+    Task<List<GymDto>> GetAll();
 }

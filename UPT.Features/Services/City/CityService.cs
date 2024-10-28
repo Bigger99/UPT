@@ -1,24 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
 using UPT.Data;
+using UPT.Features.Features.CityFeatures.Dto;
 using UPT.Infrastructure.Middlewars;
 
 namespace UPT.Features.Services.City;
 
 public class CityService(UPTDbContext dbContext) : ICityService
 {
-    public async Task<List<Domain.Entities.City>> GetAll()
+    public async Task<List<CityDto>> GetAll()
     {
-        var city = await dbContext.Cities
+        var cities = await dbContext.Cities
             .ToListAsync();
 
-        return city;
+        return cities.Select(x => x.Adapt<CityDto>()).ToList();
     }
 
-    public async Task<Domain.Entities.City> Get(int id)
+    public async Task<CityDto> Get(int id)
     {
-        var gym = await dbContext.Cities
+        var city = await dbContext.Cities
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("City not found");
 
-        return gym;
+        return city.Adapt<CityDto>();
     }
 }
