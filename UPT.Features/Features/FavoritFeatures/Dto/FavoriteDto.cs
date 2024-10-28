@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using UPT.Domain.Entities;
-using UPT.Features.Features.TrainerFeatures.Dto;
 using UPT.Infrastructure.Interfaces;
 
 namespace UPT.Features.Features.FavoritFeatures.Dto;

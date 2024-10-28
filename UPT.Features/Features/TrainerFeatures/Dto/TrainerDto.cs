@@ -33,13 +33,14 @@ public class TrainerDto : IDto
     /// <summary>
     /// Восстановление опорно-двигательного аппарата
     /// </summary>
-    public TrainingProgram TrainingProgram { get; protected set; } = default!;
+    public List<TrainingProgram> TrainingPrograms { get; protected set; } = default!;
 
     public List<int> Clients { get; protected set; } = default!;
 
     public int GymId { get; protected set; } = default!;
 
-    public string Description { get; set; } = default!;
+    public string Description { get; protected set; } = default!;
+    public double Rating { get; set; } = default!;
 
     static TrainerDto()
     {

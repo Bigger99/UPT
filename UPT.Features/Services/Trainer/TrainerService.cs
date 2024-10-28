@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
 using UPT.Data;
+using UPT.Domain.Entities;
 using UPT.Features.Features.TrainerFeatures.Dto;
 using UPT.Features.Features.TrainerFeatures.Requests;
 using UPT.Infrastructure.Enums;
@@ -22,7 +23,9 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("Trainer not found");
 
-        return trainer.Adapt<TrainerDto>();
+        var trainerDto = trainer.Adapt<TrainerDto>();
+        trainerDto.Rating = await GetTrainerRating(trainer);
+        return trainerDto;
     }
 
     public async Task<TrainerDto> GetByUserId(int userId)
@@ -36,7 +39,9 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.User.Id == userId) ?? throw new BackendException("Trainer not found");
 
-        return trainer.Adapt<TrainerDto>();
+        var trainerDto = trainer.Adapt<TrainerDto>();
+        trainerDto.Rating = await GetTrainerRating(trainer);
+        return trainerDto;
     }
 
     public async Task<IEnumerable<TrainerDto>> GetFilteredTrainers(PagedFilterQuery<TrainerRequest> pagedFilter)
@@ -64,7 +69,12 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         }
 
         var trainers = await trainersRequest.ToListAsync() ?? throw new BackendException("Trainer not found");
-        var result = trainers.Select(x => x.Adapt<TrainerDto>());
+        var result = trainers.Select(x =>
+        {
+            var trainerDto = x.Adapt<TrainerDto>();
+            trainerDto.Rating = GetTrainerRating(x).GetAwaiter().GetResult();
+            return trainerDto;
+        });
         return result;
     }
 
@@ -98,7 +108,10 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
 
         trainer.Update(experience, medicGrade, workInjuries, workSportsmens, trainingProgram, gym, description);
         await dbContext.SaveChangesAsync();
-        return trainer.Adapt<TrainerDto>();
+
+        var trainerDto = trainer.Adapt<TrainerDto>();
+        trainerDto.Rating = await GetTrainerRating(trainer);
+        return trainerDto;
     }
 
     public async Task<TrainerDto> SetClients(int trainerId, List<int> clientsIds)
@@ -116,7 +129,10 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
 
         trainer.SetClients(clients);
         await dbContext.SaveChangesAsync();
-        return trainer.Adapt<TrainerDto>();
+
+        var trainerDto = trainer.Adapt<TrainerDto>();
+        trainerDto.Rating = await GetTrainerRating(trainer);
+        return trainerDto;
     }
 
     public async Task Delete(int id)
@@ -127,5 +143,15 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
 
         trainer.Delete();
         await dbContext.SaveChangesAsync();
+    }
+
+    private async Task<double> GetTrainerRating(Domain.Entities.Trainer trainer)
+    {
+        var rating = await dbContext.Feedbacks
+            .Where(x => x.Trainer == trainer)
+            .ToListAsync();
+
+        var ratingSum = rating.Sum(x => x.Rating);
+        return ratingSum / rating.Count;
     }
 }

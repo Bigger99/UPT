@@ -3,7 +3,7 @@ using UPT.Domain.Entities;
 using UPT.Infrastructure.Enums;
 using UPT.Infrastructure.Interfaces;
 
-namespace UPT.Features.Features.TrainerFeatures.Dto;
+namespace UPT.Features.Features.FavoritFeatures.Dto;
 
 public class FavoriteTrainerDto : IDto
 {

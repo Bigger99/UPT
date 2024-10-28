@@ -6,7 +6,7 @@ using UPT.Features.Services.Favorit;
 namespace UPT.Features.Features.FavoritFeatures;
 
 /// <summary>
-/// Контроллер для User
+/// Контроллер для Favorit
 /// </summary>
 public class FavoritController(IFavoritService favoritService) : BaseAuthorizeController
 {

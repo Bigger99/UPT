@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UPT.Domain.Entities;
 using UPT.Infrastructure.Enums;
+using static System.Net.Mime.MediaTypeNames;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace UPT.Data.SeedData;
 
@@ -41,6 +43,7 @@ internal class UPTDbDataSeed
             SetTrainersSeed();
             SetClientsSeed();
             SetFavoriteSeed();
+            SetFeedbackSeed();
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();
@@ -188,6 +191,27 @@ internal class UPTDbDataSeed
         };
 
         _dbContext.Favorits.AddRange(favorites);
+        _dbContext.SaveChanges();
+    }
+
+    private void SetFeedbackSeed()
+    {
+        var client1 = _dbContext.Clients.Include(x => x.User).First(x => x.User.Name == Client1);
+        var client2 = _dbContext.Clients.Include(x => x.User).First(x => x.User.Name == Client2);
+        var client3 = _dbContext.Clients.Include(x => x.User).First(x => x.User.Name == Client3);
+        var trainer1 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer1);
+        var trainer2 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer2);
+        var trainer3 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer3);
+
+        var feedbacks = new List<Feedback>
+        {
+            new (DateTime.UtcNow, 5.0, "Cool", client1, trainer1),
+            new (DateTime.UtcNow, 4.0, "Good", client2, trainer1),
+            new (DateTime.UtcNow, 4.0, "Good", client2, trainer2),
+            new (DateTime.UtcNow, 3.0, "So-so", client3, trainer3),
+        };
+
+        _dbContext.Feedbacks.AddRange(feedbacks);
         _dbContext.SaveChanges();
     }
 }
