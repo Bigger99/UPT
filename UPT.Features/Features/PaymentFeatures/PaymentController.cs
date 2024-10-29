@@ -2,6 +2,7 @@
 using UPT.Features.Base;
 using UPT.Features.Features.PaymentFeatures.Requests;
 using UPT.Features.Services.Payment;
+using UPT.Infrastructure.Enums;
 
 namespace UPT.Features.Features.PaymentFeatures;
 
@@ -26,7 +27,7 @@ public class PaymentController(IPaymentService paymentService) : BaseAuthorizeCo
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] AddPaymentCommand command)
     {
-        var favoriteList = await paymentService.Add(command.UserId, command.Title, command.Amount);
+        var favoriteList = await paymentService.Add(command.UserId, command.Title, command.Amount, command.PurchasedProduct);
         return Ok(favoriteList);
     }
 

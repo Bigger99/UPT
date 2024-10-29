@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241029181325_InitialCreate")]
+    [Migration("20241029192344_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -381,6 +381,10 @@ namespace UPT.Data.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
                         .HasColumnName("description");
+
+                    b.Property<int?>("DialogCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("dialog_count");
 
                     b.Property<int>("Experience")
                         .HasColumnType("integer")

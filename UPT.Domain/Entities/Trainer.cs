@@ -43,6 +43,8 @@ public class Trainer : HasIdBase
 
     public Gym Gym { get; protected set; } = default!;
 
+    public int? DialogCount { get; protected set; } = default!;
+
     public bool IsDeleted { get; protected set; } = false;
 
     public Trainer(User user, int experience, bool medicGrade,
@@ -61,6 +63,16 @@ public class Trainer : HasIdBase
     public void SetClients(List<Client> clients)
     {
         Clients = clients;
+    }
+
+    public void SetDialogCount(int count)
+    {
+        DialogCount = count;
+    }
+
+    public void DialogCountDecrement()
+    {
+        DialogCount--;
     }
 
     public void Delete()

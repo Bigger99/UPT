@@ -72,6 +72,16 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     }
 
     /// <summary>
+    /// Списоть счётчик доступных откликов
+    /// </summary>
+    [HttpPut]
+    public async Task<IActionResult> DialogCountDecremen([FromQuery] int trainerId)
+    {
+        var trainer = await trainerService.DialogCountDecremen(trainerId);
+        return Ok(trainer);
+    }
+
+    /// <summary>
     /// Удалить тренера
     /// </summary>
     [HttpDelete]

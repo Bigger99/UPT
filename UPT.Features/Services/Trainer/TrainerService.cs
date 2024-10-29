@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
 using UPT.Data;
-using UPT.Domain.Entities;
 using UPT.Features.Features.TrainerFeatures.Dto;
 using UPT.Features.Features.TrainerFeatures.Requests;
 using UPT.Infrastructure.Enums;
@@ -128,6 +127,28 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
             .ToListAsync();
 
         trainer.SetClients(clients);
+        await dbContext.SaveChangesAsync();
+
+        var trainerDto = trainer.Adapt<TrainerDto>();
+        trainerDto.Rating = await GetTrainerRating(trainer);
+        return trainerDto;
+    }
+
+    public async Task<TrainerDto> DialogCountDecremen(int trainerId)
+    {
+        var trainer = await dbContext.Trainers
+           .Include(x => x.User)
+           .Include(x => x.Gym)
+           .Include(x => x.Clients)
+           .Where(x => !x.IsDeleted)
+           .FirstOrDefaultAsync(x => x.Id == trainerId) ?? throw new BackendException("Trainer not found");
+
+        if (trainer.DialogCount - 1 <= 0)
+        {
+            throw new BackendException("The attempts to contact the client have ended");
+        }
+
+        trainer.DialogCountDecrement();
         await dbContext.SaveChangesAsync();
 
         var trainerDto = trainer.Adapt<TrainerDto>();

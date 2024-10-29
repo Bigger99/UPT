@@ -379,6 +379,10 @@ namespace UPT.Data.Migrations
                         .HasColumnType("character varying(255)")
                         .HasColumnName("description");
 
+                    b.Property<int?>("DialogCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("dialog_count");
+
                     b.Property<int>("Experience")
                         .HasColumnType("integer")
                         .HasColumnName("experience");

@@ -41,6 +41,7 @@ public class TrainerDto : IDto
 
     public string Description { get; protected set; } = default!;
     public double Rating { get; set; } = default!;
+    public int? DialogCount { get; protected set; } = default!;
 
     static TrainerDto()
     {

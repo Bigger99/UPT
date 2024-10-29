@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using UPT.Infrastructure.Enums;
 
 namespace UPT.Features.Features.PaymentFeatures.Requests;
 
@@ -21,5 +22,11 @@ public class AddPaymentCommand
     /// Сумма оплаты
     /// </summary>
     [Required]
-    public decimal Amount { get; set; } = default!;
+    public decimal Amount { get; set; } = default!; 
+    
+    /// <summary>
+    /// Преобретаемый продукт
+    /// </summary>
+    [Required]
+    public PurchasedProduct PurchasedProduct { get; set; } = default!;
 }

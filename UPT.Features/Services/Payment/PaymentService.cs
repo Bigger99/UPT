@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using UPT.Data;
 using UPT.Features.Features.PaymentFeatures.Dto;
+using UPT.Infrastructure.Enums;
 using UPT.Infrastructure.Middlewars;
 
 namespace UPT.Features.Services.Payment;
@@ -24,13 +25,27 @@ public class PaymentService(UPTDbContext dbContext) : IPaymentService
         return payments.Select(x => x.Adapt<PaymentDto>()).ToList();
     }
 
-    public async Task<PaymentDto> Add(int userId, string title, decimal amount)
+    public async Task<PaymentDto> Add(int userId, string title, decimal amount, PurchasedProduct purchasedProduct)
     {
         var user = await dbContext.Users
             .FirstOrDefaultAsync(x => x.Id == userId) ?? throw new BackendException("User not found");
 
+        var trainer = await dbContext.Trainers
+            .Include(x => x.User)
+            .FirstOrDefaultAsync(x => x.User == user) ?? throw new BackendException($"User with id = {userId} is not a trainer");
+
         var newPayment = new Domain.Entities.Payment(user, DateTime.UtcNow, title, amount);
         await dbContext.Payments.AddAsync(newPayment);
+
+        var count = purchasedProduct switch
+        {
+            PurchasedProduct.FreeSubscribe => 15,
+            PurchasedProduct.ProSubscribe => 50,
+            PurchasedProduct.DeluxeSubscribe => 100,
+            _ => throw new BackendException("Product not found")
+        };
+        trainer.SetDialogCount(count);
+
         await dbContext.SaveChangesAsync();
 
         return newPayment.Adapt<PaymentDto>();

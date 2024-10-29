@@ -31,4 +31,17 @@ public class InfrastuctureController : BaseAuthorizeController
 
         return Ok(dict);
     }
+
+    /// <summary>
+    /// Получить список продаваемых продуктов
+    /// </summary>
+    [HttpGet]
+    public IActionResult GetPurchasedProduct()
+    {
+        var dict = Enum.GetValues(typeof(PurchasedProduct))
+               .Cast<PurchasedProduct>()
+               .ToDictionary(t => (int)t, t => t.ToString());
+
+        return Ok(dict);
+    }
 }
