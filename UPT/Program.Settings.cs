@@ -24,6 +24,7 @@ using UPT.Features.Services.City;
 using UPT.Features.Services.Favorit;
 using UPT.Features.Services.Feedback;
 using UPT.Features.Services.Payment;
+using UPT.Features.Services.Notification;
 
 namespace UPT;
 
@@ -112,6 +113,7 @@ internal static class Settings
         builder.Services.AddScoped<IFavoritService, FavoritService>();
         builder.Services.AddScoped<IFeedbackService, FeedbackService>();
         builder.Services.AddScoped<IPaymentService, PaymentService>();
+        builder.Services.AddScoped<INotificationService, NotificationService>();
 
         return builder;
     }

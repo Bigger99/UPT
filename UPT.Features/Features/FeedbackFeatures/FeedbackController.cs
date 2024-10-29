@@ -16,8 +16,8 @@ public class FeedbackController(IFeedbackService feedbackService) : BaseAuthoriz
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] int trainerId)
     {
-        var favoriteList = await feedbackService.Get(trainerId);
-        return Ok(favoriteList);
+        var feedbackList = await feedbackService.Get(trainerId);
+        return Ok(feedbackList);
     }
 
     /// <summary>
@@ -26,8 +26,8 @@ public class FeedbackController(IFeedbackService feedbackService) : BaseAuthoriz
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] AddFeedbackCommand command)
     {
-        var favoriteList = await feedbackService.Add(command.ClientId, command.TrainerId, command.Rating, command.Text);
-        return Ok(favoriteList);
+        var feedback = await feedbackService.Add(command.ClientId, command.TrainerId, command.Rating, command.Text);
+        return Ok(feedback);
     }
 
     /// <summary>

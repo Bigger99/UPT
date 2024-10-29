@@ -14,6 +14,8 @@ public class UPTDbContext(DbContextOptions<UPTDbContext> options) : DbContext(op
     public DbSet<Feedback> Feedbacks => Set<Feedback>();
     public DbSet<Favorite> Favorits => Set<Favorite>();
     public DbSet<Payment> Payments => Set<Payment>();
+    public DbSet<Notification> Notifications => Set<Notification>();
+    public DbSet<News> News => Set<News>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

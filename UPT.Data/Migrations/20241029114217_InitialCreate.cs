@@ -76,6 +76,52 @@ namespace UPT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "news",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    creation_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    edit_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    text = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_news", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_news_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "notifications",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    creation_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    text = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    is_checked = table.Column<bool>(type: "boolean", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_notifications", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_notifications_users_user_id",
+                        column: x => x.user_id,
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "payments",
                 columns: table => new
                 {
@@ -270,6 +316,16 @@ namespace UPT.Data.Migrations
                 column: "city_id");
 
             migrationBuilder.CreateIndex(
+                name: "ix_news_user_id",
+                table: "news",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_notifications_user_id",
+                table: "notifications",
+                column: "user_id");
+
+            migrationBuilder.CreateIndex(
                 name: "ix_payments_user_id",
                 table: "payments",
                 column: "user_id");
@@ -331,6 +387,12 @@ namespace UPT.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "feedbacks");
+
+            migrationBuilder.DropTable(
+                name: "news");
+
+            migrationBuilder.DropTable(
+                name: "notifications");
 
             migrationBuilder.DropTable(
                 name: "payments");
