@@ -1,24 +1,20 @@
-# Используем официальный образ .NET SDK для сборки приложения
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
+COPY ["UPT/UPT.csproj", "UPT/"]
+RUN dotnet restore "UPT/UPT.csproj"
+COPY . .
+WORKDIR "/src/UPT"
+RUN dotnet build "UPT.csproj" -c Debug -o /app/build
 
-# Клонируем репозиторий с GitHub
-ARG REPO_URL=https://github.com/Bigger99/UPT.git
-ARG BRANCH=master
-RUN git clone -b ${BRANCH} ${REPO_URL} .
+FROM build AS publish
+RUN dotnet publish "UPT.csproj" -c Debug -o /app/publish
 
-# Восстанавливаем зависимости
-RUN dotnet restore
-
-# Собираем приложение
-RUN dotnet publish -c Debug -o /app/publish
-
-# Используем официальный образ .NET Runtime для запуска приложения
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM base AS final
 WORKDIR /app
-
-# Копируем опубликованные файлы из стадии сборки
-COPY --from=build /app/publish .
-
-# Указываем точку входа
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "UPT.dll"]
