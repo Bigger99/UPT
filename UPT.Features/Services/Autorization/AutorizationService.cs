@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UPT.Data;
+using UPT.Infrastructure.Email;
+using UPT.Infrastructure.Email.Service;
 using UPT.Infrastructure.Jwt;
 using UPT.Infrastructure.Middlewars;
 using UPT.Infrastructure.PasswordHasher;
@@ -9,6 +11,7 @@ namespace UPT.Features.Services.Autorization;
 public class AutorizationService(
     IPasswordHasher passwordHasher,
     UPTDbContext dbContext,
+    //IEmailService emailService,
     IJwtProvider jwtProvider) : IAutorizationService
 {
     public async Task Register(string email, string password)
@@ -17,6 +20,9 @@ public class AutorizationService(
         var user = new Domain.Entities.User(email, hashedPassword);
         await dbContext.Users.AddAsync(user);
         await dbContext.SaveChangesAsync();
+
+        //var emailMetadata = new EmailMetadata(email, "LOL");
+        //await emailService.Send(emailMetadata);
     }
 
     public async Task<string> Login(string email, string password)

@@ -26,6 +26,8 @@ using UPT.Features.Services.Feedback;
 using UPT.Features.Services.Payment;
 using UPT.Features.Services.Notification;
 using UPT.Features.Services.News;
+using UPT.Infrastructure.Email;
+using UPT.Infrastructure.Email.Service;
 
 namespace UPT;
 
@@ -116,6 +118,19 @@ internal static class Settings
         builder.Services.AddScoped<IPaymentService, PaymentService>();
         builder.Services.AddScoped<INotificationService, NotificationService>();
         builder.Services.AddScoped<INewsService, NewsService>();
+
+        return builder;
+    }
+
+    public static WebApplicationBuilder AddFluentEmail(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddScoped<IEmailService, EmailService>();
+
+        var emailOptions = builder.Configuration.GetSection(nameof(EmailOptions)).Get<EmailOptions>()
+            ?? throw new InvalidOperationException($"{nameof(EmailOptions)} is null");
+
+        builder.Services.AddFluentEmail(emailOptions.FromEmail)
+            .AddSmtpSender(emailOptions.Host, emailOptions.Post, emailOptions.UserName, emailOptions.Password);
 
         return builder;
     }

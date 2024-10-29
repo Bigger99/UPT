@@ -5,6 +5,7 @@ var builder = WebApplication
     .AddOptions()
     .AddAuth()
     .AddDatabase()
+    .AddFluentEmail()
     .AddControllersAndSwagger()
     .AddMapsterConfig()
     .AddServices()
