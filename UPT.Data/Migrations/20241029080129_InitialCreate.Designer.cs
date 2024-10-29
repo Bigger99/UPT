@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241028190618_InitialCreate")]
+    [Migration("20241029080129_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -269,21 +269,21 @@ namespace UPT.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("date");
 
-                    b.Property<int>("PersonId")
-                        .HasColumnType("integer")
-                        .HasColumnName("person_id");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
                         .HasColumnName("title");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer")
+                        .HasColumnName("user_id");
+
                     b.HasKey("Id")
                         .HasName("pk_payments");
 
-                    b.HasIndex("PersonId")
-                        .HasDatabaseName("ix_payments_person_id");
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("ix_payments_user_id");
 
                     b.ToTable("payments", (string)null);
                 });
@@ -491,14 +491,14 @@ namespace UPT.Data.Migrations
 
             modelBuilder.Entity("UPT.Domain.Entities.Payment", b =>
                 {
-                    b.HasOne("UPT.Domain.Entities.User", "Person")
+                    b.HasOne("UPT.Domain.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_payments_users_person_id");
+                        .HasConstraintName("fk_payments_users_user_id");
 
-                    b.Navigation("Person");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("UPT.Domain.Entities.Trainer", b =>

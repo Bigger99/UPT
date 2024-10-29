@@ -44,6 +44,7 @@ internal class UPTDbDataSeed
             SetClientsSeed();
             SetFavoriteSeed();
             SetFeedbackSeed();
+            SetPaymentsSeed();
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();
@@ -212,6 +213,23 @@ internal class UPTDbDataSeed
         };
 
         _dbContext.Feedbacks.AddRange(feedbacks);
+        _dbContext.SaveChanges();
+    }
+
+    private void SetPaymentsSeed()
+    {
+        var trainer1 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer1);
+        var trainer2 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer2);
+        var trainer3 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == Trainer3);
+
+        var payments = new List<Payment>
+        {
+            new (trainer1.User, DateTime.UtcNow, "Month Pro", 1000.0m),
+            new (trainer2.User, DateTime.UtcNow, "Month Deluxe", 1500.0m),
+            new (trainer3.User, DateTime.UtcNow, "Trial", 0m),
+        };
+
+        _dbContext.Payments.AddRange(payments);
         _dbContext.SaveChanges();
     }
 }

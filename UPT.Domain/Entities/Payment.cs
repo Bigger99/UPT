@@ -5,7 +5,11 @@ namespace UPT.Domain.Entities;
 
 public class Payment : HasIdBase
 {
-    public User Person { get; protected set; } = default!;
+    public User User { get; protected set; } = default!;
+
+    /// <summary>
+    /// Дата оплаты
+    /// </summary>
     public DateTime Date { get; protected set; } = default!;
 
     [MaxLength(255)]
@@ -13,9 +17,9 @@ public class Payment : HasIdBase
 
     public decimal Amount { get; protected set; } = default!;
 
-    public Payment(User person, DateTime date, string title, decimal amount)
+    public Payment(User user, DateTime date, string title, decimal amount)
     {
-        Person = person;
+        User = user;
         Date = date;
         Title = title;
         Amount = amount;

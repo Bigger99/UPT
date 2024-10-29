@@ -78,7 +78,7 @@ namespace UPT.Data.Migrations
                 {
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    person_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<int>(type: "integer", nullable: false),
                     date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     title = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     amount = table.Column<decimal>(type: "numeric", nullable: false)
@@ -87,8 +87,8 @@ namespace UPT.Data.Migrations
                 {
                     table.PrimaryKey("pk_payments", x => x.id);
                     table.ForeignKey(
-                        name: "fk_payments_users_person_id",
-                        column: x => x.person_id,
+                        name: "fk_payments_users_user_id",
+                        column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -267,9 +267,9 @@ namespace UPT.Data.Migrations
                 column: "city_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_payments_person_id",
+                name: "ix_payments_user_id",
                 table: "payments",
-                column: "person_id");
+                column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_trainers_favorite_id",
