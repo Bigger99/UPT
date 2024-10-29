@@ -262,7 +262,7 @@ namespace UPT.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("creation_date");
 
-                    b.Property<DateTime>("EditDate")
+                    b.Property<DateTime?>("EditDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("edit_date");
 

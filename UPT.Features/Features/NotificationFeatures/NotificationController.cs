@@ -35,9 +35,9 @@ public class NotificationController(INotificationService notificationService) : 
     /// Добавить уведомление
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> Add([FromBody] AddNotificationCommand command)
+    public async Task<IActionResult> Create([FromBody] AddNotificationCommand command)
     {
-        var notification = await notificationService.Add(command.Name, command.Text, command.UserId);
+        var notification = await notificationService.Create(command.Name, command.Text, command.UserId);
         return Ok(notification);
     }
 

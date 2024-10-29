@@ -44,7 +44,7 @@ public class NotificationService(UPTDbContext dbContext) : INotificationService
         return notifications.Select(x => x.Adapt<NotificationDto>()).ToList();
     }
 
-    public async Task<NotificationDto> Add(string name, string text, int userId)
+    public async Task<NotificationDto> Create(string name, string text, int userId)
     {
         var user = await dbContext.Users
             .FirstOrDefaultAsync(x => x.Id == userId) ?? throw new BackendException("User not found");

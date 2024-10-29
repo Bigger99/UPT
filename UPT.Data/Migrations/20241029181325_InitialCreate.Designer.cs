@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241029114217_InitialCreate")]
+    [Migration("20241029181325_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -265,7 +265,7 @@ namespace UPT.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("creation_date");
 
-                    b.Property<DateTime>("EditDate")
+                    b.Property<DateTime?>("EditDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("edit_date");
 

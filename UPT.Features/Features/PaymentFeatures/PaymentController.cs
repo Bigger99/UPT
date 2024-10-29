@@ -34,9 +34,9 @@ public class PaymentController(IPaymentService paymentService) : BaseAuthorizeCo
     /// Удалить оплату
     /// </summary>
     [HttpDelete]
-    public async Task<IActionResult> Delete([FromBody] DeletePaymentCommand command)
+    public async Task<IActionResult> Delete([FromQuery] int paymentId)
     {
-        await paymentService.Delete(command.PaymentId);
+        await paymentService.Delete(paymentId);
         return Ok();
     }
 }

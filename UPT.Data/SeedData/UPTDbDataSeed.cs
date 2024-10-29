@@ -44,6 +44,7 @@ internal class UPTDbDataSeed
             SetFeedbackSeed();
             SetPaymentsSeed();
             SetNotificationSeed();
+            SetNewsSeed();
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();
@@ -240,12 +241,29 @@ internal class UPTDbDataSeed
 
         var notifications = new List<Notification>
         {
-            new ("Title1", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer1.User),
-            new ("Title2", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer2.User),
-            new ("Title3", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer3.User),
+            new ("NotificationTitle1", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer1.User),
+            new ("NotificationTitle2", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer2.User),
+            new ("NotificationTitle3", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer3.User),
         };
 
         _dbContext.Notifications.AddRange(notifications);
+        _dbContext.SaveChanges();
+    }
+
+    private void SetNewsSeed()
+    {
+        var trainer1 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == TrainerName1);
+        var trainer2 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == TrainerName2);
+        var trainer3 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == TrainerName3);
+
+        var news = new List<News>
+        {
+            new ("NewsTitle1", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer1.User),
+            new ("NewsTitle2", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer2.User),
+            new ("NewsTitle3", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer3.User),
+        };
+
+        _dbContext.News.AddRange(news);
         _dbContext.SaveChanges();
     }
 }

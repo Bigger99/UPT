@@ -82,7 +82,7 @@ namespace UPT.Data.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     creation_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    edit_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    edit_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     text = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     user_id = table.Column<int>(type: "integer", nullable: false),
                     name = table.Column<string>(type: "text", nullable: true)
