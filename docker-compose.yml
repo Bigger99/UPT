@@ -3,8 +3,8 @@ networks:
   deploy-dev:
     driver: bridge
 services:
-  webapp: 
-    container_name: webapp
+  app: 
+    container_name: upt-backend
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,12 +13,10 @@ services:
     networks:
       - deploy-dev
     depends_on:
-      - postgres_backend
-      
-  postgres_backend:
-    container_name: postgres_backend
+      - postgres_db
+  postgres_db:
+    container_name: postgres
     image: postgres:latest
-    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
