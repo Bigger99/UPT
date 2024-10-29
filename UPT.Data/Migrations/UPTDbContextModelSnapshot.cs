@@ -377,6 +377,18 @@ namespace UPT.Data.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
+                    b.Property<bool>("IsEmailConfirmed")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_email_confirmed");
+
+                    b.Property<bool>("IsEmailNotificationEnable")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_email_notification_enable");
+
+                    b.Property<bool>("IsNotificationEnable")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_notification_enable");
+
                     b.Property<string>("Name")
                         .HasColumnType("text")
                         .HasColumnName("name");

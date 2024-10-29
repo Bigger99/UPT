@@ -59,6 +59,9 @@ namespace UPT.Data.Migrations
                     phone_number = table.Column<string>(type: "text", nullable: true),
                     city_id = table.Column<int>(type: "integer", nullable: true),
                     gender = table.Column<int>(type: "integer", nullable: true),
+                    is_notification_enable = table.Column<bool>(type: "boolean", nullable: false),
+                    is_email_notification_enable = table.Column<bool>(type: "boolean", nullable: false),
+                    is_email_confirmed = table.Column<bool>(type: "boolean", nullable: false),
                     is_deleted = table.Column<bool>(type: "boolean", nullable: false),
                     name = table.Column<string>(type: "text", nullable: true)
                 },

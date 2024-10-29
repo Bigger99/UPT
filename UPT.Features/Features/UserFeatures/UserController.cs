@@ -26,8 +26,18 @@ public class UserController(IUserService userService) : BaseAuthorizeController
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
     {
-        var user = await userService.Update(command.Id, command.Name, command.PhoneNumber, command.EmailAddress, command.City, command.Gender);
+        var user = await userService.Update(command.Id, command.Name, command.PhoneNumber, command.EmailAddress, command.City, command.Gender, command.IsNotificationEnable, command.IsEmailNotificationEnable);
         return Ok(user);
+    }
+
+    /// <summary>
+    /// Подтвердить почту пользователя
+    /// </summary>
+    [HttpPut]
+    public async Task<IActionResult> EmailConfirmed([FromBody] ConfirmeEmailCommand command)
+    {
+        await userService.SetEmailConfirmed(command.UserId);
+        return Ok();
     }
 
     /// <summary>

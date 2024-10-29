@@ -19,6 +19,9 @@ public class User : HasNameBase
 
     public Gender? Gender { get; protected set; } = default!;
 
+    public bool IsNotificationEnable { get; protected set; } = true;
+    public bool IsEmailNotificationEnable { get; protected set; } = false;
+    public bool IsEmailConfirmed { get; protected set; } = false;
     public bool IsDeleted { get; protected set; } = false;
 
     public User(string email, string passwordHash)
@@ -27,13 +30,20 @@ public class User : HasNameBase
         PasswordHash = passwordHash;
     }
 
-    public void AddUserData(string name, string phoneNumber, string emailAddress, City city, Gender gender)
+    public void EditUserData(string name, string phoneNumber, string emailAddress, City city, Gender gender, bool isNotificationEnable, bool isEmailNotificationEnable)
     {
         Name = name;
         PhoneNumber = phoneNumber;
         EmailAddress = emailAddress;
         City = city;
         Gender = gender;
+        IsNotificationEnable = isNotificationEnable;
+        IsEmailNotificationEnable = isEmailNotificationEnable;
+    }
+
+    public void ConfirmeEmail()
+    {
+        IsEmailConfirmed = true;
     }
 
     public void Delete()

@@ -1,8 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UPT.Domain.Entities;
 using UPT.Infrastructure.Enums;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace UPT.Data.SeedData;
 
@@ -71,22 +69,22 @@ internal class UPTDbDataSeed
         var city = _dbContext.Cities.First();
 
         var client1 = new User($"{Client1}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        client1.AddUserData(Client1, "+79999999999", $"{Client1}@mail.ru", city, Gender.Male);
+        client1.EditUserData(Client1, "+79999999999", $"{Client1}@mail.ru", city, Gender.Male, true, true);
 
         var client2 = new User($"{Client2}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        client2.AddUserData(Client2, "+79999999999", $"{Client2}@mail.ru", city, Gender.Male);
+        client2.EditUserData(Client2, "+79999999999", $"{Client2}@mail.ru", city, Gender.Male, true, true);
 
         var client3 = new User($"{Client3}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        client3.AddUserData(Client3, "+79999999999", $"{Client3}@mail.ru", city, Gender.Male);
+        client3.EditUserData(Client3, "+79999999999", $"{Client3}@mail.ru", city, Gender.Male, true, true);
 
         var trainer1 = new User($"{Trainer1}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        trainer1.AddUserData(Trainer1, "+79999999999", $"{Trainer1}@mail.ru", city, Gender.Male);
+        trainer1.EditUserData(Trainer1, "+79999999999", $"{Trainer1}@mail.ru", city, Gender.Male, true, true);
 
         var trainer2 = new User($"{Trainer2}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        trainer2.AddUserData(Trainer2, "+79999999999", $"{Trainer2}@mail.ru", city, Gender.Male);
+        trainer2.EditUserData(Trainer2, "+79999999999", $"{Trainer2}@mail.ru", city, Gender.Male, true, true);
 
         var trainer3 = new User($"{Trainer3}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        trainer3.AddUserData(Trainer3, "+79999999999", $"{Trainer3}@mail.ru", city, Gender.Male);
+        trainer3.EditUserData(Trainer3, "+79999999999", $"{Trainer3}@mail.ru", city, Gender.Male, true, true);
 
         _dbContext.Users.AddRange([client1, client2, client3, trainer1, trainer2, trainer3]);
         _dbContext.SaveChanges();

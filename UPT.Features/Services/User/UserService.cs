@@ -19,14 +19,15 @@ public class UserService(UPTDbContext dbContext) : IUserService
         return user.Adapt<UserDto>();
     }
 
-    public async Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, Domain.Entities.City city, Gender gender)
+    public async Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, Domain.Entities.City city,
+        Gender gender, bool isNotificationEnable, bool isEmailNotificationEnable)
     {
         var user = await dbContext.Users
             .Include(x => x.City)
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
-        user.AddUserData(name, phoneNumber, emailAddress, city, gender);
+        user.EditUserData(name, phoneNumber, emailAddress, city, gender, isNotificationEnable, isEmailNotificationEnable);
         await dbContext.SaveChangesAsync();
         return user.Adapt<UserDto>();
     }
@@ -39,6 +40,17 @@ public class UserService(UPTDbContext dbContext) : IUserService
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
         user.Delete();
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task SetEmailConfirmed(int id)
+    {
+        var user = await dbContext.Users
+            .Include(x => x.City)
+            .Where(x => !x.IsDeleted)
+            .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
+
+        user.ConfirmeEmail();
         await dbContext.SaveChangesAsync();
     }
 }
