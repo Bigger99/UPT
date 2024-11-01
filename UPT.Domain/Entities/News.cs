@@ -14,24 +14,24 @@ public class News : HasNameBase
 
     public User User { get; protected set; } = default!;
 
-    //public byte[] Image { get; protected set; } = default!;
+    public byte[]? Image { get; protected set; } = default!;
 
-    public News(string name, DateTime creationDate, string text, User user)//, byte[] image)
+    public News(string name, DateTime creationDate, string text, User user, byte[]? image)
     {
         Name = name;
         CreationDate = creationDate;
         Text = text;
         User = user;
-        //Image = image;
+        Image = image;
     }
 
-    public void UpdateNews(string name, DateTime editDate, string text, User user)//, byte[] image)
+    public void UpdateNews(string name, DateTime editDate, string text, User user, byte[]? image)
     {
         EditDate = editDate;
         Name = name;
         Text = text;
         User = user;
-        //Image = image;
+        Image = image;
     }
 
     // for EF

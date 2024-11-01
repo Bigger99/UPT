@@ -36,7 +36,7 @@ public class NewsController(INewsService newsService) : BaseAuthorizeController
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] AddNewsCommand command)
     {
-        var news = await newsService.Create(command.Name, command.Text, command.UserId);
+        var news = await newsService.Create(command.Title, command.Text, command.UserId, command.Image);
         return Ok(news);
     }
 
@@ -46,7 +46,7 @@ public class NewsController(INewsService newsService) : BaseAuthorizeController
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateNewsCommand command)
     {
-        var news = await newsService.Update(command.NewsId, command.Name, command.Text, command.UserId);
+        var news = await newsService.Update(command.NewsId, command.Title, command.Text, command.UserId, command.Image);
         return Ok(news);
     }
 

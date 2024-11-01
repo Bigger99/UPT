@@ -12,6 +12,7 @@ public class UserDto : IDto
     public string? PhoneNumber { get; protected set; } = default!;
     public string? City { get; protected set; } = default!;
     public Gender? Gender { get; protected set; } = default!;
+    public byte[]? Avatar { get; protected set; } = default!;
 
     static UserDto()
     {

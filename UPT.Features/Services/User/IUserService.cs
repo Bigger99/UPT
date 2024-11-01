@@ -8,5 +8,6 @@ public interface IUserService
     Task Delete(int id);
     Task<UserDto> Get(int id);
     Task SetEmailConfirmed(int id);
-    Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, Domain.Entities.City city, Gender gender, bool isNotificationEnable, bool isEmailNotificationEnable);
+    Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, Domain.Entities.City city, Gender gender, 
+        bool isNotificationEnable, bool isEmailNotificationEnable, byte[]? avatar);
 }

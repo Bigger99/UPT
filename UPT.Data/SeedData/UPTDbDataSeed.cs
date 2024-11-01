@@ -71,22 +71,22 @@ internal class UPTDbDataSeed
         var city = _dbContext.Cities.First();
 
         var client1 = new User($"{ClientName1}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        client1.EditUserData(ClientName1, "+79999999999", $"{ClientName1}@mail.ru", city, Gender.Male, true, true);
+        client1.EditUserData(ClientName1, "+79999999999", $"{ClientName1}@mail.ru", city, Gender.Male, true, true, null);
 
         var client2 = new User($"{ClientName2}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        client2.EditUserData(ClientName2, "+79999999999", $"{ClientName2}@mail.ru", city, Gender.Male, true, true);
+        client2.EditUserData(ClientName2, "+79999999999", $"{ClientName2}@mail.ru", city, Gender.Male, true, true, null);
 
         var client3 = new User($"{ClientName3}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        client3.EditUserData(ClientName3, "+79999999999", $"{ClientName3}@mail.ru", city, Gender.Male, true, true);
+        client3.EditUserData(ClientName3, "+79999999999", $"{ClientName3}@mail.ru", city, Gender.Male, true, true, null);
 
         var trainer1 = new User($"{TrainerName1}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        trainer1.EditUserData(TrainerName1, "+79999999999", $"{TrainerName1}@mail.ru", city, Gender.Male, true, true);
+        trainer1.EditUserData(TrainerName1, "+79999999999", $"{TrainerName1}@mail.ru", city, Gender.Male, true, true, null);
 
         var trainer2 = new User($"{TrainerName2}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        trainer2.EditUserData(TrainerName2, "+79999999999", $"{TrainerName2}@mail.ru", city, Gender.Male, true, true);
+        trainer2.EditUserData(TrainerName2, "+79999999999", $"{TrainerName2}@mail.ru", city, Gender.Male, true, true, null);
 
         var trainer3 = new User($"{TrainerName3}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");
-        trainer3.EditUserData(TrainerName3, "+79999999999", $"{TrainerName3}@mail.ru", city, Gender.Male, true, true);
+        trainer3.EditUserData(TrainerName3, "+79999999999", $"{TrainerName3}@mail.ru", city, Gender.Male, true, true, null);
 
         _dbContext.Users.AddRange([client1, client2, client3, trainer1, trainer2, trainer3]);
         _dbContext.SaveChanges();
@@ -258,9 +258,9 @@ internal class UPTDbDataSeed
 
         var news = new List<News>
         {
-            new ("NewsTitle1", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer1.User),
-            new ("NewsTitle2", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer2.User),
-            new ("NewsTitle3", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer3.User),
+            new ("NewsTitle1", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer1.User, null),
+            new ("NewsTitle2", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer2.User, null),
+            new ("NewsTitle3", DateTime.UtcNow, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", trainer3.User, null),
         };
 
         _dbContext.News.AddRange(news);

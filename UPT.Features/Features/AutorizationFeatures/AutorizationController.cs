@@ -21,12 +21,32 @@ public class AutorizationController(IAutorizationService autorizationService) : 
     }
 
     /// <summary>
+    /// Восстановить пароль
+    /// </summary>
+    [HttpPost]
+    public async Task<IActionResult> RestorePassword([FromBody] RestorePasswordCommand command)
+    {
+        await autorizationService.RestorePassword(command.EmailAddress);
+        return Ok();
+    }
+
+    /// <summary>
+    /// Изменить пароль
+    /// </summary>
+    [HttpPost]
+    public async Task<IActionResult> EditPassword([FromBody] EditPasswordCommand command)
+    {
+        await autorizationService.EditPassword(command.EmailAddress, command.OldPassword, command.NewPassword);
+        return Ok();
+    }
+
+    /// <summary>
     /// Авторизация
     /// </summary>
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] LoginRequest command)
     {
-        var token = await autorizationService.Login(command.EmailAddress, command.PasswordHash);
+        var token = await autorizationService.Login(command.EmailAddress, command.Password);
         return Ok(token);
     }
 }

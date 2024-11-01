@@ -20,14 +20,14 @@ public class UserService(UPTDbContext dbContext) : IUserService
     }
 
     public async Task<UserDto> Update(int id, string name, string phoneNumber, string emailAddress, Domain.Entities.City city,
-        Gender gender, bool isNotificationEnable, bool isEmailNotificationEnable)
+        Gender gender, bool isNotificationEnable, bool isEmailNotificationEnable, byte[]? avatar)
     {
         var user = await dbContext.Users
             .Include(x => x.City)
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
-        user.EditUserData(name, phoneNumber, emailAddress, city, gender, isNotificationEnable, isEmailNotificationEnable);
+        user.EditUserData(name, phoneNumber, emailAddress, city, gender, isNotificationEnable, isEmailNotificationEnable, avatar);
         await dbContext.SaveChangesAsync();
         return user.Adapt<UserDto>();
     }

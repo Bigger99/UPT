@@ -62,6 +62,7 @@ namespace UPT.Data.Migrations
                     is_notification_enable = table.Column<bool>(type: "boolean", nullable: false),
                     is_email_notification_enable = table.Column<bool>(type: "boolean", nullable: false),
                     is_email_confirmed = table.Column<bool>(type: "boolean", nullable: false),
+                    avatar = table.Column<byte[]>(type: "bytea", nullable: true),
                     is_deleted = table.Column<bool>(type: "boolean", nullable: false),
                     name = table.Column<string>(type: "text", nullable: true)
                 },
@@ -85,6 +86,7 @@ namespace UPT.Data.Migrations
                     edit_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     text = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
                     user_id = table.Column<int>(type: "integer", nullable: false),
+                    image = table.Column<byte[]>(type: "bytea", nullable: true),
                     name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>

@@ -14,5 +14,5 @@ public class UpdateUserCommand
     [Required] public Gender Gender { get; set; } = default!;
     [Required] public bool IsNotificationEnable { get; set; }
     [Required] public bool IsEmailNotificationEnable { get; set; }
-    [Required] public bool IsEmailConfirmed { get; set; }
+    public byte[]? Avatar { get; set; }
 }

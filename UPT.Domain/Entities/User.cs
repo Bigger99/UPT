@@ -22,6 +22,7 @@ public class User : HasNameBase
     public bool IsNotificationEnable { get; protected set; } = true;
     public bool IsEmailNotificationEnable { get; protected set; } = false;
     public bool IsEmailConfirmed { get; protected set; } = false;
+    public byte[]? Avatar { get; protected set; } = default!;
     public bool IsDeleted { get; protected set; } = false;
 
     public User(string email, string passwordHash)
@@ -30,7 +31,8 @@ public class User : HasNameBase
         PasswordHash = passwordHash;
     }
 
-    public void EditUserData(string name, string phoneNumber, string emailAddress, City city, Gender gender, bool isNotificationEnable, bool isEmailNotificationEnable)
+    public void EditUserData(string name, string phoneNumber, string emailAddress, City city, Gender gender, 
+        bool isNotificationEnable, bool isEmailNotificationEnable, byte[]? avatar)
     {
         Name = name;
         PhoneNumber = phoneNumber;
@@ -39,11 +41,17 @@ public class User : HasNameBase
         Gender = gender;
         IsNotificationEnable = isNotificationEnable;
         IsEmailNotificationEnable = isEmailNotificationEnable;
+        Avatar = avatar;
     }
 
     public void ConfirmeEmail()
     {
         IsEmailConfirmed = true;
+    }
+
+    public void EditPasswordHash(string passwordHash)
+    {
+        PasswordHash = passwordHash;
     }
 
     public void Delete()

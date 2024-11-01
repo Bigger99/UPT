@@ -31,19 +31,19 @@ public class NewsService(UPTDbContext dbContext) : INewsService
         return news.Select(x => x.Adapt<NewsDto>()).ToList();
     }
 
-    public async Task<NewsDto> Create(string name, string text, int userId)
+    public async Task<NewsDto> Create(string name, string text, int userId, byte[]? image)
     {
         var user = await dbContext.Users
             .FirstOrDefaultAsync(x => x.Id == userId) ?? throw new BackendException("User not found");
 
-        var news = new Domain.Entities.News(name, DateTime.UtcNow, text, user);
+        var news = new Domain.Entities.News(name, DateTime.UtcNow, text, user, image);
         await dbContext.News.AddAsync(news);
         await dbContext.SaveChangesAsync();
 
         return news.Adapt<NewsDto>();
     }
 
-    public async Task<NewsDto> Update(int newsId, string name, string text, int userId)
+    public async Task<NewsDto> Update(int newsId, string name, string text, int userId, byte[]? image)
     {
         var news = await dbContext.News
             .FirstOrDefaultAsync(x => x.Id == newsId) ?? throw new BackendException("News not found");
@@ -51,7 +51,7 @@ public class NewsService(UPTDbContext dbContext) : INewsService
         var user = await dbContext.Users
             .FirstOrDefaultAsync(x => x.Id == userId) ?? throw new BackendException("User not found");
 
-        news.UpdateNews(name, DateTime.UtcNow, text, user);
+        news.UpdateNews(name, DateTime.UtcNow, text, user, image);
         await dbContext.SaveChangesAsync();
 
         return news.Adapt<NewsDto>();

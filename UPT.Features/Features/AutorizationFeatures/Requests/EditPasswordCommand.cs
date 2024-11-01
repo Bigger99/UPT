@@ -2,11 +2,14 @@
 
 namespace UPT.Features.Features.AutorizationFeatures.Requests;
 
-public class LoginRequest
+public class EditPasswordCommand
 {
     [Required]
     public string EmailAddress { get; init; } = default!;
 
     [Required]
-    public string Password { get; init; } = default!;
+    public string OldPassword { get; init; } = default!;
+
+    [Required]
+    public string NewPassword { get; init; } = default!;
 }
