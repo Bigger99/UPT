@@ -35,7 +35,7 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     /// Получить клиента
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> GetFiltered([FromBody] PagedFilterQuery<ClientRequest> request)
+    public async Task<IActionResult> GetFiltered([FromBody] PagedFilterQuery<FilteredClientRequest> request)
     {
         var trainer = await clientService.GetFilteredClients(request);
         return Ok(trainer);
@@ -47,7 +47,7 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateClientCommand command)
     {
-        var trainer = await clientService.Create(command.UserId, command.TrainingPrograms, command.Height, command.Weight, command.VolumeBreast, command.VolumeWaist, command.VolumeAbdomen, command.VolumeButtock, command.VolumeHip);
+        var trainer = await clientService.Create(command.UserId, command.Height, command.Weight, command.VolumeBreast, command.VolumeWaist, command.VolumeAbdomen, command.VolumeButtock, command.VolumeHip);
         return Ok(trainer);
     }
 
@@ -57,7 +57,7 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateClientCommand command)
     {
-        var trainer = await clientService.Update(command.ClientId, command.TrainingPrograms, command.Height, command.Weight, command.VolumeBreast, command.VolumeWaist, command.VolumeAbdomen, command.VolumeButtock, command.VolumeHip);
+        var trainer = await clientService.Update(command.ClientId, command.Height, command.Weight, command.VolumeBreast, command.VolumeWaist, command.VolumeAbdomen, command.VolumeButtock, command.VolumeHip);
         return Ok(trainer);
     }
 

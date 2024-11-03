@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using UPT.Infrastructure.Enums;
 
 namespace UPT.Features.Features.ClientFeatures.Requests;
 
@@ -14,6 +13,4 @@ public class CreateClientCommand
     public double VolumeAbdomen { get; set; } = default!;
     public double VolumeButtock { get; set; } = default!;
     public double VolumeHip { get; set; } = default!;
-
-    [Required] public TrainingProgram TrainingPrograms { get; set; } = default!;
 }

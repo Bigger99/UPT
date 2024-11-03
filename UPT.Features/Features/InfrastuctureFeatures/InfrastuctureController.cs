@@ -44,4 +44,43 @@ public class InfrastuctureController : BaseAuthorizeController
 
         return Ok(dict);
     }
+
+    /// <summary>
+    /// Получить список дедлайнов
+    /// </summary>
+    [HttpGet]
+    public IActionResult GetDeadlines()
+    {
+        var dict = Enum.GetValues(typeof(Deadline))
+               .Cast<Deadline>()
+               .ToDictionary(t => (int)t, t => t.ToString());
+
+        return Ok(dict);
+    }
+
+    /// <summary>
+    /// Получить список дней недели
+    /// </summary>
+    [HttpGet]
+    public IActionResult GetDaysOfWeek()
+    {
+        var dict = Enum.GetValues(typeof(DayOfWeek))
+               .Cast<DayOfWeek>()
+               .ToDictionary(t => (int)t, t => t.ToString());
+
+        return Ok(dict);
+    }
+
+    /// <summary>
+    /// Получить список периодов времени в течении дня
+    /// </summary>
+    [HttpGet]
+    public IActionResult GetTimesOfDay()
+    {
+        var dict = Enum.GetValues(typeof(TimeOfDay))
+               .Cast<TimeOfDay>()
+               .ToDictionary(t => (int)t, t => t.ToString());
+
+        return Ok(dict);
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using Mapster;
 using UPT.Domain.Entities;
-using UPT.Features.Features.TrainerFeatures.Dto;
 using UPT.Features.Features.UserFeatures.Dto;
 using UPT.Infrastructure.Enums;
 using UPT.Infrastructure.Interfaces;
@@ -9,6 +8,7 @@ namespace UPT.Features.Features.ClientFeatures.Dto;
 
 public class ClientDto : IDto
 {
+    public int Id { get; protected set; } = default!;
     public UserDto User { get; protected set; } = default!;
     public int Height { get; protected set; } = default!;
     public double Weight { get; protected set; } = default!;

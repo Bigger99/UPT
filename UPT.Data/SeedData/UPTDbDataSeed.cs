@@ -45,6 +45,7 @@ internal class UPTDbDataSeed
             SetPaymentsSeed();
             SetNotificationSeed();
             SetNewsSeed();
+            SetGoalsSeed();
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();
@@ -155,17 +156,17 @@ internal class UPTDbDataSeed
         var trainer2 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == TrainerName2);
         var trainer3 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == TrainerName3);
 
-        var client1 = new Client(user1, TrainingProgram.CorrectionAndWeightLoss, height: 170, weight: 70,
+        var client1 = new Client(user1, height: 170, weight: 70,
                 volumeBreast: 10.0, volumeWaist: 20.0, volumeAbdomen: 30.0,
                 volumeButtock: 40.0, volumeHip: 50.0);
         client1.SetTrainer(trainer1);
 
-        var client2 = new Client(user2, TrainingProgram.MuscleGain, height: 170, weight: 70,
+        var client2 = new Client(user2, height: 170, weight: 70,
                 volumeBreast: 10.0, volumeWaist: 20.0, volumeAbdomen: 30.0,
                 volumeButtock: 40.0, volumeHip: 50.0);
         client2.SetTrainer(trainer2);
 
-        var client3 = new Client(user3, TrainingProgram.CompetitionsPreparation, height: 170, weight: 70,
+        var client3 = new Client(user3, height: 170, weight: 70,
             volumeBreast: 10.0, volumeWaist: 20.0, volumeAbdomen: 30.0,
             volumeButtock: 40.0, volumeHip: 50.0);
         client3.SetTrainer(trainer3);
@@ -264,6 +265,29 @@ internal class UPTDbDataSeed
         };
 
         _dbContext.News.AddRange(news);
+        _dbContext.SaveChanges();
+    }
+
+    private void SetGoalsSeed()
+    {
+        var client1 = _dbContext.Clients.Include(x => x.User).First(x => x.User.Name == ClientName1);
+        var client2 = _dbContext.Clients.Include(x => x.User).First(x => x.User.Name == ClientName2);
+        var client3 = _dbContext.Clients.Include(x => x.User).First(x => x.User.Name == ClientName3);
+        var trainer1 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == TrainerName1);
+        var trainer2 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == TrainerName2);
+        var trainer3 = _dbContext.Trainers.Include(x => x.User).First(x => x.User.Name == TrainerName3);
+
+        var goals = new List<Goal>
+        {
+            new (client1, TrainingProgram.CorrectionAndWeightLoss, 70.0, 65.0,
+                Deadline.Mounth3, [DayOfWeek.Monday, DayOfWeek.Wednesday, DayOfWeek.Friday], TimeOfDay.Evening, false),
+            new (client2, TrainingProgram.MuscleGain, 70.0, 75.0,
+                Deadline.Mounth6, [DayOfWeek.Tuesday, DayOfWeek.Thursday], TimeOfDay.Evening, false),
+            new (client3, TrainingProgram.CompetitionsPreparation, 70.0, 70.0,
+                Deadline.Mounth12, [DayOfWeek.Saturday, DayOfWeek.Sunday], TimeOfDay.Day, false),
+        };
+
+        _dbContext.Goals.AddRange(goals);
         _dbContext.SaveChanges();
     }
 }

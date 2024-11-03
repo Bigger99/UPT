@@ -11,7 +11,7 @@ public interface ITrainerService
     Task Delete(int id);
     Task<TrainerDto> Get(int id);
     Task<TrainerDto> GetByUserId(int userId);
-    Task<IEnumerable<TrainerDto>> GetFilteredTrainers(PagedFilterQuery<TrainerRequest> pagedFilter);
+    Task<IEnumerable<TrainerDto>> GetFilteredTrainers(PagedFilterQuery<FilteredTrainerRequest> pagedFilter);
     Task<TrainerDto> SetClients(int trainerId, List<int> clientsIds);
     Task<TrainerDto> DialogCountDecremen(int trainerId);
     Task<TrainerDto> Update(int id, int experience, bool medicGrade, bool workInjuries, bool workSportsmens, List<TrainingProgram> trainingProgram, int gymId, string? description);

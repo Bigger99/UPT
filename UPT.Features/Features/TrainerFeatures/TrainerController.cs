@@ -35,7 +35,7 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     /// Получить тренера
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> GetFiltered([FromBody] PagedFilterQuery<TrainerRequest> request)
+    public async Task<IActionResult> GetFiltered([FromBody] PagedFilterQuery<FilteredTrainerRequest> request)
     {
         var trainer = await trainerService.GetFilteredTrainers(request);
         return Ok(trainer);

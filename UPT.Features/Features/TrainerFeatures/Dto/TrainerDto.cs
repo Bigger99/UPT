@@ -8,6 +8,8 @@ namespace UPT.Features.Features.TrainerFeatures.Dto;
 
 public class TrainerDto : IDto
 {
+    public int Id { get; protected set; } = default!;
+
     public UserDto User { get; protected set; } = default!;
 
     /// <summary>

@@ -43,7 +43,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         return trainerDto;
     }
 
-    public async Task<IEnumerable<TrainerDto>> GetFilteredTrainers(PagedFilterQuery<TrainerRequest> pagedFilter)
+    public async Task<IEnumerable<TrainerDto>> GetFilteredTrainers(PagedFilterQuery<FilteredTrainerRequest> pagedFilter)
     {
         var request = pagedFilter.Request;
 

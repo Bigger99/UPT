@@ -3,7 +3,7 @@ using UPT.Infrastructure.Enums;
 
 namespace UPT.Features.Features.ClientFeatures.Requests;
 
-public class ClientRequest
+public class FilteredClientRequest
 {
     [Required] public TrainingProgram TrainingProgram { get; set; } = default!;
 }

@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241101183207_InitialCreate")]
+    [Migration("20241103201346_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -103,10 +103,6 @@ namespace UPT.Data.Migrations
                     b.Property<int>("TrainerId")
                         .HasColumnType("integer")
                         .HasColumnName("trainer_id");
-
-                    b.Property<int>("TrainingProgram")
-                        .HasColumnType("integer")
-                        .HasColumnName("training_program");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer")
@@ -211,6 +207,64 @@ namespace UPT.Data.Migrations
                         .HasDatabaseName("ix_feedbacks_trainer_id");
 
                     b.ToTable("feedbacks", (string)null);
+                });
+
+            modelBuilder.Entity("UPT.Domain.Entities.Goal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("integer")
+                        .HasColumnName("client_id");
+
+                    b.Property<double>("CurrentWeight")
+                        .HasColumnType("double precision")
+                        .HasColumnName("current_weight");
+
+                    b.Property<int[]>("DaysOfWeekForTraining")
+                        .IsRequired()
+                        .HasColumnType("integer[]")
+                        .HasColumnName("days_of_week_for_training");
+
+                    b.Property<int>("DeadlineForResult")
+                        .HasColumnType("integer")
+                        .HasColumnName("deadline_for_result");
+
+                    b.Property<double>("DesiredWeight")
+                        .HasColumnType("double precision")
+                        .HasColumnName("desired_weight");
+
+                    b.Property<bool>("HasInjuries")
+                        .HasColumnType("boolean")
+                        .HasColumnName("has_injuries");
+
+                    b.Property<int>("TimeForTraining")
+                        .HasColumnType("integer")
+                        .HasColumnName("time_for_training");
+
+                    b.Property<int?>("TrainerForGoalAchievementId")
+                        .HasColumnType("integer")
+                        .HasColumnName("trainer_for_goal_achievement_id");
+
+                    b.Property<int>("TrainingProgram")
+                        .HasColumnType("integer")
+                        .HasColumnName("training_program");
+
+                    b.HasKey("Id")
+                        .HasName("pk_goals");
+
+                    b.HasIndex("ClientId")
+                        .HasDatabaseName("ix_goals_client_id");
+
+                    b.HasIndex("TrainerForGoalAchievementId")
+                        .HasDatabaseName("ix_goals_trainer_for_goal_achievement_id");
+
+                    b.ToTable("goals", (string)null);
                 });
 
             modelBuilder.Entity("UPT.Domain.Entities.Gym", b =>
@@ -579,6 +633,25 @@ namespace UPT.Data.Migrations
                     b.Navigation("Creator");
 
                     b.Navigation("Trainer");
+                });
+
+            modelBuilder.Entity("UPT.Domain.Entities.Goal", b =>
+                {
+                    b.HasOne("UPT.Domain.Entities.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_goals_clients_client_id");
+
+                    b.HasOne("UPT.Domain.Entities.Trainer", "TrainerForGoalAchievement")
+                        .WithMany()
+                        .HasForeignKey("TrainerForGoalAchievementId")
+                        .HasConstraintName("fk_goals_trainers_trainer_for_goal_achievement_id");
+
+                    b.Navigation("Client");
+
+                    b.Navigation("TrainerForGoalAchievement");
                 });
 
             modelBuilder.Entity("UPT.Domain.Entities.Gym", b =>

@@ -1,5 +1,4 @@
 ﻿using UPT.Domain.Base;
-using UPT.Infrastructure.Enums;
 
 namespace UPT.Domain.Entities;
 
@@ -15,19 +14,13 @@ public class Client : HasIdBase
     public double VolumeHip { get; protected set; } = default!;
     public Trainer Trainer { get; protected set; } = default!;
 
-    /// <summary>
-    /// Программа тренировки выбранная клинтом
-    /// </summary>
-    public TrainingProgram TrainingProgram { get; protected set; } = default!;
-
     public bool IsDeleted { get; protected set; } = false;
 
-    public Client(User user, TrainingProgram trainingProgram, int height, double weight,
+    public Client(User user, int height, double weight,
     double volumeBreast, double volumeWaist, double volumeAbdomen,
     double volumeButtock, double volumeHip)
     {
         User = user;
-        TrainingProgram = trainingProgram;
         Height = height;
         Weight = weight;
         VolumeBreast = volumeBreast;
@@ -37,11 +30,10 @@ public class Client : HasIdBase
         VolumeHip = volumeHip;
     }
     
-    public void Update(TrainingProgram trainingProgram, int height, double weight,
+    public void Update(int height, double weight,
         double volumeBreast, double volumeWaist, double volumeAbdomen,
         double volumeButtock, double volumeHip)
     {
-        TrainingProgram = trainingProgram;
         Height = height;
         Weight = weight;
         VolumeBreast = volumeBreast;

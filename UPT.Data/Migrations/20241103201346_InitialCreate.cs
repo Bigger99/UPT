@@ -176,7 +176,6 @@ namespace UPT.Data.Migrations
                     volume_buttock = table.Column<double>(type: "double precision", nullable: false),
                     volume_hip = table.Column<double>(type: "double precision", nullable: false),
                     trainer_id = table.Column<int>(type: "integer", nullable: false),
-                    training_program = table.Column<int>(type: "integer", nullable: false),
                     is_deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -278,6 +277,38 @@ namespace UPT.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "goals",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    client_id = table.Column<int>(type: "integer", nullable: false),
+                    trainer_for_goal_achievement_id = table.Column<int>(type: "integer", nullable: true),
+                    training_program = table.Column<int>(type: "integer", nullable: false),
+                    current_weight = table.Column<double>(type: "double precision", nullable: false),
+                    desired_weight = table.Column<double>(type: "double precision", nullable: false),
+                    deadline_for_result = table.Column<int>(type: "integer", nullable: false),
+                    days_of_week_for_training = table.Column<int[]>(type: "integer[]", nullable: false),
+                    time_for_training = table.Column<int>(type: "integer", nullable: false),
+                    has_injuries = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_goals", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_goals_clients_client_id",
+                        column: x => x.client_id,
+                        principalTable: "clients",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_goals_trainers_trainer_for_goal_achievement_id",
+                        column: x => x.trainer_for_goal_achievement_id,
+                        principalTable: "trainers",
+                        principalColumn: "id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "ix_chats_client_id",
                 table: "chats",
@@ -312,6 +343,16 @@ namespace UPT.Data.Migrations
                 name: "ix_feedbacks_trainer_id",
                 table: "feedbacks",
                 column: "trainer_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_goals_client_id",
+                table: "goals",
+                column: "client_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_goals_trainer_for_goal_achievement_id",
+                table: "goals",
+                column: "trainer_for_goal_achievement_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_gyms_city_id",
@@ -390,6 +431,9 @@ namespace UPT.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "feedbacks");
+
+            migrationBuilder.DropTable(
+                name: "goals");
 
             migrationBuilder.DropTable(
                 name: "news");
