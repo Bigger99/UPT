@@ -144,12 +144,7 @@ internal static class Settings
             options.Conventions.Add(new RouteTokenTransformerConvention(new SlugifyParameterTransformer()));
         });
 
-        builder.Services.AddCors(o => o.AddPolicy("UPT_Cors", builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
-        }));
+        builder.Services.AddCors();
 
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
@@ -237,7 +232,12 @@ internal static class Settings
     {
         app.UseMiddleware<ExceptionMiddleware>();
         app.MapControllers();
-        app.UseCors("UPT_Cors");
+        app.UseCors(builder => builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .SetIsOriginAllowed((host) => true)
+                .AllowCredentials()
+            );
 
         return app;
     }
