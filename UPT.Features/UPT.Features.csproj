@@ -25,6 +25,7 @@
 
 		<ItemGroup>
 				<ProjectReference Include="..\UPT.Data\UPT.Data.csproj" />
+				<ProjectReference Include="..\UPT.SignalR\UPT.SignalR.csproj" />
 		</ItemGroup>
 
 		<ItemGroup>

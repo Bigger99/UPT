@@ -1,4 +1,5 @@
 using UPT;
+using UPT.SignalR.Hubs;
 
 var builder = WebApplication
     .CreateBuilder(args)
@@ -9,7 +10,8 @@ var builder = WebApplication
     .AddControllersAndSwagger()
     .AddMapsterConfig()
     .AddServices()
-    .AddHealthChecks();
+    .AddHealthChecks()
+    .AddSignalR();
 
 var app = builder.Build();
 app
@@ -17,6 +19,7 @@ app
     .UseControllers()
     .UseSwaggerAndSwaggerUI()
     .ApplyMigrations()
-    .MapHealthChecks();
+    .MapHealthChecks()
+    .MapHub<ChatHub>("/chat");
 
 app.Run();

@@ -245,6 +245,12 @@ internal static class Settings
     {
         builder.Services.AddHealthChecks();
         return builder;
+    }    
+    
+    public static WebApplicationBuilder AddSignalR(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddSignalR();
+        return builder;
     }
 
     public static WebApplication MapHealthChecks(this WebApplication app)
