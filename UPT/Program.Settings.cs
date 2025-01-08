@@ -42,6 +42,8 @@ internal static class Settings
 
     public static WebApplicationBuilder AddDatabase(this WebApplicationBuilder builder)
     {
+        builder.Services.AddMemoryCache();
+
         builder.Services.AddDbContext<UPTDbContext>(opt =>
         {
             opt.UseNpgsql(
