@@ -8,7 +8,7 @@ using UPT.SignalR.Models;
 
 namespace UPT.SignalR.Hubs;
 
-public class ChatHub(IMemoryCache cache, Logger<ChatHub> logger) : Hub<IChatClient>
+public class ChatHub(IMemoryCache cache, ILogger<ChatHub> logger) : Hub<IChatClient>
 {
     public async Task JoinChat(UserConnection connection)
     {
