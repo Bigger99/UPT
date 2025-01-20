@@ -56,7 +56,7 @@ public class AutorizationController(IAutorizationService autorizationService) : 
     [HttpPost]
     public async Task<IActionResult> RefreshAccessToken([FromBody] RefreshAccessTokenRequest command)
     {
-        var token = await autorizationService.RefreshAccessToken(command.AccessToken);
+        var token = await autorizationService.RefreshAccessToken(command.RefreshToken);
         return Ok(token);
     }
 }

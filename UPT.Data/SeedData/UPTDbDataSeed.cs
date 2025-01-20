@@ -58,7 +58,7 @@ internal class UPTDbDataSeed
         var novosibirsk = new City("Новосибирск");
         var yekaterinburg = new City("Екатеринбург");
 
-        _dbContext.Cities.AddRange(new[] { moscow, saintPetersburg, kazan, novosibirsk, yekaterinburg });
+        _dbContext.Cities.AddRange([moscow, saintPetersburg, kazan, novosibirsk, yekaterinburg]);
         _dbContext.SaveChanges();
     }
 
