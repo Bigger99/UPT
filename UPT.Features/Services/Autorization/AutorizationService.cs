@@ -1,5 +1,4 @@
-﻿using FluentEmail.Core;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using UPT.Data;
 using UPT.Infrastructure.Email;
 using UPT.Infrastructure.Email.Service;
@@ -26,7 +25,7 @@ public class AutorizationService(
         await emailService.Send(emailMetadata);
     }
 
-    public async Task<string> Login(string email, string password)
+    public async Task<TokensModel> Login(string email, string password)
     {
         var existedUser = await dbContext.Users.FirstOrDefaultAsync(x => x.EmailAddress == email)
             ?? throw new BackendException("User not found");
@@ -38,8 +37,14 @@ public class AutorizationService(
             throw new BackendException("Password is not correct");
         }
 
-        var token = jwtProvider.GenerateToken(existedUser.Id);
-        return token;
+        var tokens = jwtProvider.GenerateTokens(existedUser.Id);
+        return tokens;
+    }    
+    
+    public Task<string> RefreshAccessToken(string refreshToken)
+    {
+        var token = jwtProvider.RefreshAccessToken(refreshToken);
+        return Task.FromResult(token);
     }
 
     public async Task EditPassword(string email, string oldPassword, string newPassword)

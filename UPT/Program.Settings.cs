@@ -108,7 +108,7 @@ internal static class Settings
     
     public static WebApplicationBuilder AddServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<IJwtProvider, JwtProvider>();
+        builder.Services.AddSingleton<IJwtProvider, JwtProvider>();
         builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
         builder.Services.AddScoped<IAutorizationService, AutorizationService>();
         builder.Services.AddScoped<IUserService, UserService>();

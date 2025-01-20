@@ -28,8 +28,4 @@
 				<ProjectReference Include="..\UPT.SignalR\UPT.SignalR.csproj" />
 		</ItemGroup>
 
-		<ItemGroup>
-		  <Folder Include="Features\AutorizationFeatures\Models\" />
-		</ItemGroup>
-
 </Project>

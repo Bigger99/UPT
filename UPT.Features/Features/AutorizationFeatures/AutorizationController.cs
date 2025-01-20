@@ -49,4 +49,14 @@ public class AutorizationController(IAutorizationService autorizationService) : 
         var token = await autorizationService.Login(command.EmailAddress, command.Password);
         return Ok(token);
     }
+
+    /// <summary>
+    /// Обновление access токена на основе refresh токена
+    /// </summary>
+    [HttpPost]
+    public async Task<IActionResult> RefreshAccessToken([FromBody] RefreshAccessTokenRequest command)
+    {
+        var token = await autorizationService.RefreshAccessToken(command.AccessToken);
+        return Ok(token);
+    }
 }

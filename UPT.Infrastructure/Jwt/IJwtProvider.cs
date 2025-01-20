@@ -2,5 +2,6 @@
 
 public interface IJwtProvider
 {
-    string GenerateToken(int userId);
+    TokensModel GenerateTokens(int userId);
+    string RefreshAccessToken(string refreshToken);
 }
