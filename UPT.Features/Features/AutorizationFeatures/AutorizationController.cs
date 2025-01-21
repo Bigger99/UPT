@@ -16,7 +16,7 @@ public class AutorizationController(IAutorizationService autorizationService) : 
     [HttpPost]
     public async Task<IActionResult> Register([FromBody] RegisterCommand command)
     {
-        await autorizationService.Register(command.EmailAddress, command.PasswordHash);
+        await autorizationService.Register(command.EmailAddress, command.Password);
         return Ok();
     }
 

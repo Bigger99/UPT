@@ -8,5 +8,5 @@ public class RegisterCommand
     public string EmailAddress { get; init; } = default!;
 
     [Required]
-    public string PasswordHash { get; init; } = default!;
+    public string Password { get; init; } = default!;
 }
