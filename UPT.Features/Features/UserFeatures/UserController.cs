@@ -22,7 +22,7 @@ public class UserController(IUserService userService) : BaseAuthorizeController
     }
 
     /// <summary>
-    /// Получить пользователя
+    /// Получить пользователя по email
     /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetByEmail([FromQuery] GetByEmailQuery query)
