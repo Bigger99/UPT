@@ -14,9 +14,9 @@ public class News : HasNameBase
 
     public User User { get; protected set; } = default!;
 
-    public byte[]? Image { get; protected set; } = default!;
+    public string? Image { get; protected set; } = default!;
 
-    public News(string name, DateTime creationDate, string text, User user, byte[]? image)
+    public News(string name, DateTime creationDate, string text, User user, string? image)
     {
         Name = name;
         CreationDate = creationDate;
@@ -25,7 +25,7 @@ public class News : HasNameBase
         Image = image;
     }
 
-    public void UpdateNews(string name, DateTime editDate, string text, User user, byte[]? image)
+    public void UpdateNews(string name, DateTime editDate, string text, User user, string? image)
     {
         EditDate = editDate;
         Name = name;

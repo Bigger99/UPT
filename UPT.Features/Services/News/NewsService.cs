@@ -31,7 +31,7 @@ public class NewsService(UPTDbContext dbContext) : INewsService
         return news.Select(x => x.Adapt<NewsDto>()).ToList();
     }
 
-    public async Task<NewsDto> Create(string name, string text, int userId, byte[]? image)
+    public async Task<NewsDto> Create(string name, string text, int userId, string? image)
     {
         var user = await dbContext.Users
             .FirstOrDefaultAsync(x => x.Id == userId) ?? throw new BackendException("User not found");
@@ -43,7 +43,7 @@ public class NewsService(UPTDbContext dbContext) : INewsService
         return news.Adapt<NewsDto>();
     }
 
-    public async Task<NewsDto> Update(int newsId, string name, string text, int userId, byte[]? image)
+    public async Task<NewsDto> Update(int newsId, string name, string text, int userId, string? image)
     {
         var news = await dbContext.News
             .FirstOrDefaultAsync(x => x.Id == newsId) ?? throw new BackendException("News not found");

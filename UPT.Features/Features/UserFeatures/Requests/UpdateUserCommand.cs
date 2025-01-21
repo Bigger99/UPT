@@ -10,9 +10,9 @@ public class UpdateUserCommand
     [Required] public string Name { get; set; } = default!;
     [Required] public string PhoneNumber { get; set; } = default!;
     [Required] public string EmailAddress { get; set; } = default!;
-    [Required] public City City { get; set; } = default!;
+    [Required] public int CityId { get; set; } = default!;
     [Required] public Gender Gender { get; set; } = default!;
     [Required] public bool IsNotificationEnable { get; set; }
     [Required] public bool IsEmailNotificationEnable { get; set; }
-    public byte[]? Avatar { get; set; }
+    public string? Avatar { get; set; } = default!;
 }

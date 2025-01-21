@@ -16,6 +16,18 @@ public class AutorizationService(
 {
     public async Task Register(string email, string password)
     {
+        var emailAddressLower = email.ToLower();
+
+        var existedUser = await dbContext.Users
+            .Include(x => x.City)
+            .Where(x => !x.IsDeleted)
+            .FirstOrDefaultAsync(x => x.EmailAddress.ToLower() == emailAddressLower);
+
+        if (existedUser is not null)
+        {
+            throw new BackendException("User with current email already existed");
+        }
+
         var hashedPassword = passwordHasher.Generate(password);
         var user = new Domain.Entities.User(email, hashedPassword);
         await dbContext.Users.AddAsync(user);

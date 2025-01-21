@@ -22,7 +22,7 @@ public class User : HasNameBase
     public bool IsNotificationEnable { get; protected set; } = true;
     public bool IsEmailNotificationEnable { get; protected set; } = false;
     public bool IsEmailConfirmed { get; protected set; } = false;
-    public byte[]? Avatar { get; protected set; } = default!;
+    public string? Avatar { get; protected set; } = default!;
     public bool IsDeleted { get; protected set; } = false;
 
     public User(string email, string passwordHash)
@@ -32,7 +32,7 @@ public class User : HasNameBase
     }
 
     public void EditUserData(string name, string phoneNumber, string emailAddress, City city, Gender gender, 
-        bool isNotificationEnable, bool isEmailNotificationEnable, byte[]? avatar)
+        bool isNotificationEnable, bool isEmailNotificationEnable, string? avatar)
     {
         Name = name;
         PhoneNumber = phoneNumber;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Mail;
 using UPT.Features.Base;
 using UPT.Features.Features.UserFeatures.Requests;
 using UPT.Features.Services.User;
@@ -21,12 +22,22 @@ public class UserController(IUserService userService) : BaseAuthorizeController
     }
 
     /// <summary>
+    /// Получить пользователя
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetByEmail([FromQuery] GetByEmailQuery query)
+    {
+        var user = await userService.GetByEmail(query.EmailAddress);
+        return Ok(user);
+    }
+
+    /// <summary>
     /// Изменить пользователя
     /// </summary>
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateUserCommand command)
     {
-        var user = await userService.Update(command.Id, command.Name, command.PhoneNumber, command.EmailAddress, command.City, 
+        var user = await userService.Update(command.Id, command.Name, command.PhoneNumber, command.EmailAddress, command.CityId, 
             command.Gender, command.IsNotificationEnable, command.IsEmailNotificationEnable, command.Avatar);
         return Ok(user);
     }

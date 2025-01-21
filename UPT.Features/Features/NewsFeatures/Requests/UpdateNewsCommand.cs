@@ -18,5 +18,5 @@ public class UpdateNewsCommand
     [MaxLength(255)]
     public string Text { get; set; } = default!;
 
-    public byte[]? Image { get; set; } = default!;
+    public string? Image { get; set; } = default!;
 }

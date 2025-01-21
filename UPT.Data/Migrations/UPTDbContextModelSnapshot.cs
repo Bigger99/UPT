@@ -320,8 +320,8 @@ namespace UPT.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("edit_date");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("bytea")
+                    b.Property<string>("Image")
+                        .HasColumnType("text")
                         .HasColumnName("image");
 
                     b.Property<string>("Name")
@@ -502,8 +502,8 @@ namespace UPT.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("Avatar")
-                        .HasColumnType("bytea")
+                    b.Property<string>("Avatar")
+                        .HasColumnType("text")
                         .HasColumnName("avatar");
 
                     b.Property<int?>("CityId")

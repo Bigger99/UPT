@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20241103201346_InitialCreate")]
+    [Migration("20250121105723_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -323,8 +323,8 @@ namespace UPT.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("edit_date");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("bytea")
+                    b.Property<string>("Image")
+                        .HasColumnType("text")
                         .HasColumnName("image");
 
                     b.Property<string>("Name")
@@ -505,8 +505,8 @@ namespace UPT.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("Avatar")
-                        .HasColumnType("bytea")
+                    b.Property<string>("Avatar")
+                        .HasColumnType("text")
                         .HasColumnName("avatar");
 
                     b.Property<int?>("CityId")
