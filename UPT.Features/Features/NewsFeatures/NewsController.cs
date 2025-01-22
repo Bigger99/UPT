@@ -54,9 +54,9 @@ public class NewsController(INewsService newsService) : BaseAuthorizeController
     /// Удалить новость
     /// </summary>
     [HttpDelete]
-    public async Task<IActionResult> Delete([FromQuery] int notificationId)
+    public async Task<IActionResult> Delete([FromQuery] int newsId)
     {
-        await newsService.Delete(notificationId);
+        await newsService.Delete(newsId);
         return Ok();
     }
 }

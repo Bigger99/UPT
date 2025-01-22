@@ -3,9 +3,9 @@
 namespace UPT.Features.Base;
 
 /// <summary>
-/// BaseAuthorizeControllery
+/// BaseAuthorizeController
 /// </summary>
-//[Authorize]
+[Authorize]
 public class BaseAuthorizeController : BaseController
 {
 }

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using UPT;
 using UPT.SignalR.Hubs;
 
@@ -23,3 +24,11 @@ app
     .MapHub<ChatHub>("/chat");
 
 app.Run();
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+public partial class Program
+{
+    [ExcludeFromCodeCoverage]
+    protected Program() { }
+}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

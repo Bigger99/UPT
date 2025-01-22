@@ -262,4 +262,8 @@ internal static class Settings
         app.MapHealthChecks("/healthz");
         return app;
     }
+
+    private static readonly bool IsRunningFromNUnit =
+    AppDomain.CurrentDomain.GetAssemblies().Any(
+        a => a.FullName!.ToLowerInvariant().StartsWith("nunit.framework"));
 }

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using UPT.Domain.Entities;
 using UPT.Infrastructure.Enums;
 
 namespace UPT.Features.Features.UserFeatures.Requests;
