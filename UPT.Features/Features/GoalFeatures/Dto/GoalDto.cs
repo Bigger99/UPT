@@ -15,7 +15,7 @@ public class GoalDto : IDto
 
     public TrainerDto? TrainerForGoalAchievement { get; protected set; } = default!;
 
-    public TrainingProgram TrainingProgram { get; protected set; } = default!;
+    public TrainingProgram GoalTrainingProgram { get; protected set; } = default!;
 
     public double CurrentWeight { get; protected set; } = default!;
 

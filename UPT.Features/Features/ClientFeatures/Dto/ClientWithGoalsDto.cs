@@ -19,11 +19,6 @@ public class ClientWithGoalsDto : IDto
     public double VolumeHip { get; protected set; } = default!;
     public int TrainerId { get; protected set; } = default!;
 
-    /// <summary>
-    /// Программа тренировки выбранная клинтом
-    /// </summary>
-    public TrainingProgram TrainingProgram { get; protected set; } = default!;
-
     public List<SubGoalDto>? Goals { get; set; } = default!;
 
     static ClientWithGoalsDto()

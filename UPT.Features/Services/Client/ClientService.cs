@@ -46,7 +46,7 @@ public class ClientService(UPTDbContext dbContext) : IClientService
                 .ThenInclude(x => x.User)
                     .ThenInclude(x => x.City)
             .Where(x => !x.Client.User.IsDeleted)
-            .Where(x => x.TrainingProgram == request.TrainingProgram)
+            .Where(x => x.TrainingProgram == request.GoalTrainingProgram)
             .Where(x => x.TrainerForGoalAchievement == null);
 
         if (!string.IsNullOrEmpty(pagedFilter.Search))

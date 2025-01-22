@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using UPT.Domain.Entities;
 using UPT.Infrastructure.Enums;
 
@@ -7,6 +8,7 @@ namespace UPT.Data.SeedData;
 internal class UPTDbDataSeed
 {
     private readonly UPTDbContext _dbContext;
+    private const string TrainerStartMail = "trainer";
 
     private UPTDbDataSeed(UPTDbContext dbContext)
     {
@@ -88,37 +90,52 @@ internal class UPTDbDataSeed
         client5.EditUserData("Васильев Алексей", "+79999999999", "vasiliev@mail.ru", cities[4], Gender.Male, true, true, null);
         clients.Add(client5);
 
+        for (int i = 0; i < 20; i++)
+        {
+            var cityIndex = i % cities.Count; // Rotate through cities
+            var gender = i % 2 == 0 ? Gender.Male : Gender.Female;
+            var firstName = gender == Gender.Male ? $"Иван{i}" : $"Анна{i}";
+            var lastName = gender == Gender.Male ? $"Смирнов" : $"Кузнецова";
+            var patronymic = gender == Gender.Male ? $"Алексеевич" : $"Ивановна";
+            var client = new User($"{TrainerStartMail}{i}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
+
+            client.EditUserData($"{lastName} {firstName} {patronymic}", $"+79999999{i:D3}", $"client{i}@mail.ru", cities[cityIndex], gender, true, true, null);
+            clients.Add(client);
+        }
+
         var trainers = new List<User>();
 
-        var trainer1 = new User("trainer1@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
+        var trainer1 = new User($"{TrainerStartMail}1@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
         trainer1.EditUserData("Кузнецов Андрей", "+79999999999", "trainer1@mail.ru", cities[0], Gender.Male, true, true, null);
         trainers.Add(trainer1);
 
-        var trainer2 = new User("trainer2@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
+        var trainer2 = new User($"{TrainerStartMail}2@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
         trainer2.EditUserData("Лебедева Наталья", "+79999999999", "trainer2@mail.ru", cities[1], Gender.Female, true, true, null);
         trainers.Add(trainer2);
 
-        var trainer3 = new User("trainer3@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
+        var trainer3 = new User($"{TrainerStartMail}3@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
         trainer3.EditUserData("Попов Дмитрий", "+79999999999", "trainer3@mail.ru", cities[2], Gender.Male, true, true, null);
         trainers.Add(trainer3);
 
-        var trainer4 = new User("trainer4@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
+        var trainer4 = new User($"{TrainerStartMail}4@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
         trainer4.EditUserData("Новикова Елена", "+79999999999", "trainer4@mail.ru", cities[3], Gender.Female, true, true, null);
         trainers.Add(trainer4);
 
-        var trainer5 = new User("trainer5@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
+        var trainer5 = new User($"{TrainerStartMail}5@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
         trainer5.EditUserData("Зайцев Михаил", "+79999999999", "trainer5@mail.ru", cities[4], Gender.Male, true, true, null);
         trainers.Add(trainer5);
 
-        for (int i = 21; i <= 40; i++)
+        for (int i = 0; i < 20; i++)
         {
-            var newClient = new User($"client{i}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
-            newClient.EditUserData($"Клиент{i} Клиентович", $"+79999999{i:D3}", $"client{i}@mail.ru", cities[i % 5], Gender.Male, true, true, null);
-            clients.Add(newClient);
+            var cityIndex = i % cities.Count; // Rotate through cities
+            var gender = i % 2 == 0 ? Gender.Male : Gender.Female;
+            var firstName = gender == Gender.Male ? $"Иван{i}" : $"Анна{i}";
+            var lastName = gender == Gender.Male ? $"Смирнов" : $"Кузнецова";
+            var patronymic = gender == Gender.Male ? $"Алексеевич" : $"Ивановна";
+            var trainer = new User($"{TrainerStartMail}{i}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
 
-            var newTrainer = new User($"trainer{i}@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
-            newTrainer.EditUserData($"Тренер{i} Тренеров", $"+79999988{i:D3}", $"trainer{i}@mail.ru", cities[i % 5], Gender.Male, true, true, null);
-            trainers.Add(newTrainer);
+            trainer.EditUserData($"{lastName} {firstName} {patronymic}", $"+79999999{i:D3}", $"trainer{i}@mail.ru", cities[cityIndex], gender, true, true, null);
+            trainers.Add(trainer);
         }
 
         _dbContext.Users.AddRange(clients);
@@ -140,10 +157,31 @@ internal class UPTDbDataSeed
             { "Екатеринбург", new[] { "56.8389, 60.6057", "56.8411, 60.6088", "56.8433, 60.6110", "56.8455, 60.6132", "56.8477, 60.6154" } }
         };
 
+        const string GoldGym = nameof(GoldGym);
+        const string DDX = nameof(DDX);
+        const string Spirit = nameof(Spirit);
+        const string FijiSportClub = nameof(FijiSportClub);
+        const string WorldClass = nameof(WorldClass);
+
+        var gymNames = new string[] { GoldGym, DDX, Spirit, FijiSportClub, WorldClass };
+
         foreach (var city in cities)
         {
-            var locations = gymLocations[city.Name];
-            var gyms = locations.Select((location, index) => new Gym($"{city.Name}_Зал{index + 1}", new TimeOnly(6, 0), new TimeOnly(22, 0), city, location));
+            var locations = gymLocations[city.Name!];
+            var i = 0;
+            var gyms = new List<Gym>();
+
+            foreach (var location in locations)
+            {
+                if (i > gymNames.Length - 1)
+                {
+                    i = 0;
+                }
+
+                var gym = new Gym(gymNames[i], new TimeOnly(6, 0), new TimeOnly(22, 0), city, location);
+                gyms.Add(gym);
+            }
+
             _dbContext.Gyms.AddRange(gyms);
         }
 
@@ -152,37 +190,43 @@ internal class UPTDbDataSeed
 
     private void SetTrainersSeed()
     {
-        var trainers = _dbContext.Users.Where(x => x.Name.StartsWith("Тренер")).ToList();
-        var gyms = _dbContext.Gyms.ToList();
+        var userTrainers = _dbContext.Users.Where(x => x.EmailAddress!.StartsWith(TrainerStartMail)).ToList();
+        var gyms = _dbContext.Gyms.Include(x => x.City).ToList();
+        var trainers = new List<Trainer>();
 
-        var trainerEntities = gyms.SelectMany(gym => trainers.Take(3).Select(trainer =>
-            new Trainer(trainer, new Random().Next(3, 10), true, true, true,
-                [
-                    TrainingProgram.CorrectionAndWeightLoss,
-                    TrainingProgram.MuscleGain,
-                    TrainingProgram.CompetitionsPreparation
-                ],
-                gym, "Высококвалифицированный тренер."))).ToList();
+        for (int i = 0; i < userTrainers.Count; i++)
+        {
+            var gym = gyms[i];
+            var trainer = new Trainer(userTrainers[i], new Random().Next(3, 10), true, true, true,
+                GetRandomUniqueEnumValues<TrainingProgram>(3).ToList(),
+                gym, "Высококвалифицированный тренер.");
 
-        _dbContext.Trainers.AddRange(trainerEntities);
+            trainers.Add(trainer);
+        }
+
+        _dbContext.Trainers.AddRange(trainers);
         _dbContext.SaveChanges();
     }
 
     private void SetClientsSeed()
     {
-        var clients = _dbContext.Users.Where(x => x.Name.StartsWith("Клиент")).ToList();
+        var userClients = _dbContext.Users.Where(x => !x.EmailAddress!.StartsWith(TrainerStartMail)).ToList();
         var trainers = _dbContext.Trainers.ToList();
 
-        var clientEntities = trainers.SelectMany(trainer => clients.Take(new Random().Next(1, 4)).Select(client =>
+        var clients = new List<Client>();
+
+        for (int i = 0; i < userClients.Count; i++)
         {
-            var newClient = new Client(client, height: 170 + new Random().Next(0, 10), weight: 70 + new Random().Next(0, 10),
+            var trainer = trainers[i];
+            var client = new Client(userClients[i], height: 170 + new Random().Next(0, 10), weight: 70 + new Random().Next(0, 10),
                 volumeBreast: 90.0 + new Random().Next(0, 5), volumeWaist: 60.0 + new Random().Next(0, 5),
                 volumeAbdomen: 70.0 + new Random().Next(0, 5), volumeButtock: 100.0 + new Random().Next(0, 5), volumeHip: 90.0 + new Random().Next(0, 5));
-            newClient.SetTrainer(trainer);
-            return newClient;
-        })).ToList();
+            client.SetTrainer(trainer);
 
-        _dbContext.Clients.AddRange(clientEntities);
+            clients.Add(client);
+        }
+
+        _dbContext.Clients.AddRange(clients);
         _dbContext.SaveChanges();
     }
 
@@ -203,7 +247,7 @@ internal class UPTDbDataSeed
         var trainers = _dbContext.Trainers.Include(t => t.User).ToList();
 
         var feedbacks = clients.Select((client, index) => new Feedback(
-            DateTime.UtcNow.AddDays(-index), 4.0 + (index % 2 == 0 ? -0.5 : 0.5), "Great trainer!", client, trainers[index % trainers.Count])).ToList();
+            DateTime.UtcNow.AddDays(-index), 4.0 + (index % 2 == 0 ? -0.5 : 0.5), "Отличный тренер!", client, trainers[index % trainers.Count])).ToList();
 
         _dbContext.Feedbacks.AddRange(feedbacks);
         _dbContext.SaveChanges();
@@ -214,7 +258,7 @@ internal class UPTDbDataSeed
         var trainers = _dbContext.Trainers.Include(t => t.User).ToList();
 
         var payments = trainers.Select((trainer, index) => new Payment(
-            trainer.User, DateTime.UtcNow.AddMonths(-index), "Pro Membership", 1000.0m + index * 500)).ToList();
+            trainer.User, DateTime.UtcNow.AddMonths(-index), "Pro", 1000.0m + index * 500)).ToList();
 
         _dbContext.Payments.AddRange(payments);
         _dbContext.SaveChanges();
@@ -225,7 +269,7 @@ internal class UPTDbDataSeed
         var trainers = _dbContext.Trainers.Include(t => t.User).ToList();
 
         var notifications = trainers.Select((trainer, index) => new Notification(
-            $"Session Reminder {index}", DateTime.UtcNow.AddDays(-index), "You have a session scheduled tomorrow.", trainer.User)).ToList();
+            $"Ваша подписка офрмлена", DateTime.UtcNow.AddDays(-index), "Подписка активна.", trainer.User)).ToList();
 
         _dbContext.Notifications.AddRange(notifications);
         _dbContext.SaveChanges();
@@ -236,7 +280,7 @@ internal class UPTDbDataSeed
         var trainers = _dbContext.Trainers.Include(t => t.User).ToList();
 
         var news = trainers.Select((trainer, index) => new News(
-            $"Fitness Update {index}", DateTime.UtcNow.AddDays(-index), "Check out our new fitness programs!", trainer.User, null)).ToList();
+            $"Забег в парке {index}", DateTime.UtcNow.AddDays(-index), "Забег в парке, ждём всех желающих", trainer.User, null)).ToList();
 
         _dbContext.News.AddRange(news);
         _dbContext.SaveChanges();
@@ -245,12 +289,40 @@ internal class UPTDbDataSeed
     private void SetGoalsSeed()
     {
         var clients = _dbContext.Clients.Include(c => c.User).ToList();
+        var trainers = _dbContext.Trainers.Include(c => c.User).ToList();
+        var trainingProgramCount = Enum.GetValues<TrainingProgram>().Length;
 
-        var goals = clients.Select((client, index) => new Goal(
-            client, TrainingProgram.MuscleGain, 70 + index, 75 + index,
-            Deadline.Mounth6, [DayOfWeek.Monday, DayOfWeek.Wednesday, DayOfWeek.Friday], TimeOfDay.Evening, false)).ToList();
+        var goals = clients.Select((client, index) =>
+        {
+            var goal = new Goal(
+            client, GetRandomEnumValue<TrainingProgram>(), 70 + index, 75 + index,
+            GetRandomEnumValue<Deadline>(), GetRandomUniqueEnumValues<DayOfWeek>(3).ToList(), TimeOfDay.Evening, false);
+
+            if (index % 2 == 0)
+            {
+                goal.SetTrainer(trainers[index]);
+            }
+
+            return goal;
+        }).ToList();
 
         _dbContext.Goals.AddRange(goals);
         _dbContext.SaveChanges();
     }
+
+    #region Helpers
+
+    public static T GetRandomEnumValue<T>() where T : Enum
+    {
+        var values = Enum.GetValues(typeof(T));
+        return (T)values.GetValue(new Random().Next(values.Length))!;
+    }
+
+    public static IEnumerable<T> GetRandomUniqueEnumValues<T>(int count) where T : Enum
+    {
+        var values = Enum.GetValues(typeof(T)).Cast<T>().OrderBy(_ => Guid.NewGuid()).Take(count);
+        return values;
+    }
+
+    #endregion
 }

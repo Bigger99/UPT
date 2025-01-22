@@ -5,5 +5,5 @@ namespace UPT.Features.Features.ClientFeatures.Requests;
 
 public class FilteredClientRequest
 {
-    [Required] public TrainingProgram TrainingProgram { get; set; } = default!;
+    [Required] public TrainingProgram GoalTrainingProgram { get; set; } = default!;
 }
