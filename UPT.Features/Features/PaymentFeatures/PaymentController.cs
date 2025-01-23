@@ -2,7 +2,6 @@
 using UPT.Features.Base;
 using UPT.Features.Features.PaymentFeatures.Requests;
 using UPT.Features.Services.Payment;
-using UPT.Infrastructure.Enums;
 
 namespace UPT.Features.Features.PaymentFeatures;
 

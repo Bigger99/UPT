@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Net.Mail;
 using UPT.Features.Base;
 using UPT.Features.Features.UserFeatures.Requests;
 using UPT.Features.Services.User;

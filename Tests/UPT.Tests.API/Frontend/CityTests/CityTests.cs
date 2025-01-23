@@ -1,8 +1,8 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Execution;
-using UPT.Tests.API.Frontend.UserTests.Base;
+using UPT.Tests.API.Frontend.CityTests.Base;
 
-namespace UPT.Tests.API.Frontend.UserTests;
+namespace UPT.Tests.API.Frontend.CityTests;
 
 internal class CityTests : ApiBaseTests<ICityProvider>
 {

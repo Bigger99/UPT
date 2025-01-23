@@ -7,16 +7,16 @@ namespace UPT.Features.Features.NewsFeatures.Dto;
 
 public class NewsDto : IDto
 {
-    public int Id { get; protected set; } = default!;
-    public string? Name { get; protected set; } = default!;
+    public int Id { get; set; } = default!;
+    public string? Name { get; set; } = default!;
 
-    public DateTime CreationDate { get; protected set; } = default!;
+    public DateTime CreationDate { get; set; } = default!;
 
-    public DateTime? EditDate { get; protected set; } = default!;
+    public DateTime? EditDate { get; set; } = default!;
 
-    public string Text { get; protected set; } = default!;
+    public string Text { get; set; } = default!;
 
-    public UserDto User { get; protected set; } = default!;
+    public UserDto User { get; set; } = default!;
 
     static NewsDto()
     {

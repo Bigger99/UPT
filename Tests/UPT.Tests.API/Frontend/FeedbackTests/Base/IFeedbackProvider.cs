@@ -2,7 +2,7 @@
 using UPT.Features.Features.FeedbackFeatures.Dto;
 using UPT.Features.Features.FeedbackFeatures.Requests;
 
-namespace UPT.Tests.API.Frontend.UserTests.Base;
+namespace UPT.Tests.API.Frontend.FeedbackTests.Base;
 
 internal interface IFeedbackProvider
 {

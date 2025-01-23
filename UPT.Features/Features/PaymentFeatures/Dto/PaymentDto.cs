@@ -8,14 +8,14 @@ namespace UPT.Features.Features.PaymentFeatures.Dto;
 
 public class PaymentDto : IDto
 {
-    public int Id { get; protected set; } = default!;
-    public UserDto User { get; protected set; } = default!;
-    public DateTime Date { get; protected set; } = default!;
+    public int Id { get; set; } = default!;
+    public UserDto User { get; set; } = default!;
+    public DateTime Date { get; set; } = default!;
 
     [MaxLength(255)]
-    public string Title { get; protected set; } = default!;
+    public string Title { get; set; } = default!;
 
-    public decimal Amount { get; protected set; } = default!;
+    public decimal Amount { get; set; } = default!;
 
     static PaymentDto()
     {

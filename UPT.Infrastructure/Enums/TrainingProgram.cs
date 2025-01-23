@@ -1,5 +1,8 @@
-﻿namespace UPT.Infrastructure.Enums;
+﻿using System.Text.Json.Serialization;
 
+namespace UPT.Infrastructure.Enums;
+
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum TrainingProgram
 {
     /// <summary>

@@ -10,29 +10,29 @@ public class FavoriteTrainerDto : IDto
     /// <summary>
     /// Стаж работы
     /// </summary>
-    public int Experience { get; protected set; } = default!;
+    public int Experience { get; set; } = default!;
 
     /// <summary>
     /// Наличие медицинского образования
     /// </summary>
-    public bool MedicGrade { get; protected set; } = default!;
+    public bool MedicGrade { get; set; } = default!;
 
     /// <summary>
     /// Работа с травмами
     /// </summary>
-    public bool WorkInjuries { get; protected set; } = default!;
+    public bool WorkInjuries { get; set; } = default!;
 
     /// <summary>
     /// Работас спортсменами
     /// </summary>
-    public bool WorkSportsmens { get; protected set; } = default!;
+    public bool WorkSportsmens { get; set; } = default!;
 
     /// <summary>
     /// Программа тренировок
     /// </summary>
-    public List<TrainingProgram> TrainingPrograms { get; protected set; } = default!;
+    public List<TrainingProgram> TrainingPrograms { get; set; } = default!;
 
-    public int GymId { get; protected set; } = default!;
+    public int GymId { get; set; } = default!;
 
     public string Description { get; set; } = default!;
 

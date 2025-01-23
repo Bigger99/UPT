@@ -43,6 +43,7 @@ internal class UserTests : ApiBaseTests<IUserProvider>
         // arrange
         var requestModel = Fixture.Build<UpdateUserCommand>()
             .With(x => x.Id, 1)
+            .With(x => x.CityId, 1)
             .Create();
 
         // act
@@ -51,6 +52,8 @@ internal class UserTests : ApiBaseTests<IUserProvider>
         // assert
         using var _ = new AssertionScope();
         response.IsSuccessStatusCode.Should().BeTrue();
+        response.Content.Should().NotBeNull();
+        response.Content!.City.Should().NotBeNull();
     }
 
     [Test]

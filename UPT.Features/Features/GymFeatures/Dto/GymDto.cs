@@ -7,13 +7,13 @@ namespace UPT.Features.Features.GymFeatures.Dto;
 
 public class GymDto : IDto
 {
-    public string? Name { get; protected set; } = default!;
-    public TimeOnly OpenTime { get; protected set; } = default!;
-    public TimeOnly CloseTime { get; protected set; } = default!;
-    public string Location { get; protected set; } = default!;
-    public CityDto City { get; protected set; } = default!;
+    public string? Name { get; set; } = default!;
+    public TimeOnly OpenTime { get; set; } = default!;
+    public TimeOnly CloseTime { get; set; } = default!;
+    public string Location { get; set; } = default!;
+    public CityDto City { get; set; } = default!;
 
-    public List<int> Trainers { get; protected set; } = default!;
+    public List<int> Trainers { get; set; } = default!;
 
     static GymDto()
     {

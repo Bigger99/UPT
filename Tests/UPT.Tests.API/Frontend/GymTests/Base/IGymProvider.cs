@@ -1,7 +1,7 @@
 ﻿using Refit;
 using UPT.Features.Features.GymFeatures.Dto;
 
-namespace UPT.Tests.API.Frontend.UserTests.Base;
+namespace UPT.Tests.API.Frontend.GymTests.Base;
 
 internal interface IGymProvider
 {

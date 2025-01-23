@@ -3,9 +3,9 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using UPT.Features.Features.TrainerFeatures.Requests;
 using UPT.Infrastructure.Models;
-using UPT.Tests.API.Frontend.AuthorizeTests.Base;
+using UPT.Tests.API.Frontend.TrainerTests.Base;
 
-namespace UPT.Tests.API.Frontend.AuthorizeTests;
+namespace UPT.Tests.API.Frontend.TrainerTests;
 
 internal class TrainerTests : ApiBaseTests<ITrainerProvider>
 {
@@ -26,7 +26,7 @@ internal class TrainerTests : ApiBaseTests<ITrainerProvider>
     public async Task GetByUserId_WhenValidCalled_ResponseMustBeNonEmpty()
     {
         // act
-        var response = await Provider.GetByUserId(1);
+        var response = await Provider.GetByUserId(26);
 
         // assert
         using var _ = new AssertionScope();

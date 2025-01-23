@@ -8,16 +8,16 @@ namespace UPT.Features.Features.NotificationFeatures.Dto;
 
 public class NotificationDto : IDto
 {
-    public int Id { get; protected set; } = default!;
-    public string? Name { get; protected set; } = default!;
+    public int Id { get; set; } = default!;
+    public string? Name { get; set; } = default!;
 
-    public DateTime CreationDate { get; protected set; } = default!;
+    public DateTime CreationDate { get; set; } = default!;
 
     [MaxLength(255)]
-    public string Text { get; protected set; } = default!;
+    public string Text { get; set; } = default!;
 
-    public UserDto User { get; protected set; } = default!;
-    public bool IsChecked { get; protected set; }
+    public UserDto User { get; set; } = default!;
+    public bool IsChecked { get; set; }
 
     static NotificationDto()
     {

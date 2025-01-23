@@ -12,7 +12,7 @@ public class ClientService(UPTDbContext dbContext) : IClientService
 {
     public async Task<ClientDto> Get(int clientId)
     {
-        var trainer = await dbContext.Clients
+        var client = await dbContext.Clients
             .AsNoTracking()
             .Include(x => x.User)
                 .ThenInclude(x => x.City)
@@ -20,12 +20,12 @@ public class ClientService(UPTDbContext dbContext) : IClientService
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == clientId) ?? throw new BackendException("Client not found");
 
-        return trainer.Adapt<ClientDto>();
+        return client.Adapt<ClientDto>();
     }
 
     public async Task<ClientDto> GetByUserId(int userId)
     {
-        var trainer = await dbContext.Clients
+        var client = await dbContext.Clients
             .AsNoTracking()
             .Include(x => x.User)
                 .ThenInclude(x => x.City)
@@ -33,7 +33,7 @@ public class ClientService(UPTDbContext dbContext) : IClientService
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.User.Id == userId) ?? throw new BackendException("Client not found");
 
-        return trainer.Adapt<ClientDto>();
+        return client.Adapt<ClientDto>();
     }
 
     public async Task<IEnumerable<ClientWithGoalsDto>> GetFilteredClients(PagedFilterQuery<FilteredClientRequest> pagedFilter)

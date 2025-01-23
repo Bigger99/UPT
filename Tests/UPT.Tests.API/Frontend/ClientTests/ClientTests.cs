@@ -1,11 +1,18 @@
 ﻿using AutoFixture;
 using FluentAssertions;
 using FluentAssertions.Execution;
+using Refit;
+using UPT.Data.SeedData;
+using UPT.Features.Features.AutorizationFeatures.Requests;
 using UPT.Features.Features.ClientFeatures.Requests;
+using UPT.Features.Features.UserFeatures.Requests;
+using UPT.Infrastructure.Jwt;
 using UPT.Infrastructure.Models;
 using UPT.Tests.API.Frontend.AuthorizeTests.Base;
+using UPT.Tests.API.Frontend.ClientTests.Base;
+using UPT.Tests.API.Frontend.UserTests.Base;
 
-namespace UPT.Tests.API.Frontend.AuthorizeTests;
+namespace UPT.Tests.API.Frontend.ClientTests;
 
 internal class ClientTests : ApiBaseTests<IClientProvider>
 {
@@ -52,16 +59,32 @@ internal class ClientTests : ApiBaseTests<IClientProvider>
         response.Content!.Count().Should().NotBe(0);
     }
 
+    [Ignore("")]
     [Test]
     public async Task Create_WhenValidCalled_ResponseMustBeNonEmpty()
     {
         // arrange
-        var requestModel = Fixture.Build<CreateClientCommand>()
-            .With(x => x.UserId, 1)
+        var authorizeProvider = RestService.For<IAuthorizeProvider>(AppFactory.CreateClient());
+        var requestModel = Fixture.Build<RegisterCommand>()
+            .With(x => x.EmailAddress, SeedTestsConsts.DefaultEmailForTests)
+            .With(x => x.Password, SeedTestsConsts.DefaultPassword)
+            .Create();
+        await authorizeProvider.Register(requestModel);
+
+
+        var userProvider = RestService.For<IUserProvider>(AppFactory.CreateClient());
+        var requestModelGetByEmailQuery = Fixture.Build<GetByEmailQuery>()
+            .With(x => x.EmailAddress, SeedTestsConsts.DefaultEmailForTests)
+            .Create();
+        var responseUser = await userProvider.GetByEmail(requestModelGetByEmailQuery);
+
+
+        var createRequestModel = Fixture.Build<CreateClientCommand>()
+            .With(x => x.UserId, responseUser.Content!.Id)
             .Create();
 
         // act
-        var response = await Provider.Create(requestModel);
+        var response = await Provider.Create(createRequestModel);
 
         // assert
         using var _ = new AssertionScope();

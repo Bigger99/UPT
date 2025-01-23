@@ -6,8 +6,8 @@ namespace UPT.Features.Features.FavoritFeatures.Dto;
 
 public class FavoriteDto : IDto
 {
-    public int ClientId { get; protected set; } = default!;
-    public List<FavoriteTrainerDto> Trainers { get; protected set; } = default!;
+    public int ClientId { get; set; } = default!;
+    public List<FavoriteTrainerDto> Trainers { get; set; } = default!;
 
     static FavoriteDto()
     {

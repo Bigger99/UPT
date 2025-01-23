@@ -70,8 +70,8 @@ internal class UPTDbDataSeed
 
         var clients = new List<User>();
 
-        var client1 = new User("ivanov@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K"); // Password: "password123"
-        client1.EditUserData("Иванов Иван", "+79999999999", "ivanov@mail.ru", cities[0], Gender.Male, true, true, null);
+        var client1 = new User("ivanov@mail.ru", SeedTestsConsts.DefaultPasswordHash); // Password: "password123"
+        client1.EditUserData("Иванов Иван", "+79999999999", SeedTestsConsts.DefaultEmail, cities[0], Gender.Male, true, true, null);
         clients.Add(client1);
 
         var client2 = new User("petrova@mail.ru", "$2a$11$tZ74fcglcCTydem/c788NuSfM0R7K0dU.rMGo8tRJoEy0NRj8iA9K");// Password: "password123"

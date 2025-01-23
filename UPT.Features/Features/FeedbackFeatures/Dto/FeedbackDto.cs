@@ -9,18 +9,18 @@ namespace UPT.Features.Features.FeedbackFeatures.Dto;
 
 public class FeedbackDto : IDto
 {
-    public int Id { get; protected set; } = default!;
-    public string? Name { get; protected set; } = default!;
-    public DateTime Date { get; protected set; } = default!;
+    public int Id { get; set; } = default!;
+    public string? Name { get; set; } = default!;
+    public DateTime Date { get; set; } = default!;
 
     [Range(0.0, 5.0)]
-    public double Rating { get; protected set; } = default!;
+    public double Rating { get; set; } = default!;
 
     [MaxLength(255)]
-    public string Text { get; protected set; } = default!;
+    public string Text { get; set; } = default!;
 
-    public ClientDto Creator { get; protected set; } = default!;
-    public TrainerDto Trainer { get; protected set; } = default!;
+    public ClientDto Creator { get; set; } = default!;
+    public TrainerDto Trainer { get; set; } = default!;
 
     static FeedbackDto()
     {

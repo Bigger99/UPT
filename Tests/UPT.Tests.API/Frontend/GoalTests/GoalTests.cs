@@ -3,9 +3,9 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using UPT.Features.Features.GoalFeatures.Requests;
 using UPT.Features.Features.NewsFeatures.Requests;
-using UPT.Tests.API.Frontend.AuthorizeTests.Base;
+using UPT.Tests.API.Frontend.GoalTests.Base;
 
-namespace UPT.Tests.API.Frontend.AuthorizeTests;
+namespace UPT.Tests.API.Frontend.GoalTests;
 
 internal class GoalTests : ApiBaseTests<IGoalProvider>
 {

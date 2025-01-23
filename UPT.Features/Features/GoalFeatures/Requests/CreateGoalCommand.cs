@@ -20,7 +20,7 @@ public class CreateGoalCommand
     public Deadline DeadlineForResult { get; set; }
 
     [Required]
-    public List<DayOfWeek> DaysOfWeekForTraining { get; set; } = default!;
+    public List<int> DaysOfWeekForTraining { get; set; } = default!;
 
     [Required]
     public TimeOfDay TimeForTraining { get; set; }

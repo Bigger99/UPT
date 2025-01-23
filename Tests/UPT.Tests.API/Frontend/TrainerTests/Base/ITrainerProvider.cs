@@ -3,7 +3,7 @@ using UPT.Features.Features.TrainerFeatures.Dto;
 using UPT.Features.Features.TrainerFeatures.Requests;
 using UPT.Infrastructure.Models;
 
-namespace UPT.Tests.API.Frontend.AuthorizeTests.Base;
+namespace UPT.Tests.API.Frontend.TrainerTests.Base;
 
 internal interface ITrainerProvider
 {

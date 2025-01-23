@@ -1,7 +1,7 @@
 ﻿using Refit;
 using UPT.Features.Features.CityFeatures.Dto;
 
-namespace UPT.Tests.API.Frontend.UserTests.Base;
+namespace UPT.Tests.API.Frontend.CityTests.Base;
 
 internal interface ICityProvider
 {

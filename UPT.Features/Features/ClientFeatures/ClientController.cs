@@ -27,8 +27,8 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     [HttpGet]
     public async Task<IActionResult> GetByUserId([FromQuery] int userid)
     {
-        var trainer = await clientService.GetByUserId(userid);
-        return Ok(trainer);
+        var client = await clientService.GetByUserId(userid);
+        return Ok(client);
     }
 
     /// <summary>
@@ -37,8 +37,8 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     [HttpPost]
     public async Task<IActionResult> GetFiltered([FromBody] PagedFilterQuery<FilteredClientRequest> request)
     {
-        var trainer = await clientService.GetFilteredClients(request);
-        return Ok(trainer);
+        var client = await clientService.GetFilteredClients(request);
+        return Ok(client);
     }
 
     /// <summary>
@@ -47,8 +47,8 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateClientCommand command)
     {
-        var trainer = await clientService.Create(command.UserId, command.Height, command.Weight, command.VolumeBreast, command.VolumeWaist, command.VolumeAbdomen, command.VolumeButtock, command.VolumeHip);
-        return Ok(trainer);
+        var client = await clientService.Create(command.UserId, command.Height, command.Weight, command.VolumeBreast, command.VolumeWaist, command.VolumeAbdomen, command.VolumeButtock, command.VolumeHip);
+        return Ok(client);
     }
 
     /// <summary>
@@ -57,8 +57,8 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] UpdateClientCommand command)
     {
-        var trainer = await clientService.Update(command.ClientId, command.Height, command.Weight, command.VolumeBreast, command.VolumeWaist, command.VolumeAbdomen, command.VolumeButtock, command.VolumeHip);
-        return Ok(trainer);
+        var client = await clientService.Update(command.ClientId, command.Height, command.Weight, command.VolumeBreast, command.VolumeWaist, command.VolumeAbdomen, command.VolumeButtock, command.VolumeHip);
+        return Ok(client);
     }
 
     /// <summary>
@@ -67,8 +67,8 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     [HttpPut]
     public async Task<IActionResult> SetTrainer([FromBody] SetClientTrainerCommand command)
     {
-        var trainer = await clientService.SetTrainer(command.ClientId, command.TrainerId);
-        return Ok(trainer);
+        var client = await clientService.SetTrainer(command.ClientId, command.TrainerId);
+        return Ok(client);
     }
 
     /// <summary>

@@ -2,9 +2,9 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using UPT.Features.Features.PaymentFeatures.Requests;
-using UPT.Tests.API.Frontend.UserTests.Base;
+using UPT.Tests.API.Frontend.PaymentTets.Base;
 
-namespace UPT.Tests.API.Frontend.UserTests;
+namespace UPT.Tests.API.Frontend.PaymentTets;
 
 internal class PaymentTests : ApiBaseTests<IPaymentProvider>
 {
@@ -12,7 +12,7 @@ internal class PaymentTests : ApiBaseTests<IPaymentProvider>
     public async Task Get_WhenValidCalled_ResponseMustBeNonEmpty()
     {
         // act
-        var response = await Provider.Get(1);
+        var response = await Provider.Get(26);
 
         // assert
         using var _ = new AssertionScope();
@@ -26,7 +26,7 @@ internal class PaymentTests : ApiBaseTests<IPaymentProvider>
     {
         // arrange
         var requestModel = Fixture.Build<AddPaymentCommand>()
-            .With(x => x.UserId, 1)
+            .With(x => x.UserId, 26)
             .Create();
 
         // act

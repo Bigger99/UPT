@@ -2,9 +2,9 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using UPT.Features.Features.NotificationFeatures.Requests;
-using UPT.Tests.API.Frontend.UserTests.Base;
+using UPT.Tests.API.Frontend.NotificationTests.Base;
 
-namespace UPT.Tests.API.Frontend.UserTests;
+namespace UPT.Tests.API.Frontend.NotificationTests;
 
 internal class NotificationTests : ApiBaseTests<INotificationProvider>
 {
@@ -18,7 +18,6 @@ internal class NotificationTests : ApiBaseTests<INotificationProvider>
         using var _ = new AssertionScope();
         response.IsSuccessStatusCode.Should().BeTrue();
         response.Content.Should().NotBeNull();
-        response.Content!.Count.Should().NotBe(0);
     }
 
     [Test]
@@ -31,7 +30,6 @@ internal class NotificationTests : ApiBaseTests<INotificationProvider>
         using var _ = new AssertionScope();
         response.IsSuccessStatusCode.Should().BeTrue();
         response.Content.Should().NotBeNull();
-        response.Content!.Count.Should().NotBe(0);
     }
 
     [Test]

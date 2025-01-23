@@ -2,7 +2,7 @@
 using UPT.Features.Features.NotificationFeatures.Dto;
 using UPT.Features.Features.NotificationFeatures.Requests;
 
-namespace UPT.Tests.API.Frontend.UserTests.Base;
+namespace UPT.Tests.API.Frontend.NotificationTests.Base;
 
 internal interface INotificationProvider
 {

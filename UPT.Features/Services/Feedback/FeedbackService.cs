@@ -29,17 +29,28 @@ public class FeedbackService(UPTDbContext dbContext) : IFeedbackService
     public async Task<FeedbackDto> Add(int clientId, int trainerId, double rating, string text)
     {
         var client = await dbContext.Clients
+            .AsNoTracking()
+            .Include(x => x.User)
+                .ThenInclude(x => x.City)
+            .Include(x => x.Trainer)
+            .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == clientId) ?? throw new BackendException("Client not found");
 
         var trainer = await dbContext.Trainers
+            .AsNoTracking()
+            .Include(x => x.User)
+                .ThenInclude(x => x.City)
+            .Include(x => x.Gym)
+            .Include(x => x.Clients)
+            .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == trainerId) ?? throw new BackendException("Trainer not found");
 
-        var favorite = await dbContext.Feedbacks
+        var existedFeedback = await dbContext.Feedbacks
             .Include(x => x.Creator)
             .Include(x => x.Trainer)
             .FirstOrDefaultAsync(x => x.Creator == client && x.Trainer == trainer);
 
-        if (favorite is not null)
+        if (existedFeedback is not null)
         {
             throw new BackendException("Feedback from current client to this trainer already exists");
         }

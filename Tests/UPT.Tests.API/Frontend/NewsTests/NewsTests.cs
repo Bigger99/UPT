@@ -2,9 +2,9 @@
 using FluentAssertions;
 using FluentAssertions.Execution;
 using UPT.Features.Features.NewsFeatures.Requests;
-using UPT.Tests.API.Frontend.UserTests.Base;
+using UPT.Tests.API.Frontend.NewsTests.Base;
 
-namespace UPT.Tests.API.Frontend.UserTests;
+namespace UPT.Tests.API.Frontend.NewsTests;
 
 internal class NewsTests : ApiBaseTests<INewsProvider>
 {

@@ -2,13 +2,13 @@
 using UPT.Features.Features.PaymentFeatures.Dto;
 using UPT.Features.Features.PaymentFeatures.Requests;
 
-namespace UPT.Tests.API.Frontend.UserTests.Base;
+namespace UPT.Tests.API.Frontend.PaymentTets.Base;
 
 internal interface IPaymentProvider
 {
     [Get("/api/web/payment/get")]
-    Task<ApiResponse<List<PaymentDto>?>> Get([Query] int userId);  
-    
+    Task<ApiResponse<List<PaymentDto>?>> Get([Query] int userId);
+
     [Delete("/api/web/payment/delete")]
     Task<IApiResponse> Delete([Query] int paymentId);
 

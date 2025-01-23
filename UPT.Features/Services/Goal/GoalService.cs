@@ -32,13 +32,18 @@ public class GoalService(UPTDbContext dbContext) : IGoalService
     }
 
     public async Task<GoalDto> Create(int clientId, TrainingProgram trainingProgram, double currentWeight, double desiredWeight,
-        Deadline deadlineForResult, List<DayOfWeek> daysOfWeekForTraining, TimeOfDay timeForTraining, bool hasInjuries)
+        Deadline deadlineForResult, List<int> daysOfWeekForTraining, TimeOfDay timeForTraining, bool hasInjuries)
     {
         var client = await dbContext.Clients
             .FirstOrDefaultAsync(x => x.Id == clientId) ?? throw new BackendException("Client not found");
 
+        var daysOfWeek = daysOfWeekForTraining
+            .Where(value => Enum.IsDefined(typeof(DayOfWeek), value)) // Проверка, что значение есть в перечислении
+            .Select(value => (DayOfWeek)value) // Преобразование int в DayOfWeek
+            .ToList();
+
         var goal = new Domain.Entities.Goal(client, trainingProgram, currentWeight, desiredWeight,
-        deadlineForResult, daysOfWeekForTraining, timeForTraining, hasInjuries);
+        deadlineForResult, daysOfWeek, timeForTraining, hasInjuries);
         await dbContext.Goals.AddAsync(goal);
         await dbContext.SaveChangesAsync();
 
@@ -46,13 +51,18 @@ public class GoalService(UPTDbContext dbContext) : IGoalService
     }
 
     public async Task<GoalDto> Update(int goalId, TrainingProgram trainingProgram, double currentWeight, double desiredWeight,
-        Deadline deadlineForResult, List<DayOfWeek> daysOfWeekForTraining, TimeOfDay timeForTraining, bool hasInjuries)
+        Deadline deadlineForResult, List<int> daysOfWeekForTraining, TimeOfDay timeForTraining, bool hasInjuries)
     {
         var goal = await dbContext.Goals
             .FirstOrDefaultAsync(x => x.Id == goalId) ?? throw new BackendException("Goal not found");
 
+        var daysOfWeek = daysOfWeekForTraining
+            .Where(value => Enum.IsDefined(typeof(DayOfWeek), value)) // Проверка, что значение есть в перечислении
+            .Select(value => (DayOfWeek)value) // Преобразование int в DayOfWeek
+            .ToList();
+
         goal.UpdateGoal(trainingProgram, currentWeight, desiredWeight,
-        deadlineForResult, daysOfWeekForTraining, timeForTraining, hasInjuries);
+        deadlineForResult, daysOfWeek, timeForTraining, hasInjuries);
 
         await dbContext.SaveChangesAsync();
 

@@ -4,7 +4,7 @@ using UPT.Features.Features.ClientFeatures.Dto;
 using UPT.Features.Features.ClientFeatures.Requests;
 using UPT.Infrastructure.Models;
 
-namespace UPT.Tests.API.Frontend.AuthorizeTests.Base;
+namespace UPT.Tests.API.Frontend.ClientTests.Base;
 
 internal interface IClientProvider
 {

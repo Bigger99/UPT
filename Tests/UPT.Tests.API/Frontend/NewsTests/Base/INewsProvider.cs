@@ -2,7 +2,7 @@
 using UPT.Features.Features.NewsFeatures.Dto;
 using UPT.Features.Features.NewsFeatures.Requests;
 
-namespace UPT.Tests.API.Frontend.UserTests.Base;
+namespace UPT.Tests.API.Frontend.NewsTests.Base;
 
 internal interface INewsProvider
 {
