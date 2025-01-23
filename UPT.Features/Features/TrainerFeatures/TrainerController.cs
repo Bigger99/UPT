@@ -32,7 +32,7 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     }
 
     /// <summary>
-    /// Получить тренера
+    /// Получить список отфильтрованных тренеров
     /// </summary>
     [HttpPost]
     public async Task<IActionResult> GetFiltered([FromBody] PagedFilterQuery<FilteredTrainerRequest> request)
