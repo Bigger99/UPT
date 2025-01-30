@@ -3,11 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using UPT.Data;
 using UPT.Features.Features.UserFeatures.Dto;
 using UPT.Infrastructure.Enums;
+using UPT.Infrastructure.Jwt;
 using UPT.Infrastructure.Middlewars;
 
 namespace UPT.Features.Services.User;
 
-public class UserService(UPTDbContext dbContext) : IUserService
+public class UserService(UPTDbContext dbContext, IJwtProvider jwtProvider) : IUserService
 {
     public async Task<UserDto> Get(int id)
     {
@@ -55,6 +56,7 @@ public class UserService(UPTDbContext dbContext) : IUserService
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
         user.Delete();
+        jwtProvider.DeleteUser();
         await dbContext.SaveChangesAsync();
     }
 

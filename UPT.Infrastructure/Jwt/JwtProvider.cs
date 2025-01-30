@@ -12,6 +12,12 @@ public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
     private readonly JwtOptions _jwtOptions = options.Value;
     private readonly IDictionary<string, RefreshToken> _refreshTokens = new Dictionary<string, RefreshToken>();
 
+    public void DeleteUser(int userId)
+    {
+        var refreshToken = _refreshTokens.FirstOrDefault(x => x.Value.UserId == userId);
+        _refreshTokens.Remove(refreshToken);
+    }
+
     public TokensModel GenerateTokens(int userId)
     {
         var accessToken = GenerateToken(userId);
