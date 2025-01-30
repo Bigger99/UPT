@@ -12,7 +12,7 @@ public class Client : HasIdBase
     public double VolumeAbdomen { get; protected set; } = default!;
     public double VolumeButtock { get; protected set; } = default!;
     public double VolumeHip { get; protected set; } = default!;
-    public Trainer Trainer { get; protected set; } = default!;
+    public Trainer? Trainer { get; protected set; } = default!;
 
     public bool IsDeleted { get; protected set; } = false;
 

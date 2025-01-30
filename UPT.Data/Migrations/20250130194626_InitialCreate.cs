@@ -175,7 +175,7 @@ namespace UPT.Data.Migrations
                     volume_abdomen = table.Column<double>(type: "double precision", nullable: false),
                     volume_buttock = table.Column<double>(type: "double precision", nullable: false),
                     volume_hip = table.Column<double>(type: "double precision", nullable: false),
-                    trainer_id = table.Column<int>(type: "integer", nullable: false),
+                    trainer_id = table.Column<int>(type: "integer", nullable: true),
                     is_deleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
@@ -415,8 +415,7 @@ namespace UPT.Data.Migrations
                 table: "clients",
                 column: "trainer_id",
                 principalTable: "trainers",
-                principalColumn: "id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "id");
         }
 
         /// <inheritdoc />

@@ -17,7 +17,7 @@ public class ClientWithGoalsDto : IDto
     public double VolumeAbdomen { get; set; } = default!;
     public double VolumeButtock { get; set; } = default!;
     public double VolumeHip { get; set; } = default!;
-    public int TrainerId { get; set; } = default!;
+    public int? TrainerId { get; set; } = default!;
 
     public List<SubGoalDto>? Goals { get; set; } = default!;
 
@@ -26,7 +26,7 @@ public class ClientWithGoalsDto : IDto
         TypeAdapterConfig<Client, ClientWithGoalsDto>
             .NewConfig()
             .Map(dest => dest.User, src => src.User.Adapt<UserDto>())
-            .Map(dest => dest.TrainerId, src => src.Trainer.Id);
+            .Map(dest => dest.TrainerId, src => src.Trainer != null ? src.Trainer.Id : default(int?));
     }
 }
 

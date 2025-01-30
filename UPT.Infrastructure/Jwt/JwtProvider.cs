@@ -14,8 +14,12 @@ public class JwtProvider(IOptions<JwtOptions> options) : IJwtProvider
 
     public void DeleteUser(int userId)
     {
-        var refreshToken = _refreshTokens.FirstOrDefault(x => x.Value.UserId == userId);
-        _refreshTokens.Remove(refreshToken);
+        var (refreshTokenKey, _) = _refreshTokens.FirstOrDefault(x => x.Value.UserId == userId);
+
+        if (refreshTokenKey is not null)
+        {
+            _refreshTokens.Remove(refreshTokenKey);
+        }
     }
 
     public TokensModel GenerateTokens(int userId)

@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20250122191546_InitialCreate")]
+    [Migration("20250130194626_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -100,7 +100,7 @@ namespace UPT.Data.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
-                    b.Property<int>("TrainerId")
+                    b.Property<int?>("TrainerId")
                         .HasColumnType("integer")
                         .HasColumnName("trainer_id");
 
@@ -586,8 +586,6 @@ namespace UPT.Data.Migrations
                     b.HasOne("UPT.Domain.Entities.Trainer", "Trainer")
                         .WithMany("Clients")
                         .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_clients_trainers_trainer_id");
 
                     b.HasOne("UPT.Domain.Entities.User", "User")

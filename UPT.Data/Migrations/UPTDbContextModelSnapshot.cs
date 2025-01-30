@@ -97,7 +97,7 @@ namespace UPT.Data.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("is_deleted");
 
-                    b.Property<int>("TrainerId")
+                    b.Property<int?>("TrainerId")
                         .HasColumnType("integer")
                         .HasColumnName("trainer_id");
 
@@ -583,8 +583,6 @@ namespace UPT.Data.Migrations
                     b.HasOne("UPT.Domain.Entities.Trainer", "Trainer")
                         .WithMany("Clients")
                         .HasForeignKey("TrainerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("fk_clients_trainers_trainer_id");
 
                     b.HasOne("UPT.Domain.Entities.User", "User")
