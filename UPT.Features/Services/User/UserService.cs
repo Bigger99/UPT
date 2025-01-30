@@ -56,7 +56,7 @@ public class UserService(UPTDbContext dbContext, IJwtProvider jwtProvider) : IUs
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
 
         user.Delete();
-        jwtProvider.DeleteUser();
+        jwtProvider.DeleteUser(id);
         await dbContext.SaveChangesAsync();
     }
 
