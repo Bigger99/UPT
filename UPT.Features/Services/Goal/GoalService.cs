@@ -12,6 +12,7 @@ public class GoalService(UPTDbContext dbContext) : IGoalService
     public async Task<GoalDto?> Get(int goalId)
     {
         var goal = await dbContext.Goals
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.TrainerForGoalAchievement)
             .Include(x => x.Client)
             .FirstOrDefaultAsync(x => x.Id == goalId)
@@ -23,6 +24,7 @@ public class GoalService(UPTDbContext dbContext) : IGoalService
     public async Task<List<GoalDto>?> GetAllClientGoals(int clientId)
     {
         var goals = await dbContext.Goals
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.TrainerForGoalAchievement)
             .Include(x => x.Client)
             .Where(x => x.Client.Id == clientId)

@@ -11,9 +11,11 @@ public class NotificationService(UPTDbContext dbContext) : INotificationService
     public async Task<List<NotificationDto>?> GetCkecked(int userId)
     {
         var user = await dbContext.Users
+            .AsNoTrackingWithIdentityResolution()
             .FirstOrDefaultAsync(x => x.Id == userId) ?? throw new BackendException("User not found");
 
         var notifications = await dbContext.Notifications
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.User)
             .Where(x => x.IsChecked && x.User.Id == userId)
             .ToListAsync();
@@ -29,9 +31,11 @@ public class NotificationService(UPTDbContext dbContext) : INotificationService
     public async Task<List<NotificationDto>?> GetUnCkecked(int userId)
     {
         var user = await dbContext.Users
+            .AsNoTrackingWithIdentityResolution()
             .FirstOrDefaultAsync(x => x.Id == userId) ?? throw new BackendException("User not found");
 
         var notifications = await dbContext.Notifications
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.User)
             .Where(x => !x.IsChecked && x.User.Id == userId)
             .ToListAsync();

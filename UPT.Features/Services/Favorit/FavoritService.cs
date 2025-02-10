@@ -11,11 +11,14 @@ public class FavoritService(UPTDbContext dbContext) : IFavoritService
     public async Task<FavoriteDto?> Get(int clientId)
     {
         var client = await dbContext.Clients
+            .AsNoTrackingWithIdentityResolution()
             .FirstOrDefaultAsync(x => x.Id == clientId) ?? throw new BackendException("Client not found");
 
         var favorite = await dbContext.Favorits
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.Trainers)
                 .ThenInclude(x => x.Gym)
+            .Include(x => x.Client)  
             .FirstOrDefaultAsync(x => x.Client == client);
 
         if (favorite is null)

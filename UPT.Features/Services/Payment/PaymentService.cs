@@ -12,6 +12,7 @@ public class PaymentService(UPTDbContext dbContext) : IPaymentService
     public async Task<List<PaymentDto>?> Get(int userId)
     {
         var payments = await dbContext.Payments
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.User)
                 .ThenInclude(x => x.City)
             .Where(x => x.User.Id == userId)

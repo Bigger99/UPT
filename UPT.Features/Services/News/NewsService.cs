@@ -12,6 +12,7 @@ public class NewsService(UPTDbContext dbContext) : INewsService
     public async Task<NewsDto?> Get(int newsId)
     {
         var news = await dbContext.News
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.User)
                 .ThenInclude(x => x.City)
             .FirstOrDefaultAsync(x => x.Id == newsId);
@@ -27,9 +28,10 @@ public class NewsService(UPTDbContext dbContext) : INewsService
     public async Task<List<NewsDto>?> GetAll()
     {
         var news = await dbContext.News
-        .Include(x => x.User)
-            .ThenInclude(x => x.City)
-        .ToListAsync();
+            .AsNoTrackingWithIdentityResolution()
+            .Include(x => x.User)
+                .ThenInclude(x => x.City)
+            .ToListAsync();
 
         return news.Select(x => x.Adapt<NewsDto>()).ToList();
     }

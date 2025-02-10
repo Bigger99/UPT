@@ -11,6 +11,7 @@ public class GymService(UPTDbContext dbContext) : IGymService
     public async Task<List<GymDto>> GetAll()
     {
         var gyms = await dbContext.Gyms
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.City)
             .Include(x => x.Trainers)
             .ToListAsync();
@@ -21,6 +22,7 @@ public class GymService(UPTDbContext dbContext) : IGymService
     public async Task<GymDto> Get(int id)
     {
         var gym = await dbContext.Gyms
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.City)
             .Include(x => x.Trainers)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("Gym not found");

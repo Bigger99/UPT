@@ -14,7 +14,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
     public async Task<TrainerDto> Get(int id)
     {
         var trainer = await dbContext.Trainers
-            .AsNoTracking()
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.User)
                 .ThenInclude(x => x.City)
             .Include(x => x.Gym)
@@ -30,7 +30,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
     public async Task<TrainerDto> GetByUserId(int userId)
     {
         var trainer = await dbContext.Trainers
-            .AsNoTracking()
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.User)
                 .ThenInclude(x => x.City)
             .Include(x => x.Gym)
@@ -48,7 +48,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         var request = pagedFilter.Request;
 
         var trainersRequest = dbContext.Trainers
-            .AsNoTracking()
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.User)
                 .ThenInclude(x => x.City)
             .Include(x => x.Gym)

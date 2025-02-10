@@ -12,6 +12,7 @@ public class FeedbackService(UPTDbContext dbContext) : IFeedbackService
     public async Task<List<FeedbackDto>?> Get(int trainerId)
     {
         var feedbacks = await dbContext.Feedbacks
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.Creator)
                 .ThenInclude(x => x.User)
             .Include(x => x.Trainer)

@@ -13,6 +13,7 @@ public class UserService(UPTDbContext dbContext, IJwtProvider jwtProvider) : IUs
     public async Task<UserDto> Get(int id)
     {
         var user = await dbContext.Users
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.City)
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.Id == id) ?? throw new BackendException("User not found");
@@ -25,6 +26,7 @@ public class UserService(UPTDbContext dbContext, IJwtProvider jwtProvider) : IUs
         var emailAddressLower = emailAddress.ToLower();
 
         var user = await dbContext.Users
+            .AsNoTrackingWithIdentityResolution()
             .Include(x => x.City)
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.EmailAddress.ToLower() == emailAddressLower) ?? throw new BackendException("User not found");
