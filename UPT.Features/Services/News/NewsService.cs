@@ -12,6 +12,7 @@ public class NewsService(UPTDbContext dbContext) : INewsService
     {
         var news = await dbContext.News
             .Include(x => x.User)
+                .ThenInclude(x => x.City)
             .FirstOrDefaultAsync(x => x.Id == newsId);
 
         if (news is null)
@@ -26,6 +27,7 @@ public class NewsService(UPTDbContext dbContext) : INewsService
     {
         var news = await dbContext.News
         .Include(x => x.User)
+            .ThenInclude(x => x.City)
         .ToListAsync();
 
         return news.Select(x => x.Adapt<NewsDto>()).ToList();

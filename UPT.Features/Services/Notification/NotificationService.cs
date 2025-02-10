@@ -15,7 +15,7 @@ public class NotificationService(UPTDbContext dbContext) : INotificationService
 
         var notifications = await dbContext.Notifications
             .Include(x => x.User)
-            .Where(x => !x.IsChecked && x.User.Id == userId)
+            .Where(x => x.IsChecked && x.User.Id == userId)
             .ToListAsync();
 
         if (notifications is null)
@@ -33,7 +33,7 @@ public class NotificationService(UPTDbContext dbContext) : INotificationService
 
         var notifications = await dbContext.Notifications
             .Include(x => x.User)
-            .Where(x => x.IsChecked && x.User.Id == userId)
+            .Where(x => !x.IsChecked && x.User.Id == userId)
             .ToListAsync();
 
         if (notifications is null)

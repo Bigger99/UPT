@@ -46,6 +46,9 @@ public class PaymentService(UPTDbContext dbContext) : IPaymentService
         };
         trainer.SetDialogCount(count);
 
+        var newNotification = new Domain.Entities.Notification(title, DateTime.UtcNow, "Ваша подписка успешно оформлена", user);
+        await dbContext.Notifications.AddAsync(newNotification);
+
         await dbContext.SaveChangesAsync();
 
         return newPayment.Adapt<PaymentDto>();
