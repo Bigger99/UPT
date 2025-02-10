@@ -1,5 +1,6 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
+using System.Web;
 using UPT.Data;
 using UPT.Features.Features.FeedbackFeatures.Dto;
 using UPT.Infrastructure.Middlewars;
@@ -29,7 +30,6 @@ public class FeedbackService(UPTDbContext dbContext) : IFeedbackService
     public async Task<FeedbackDto> Add(int clientId, int trainerId, double rating, string text)
     {
         var client = await dbContext.Clients
-            .AsNoTracking()
             .Include(x => x.User)
                 .ThenInclude(x => x.City)
             .Include(x => x.Trainer)
@@ -37,7 +37,6 @@ public class FeedbackService(UPTDbContext dbContext) : IFeedbackService
             .FirstOrDefaultAsync(x => x.Id == clientId) ?? throw new BackendException("Client not found");
 
         var trainer = await dbContext.Trainers
-            .AsNoTracking()
             .Include(x => x.User)
                 .ThenInclude(x => x.City)
             .Include(x => x.Gym)
@@ -55,7 +54,7 @@ public class FeedbackService(UPTDbContext dbContext) : IFeedbackService
             throw new BackendException("Feedback from current client to this trainer already exists");
         }
 
-        var newFeedback = new Domain.Entities.Feedback(DateTime.UtcNow, rating, text, client, trainer);
+        var newFeedback = new Domain.Entities.Feedback(DateTime.UtcNow, rating, HttpUtility.HtmlEncode(text), client, trainer);
         await dbContext.Feedbacks.AddAsync(newFeedback);
         await dbContext.SaveChangesAsync();
 
