@@ -40,6 +40,7 @@ public class AutorizationService(
     public async Task<TokensModel> Login(string email, string password)
     {
         var existedUser = await dbContext.Users
+            .AsNoTracking()
             .Where(x => !x.IsDeleted)
             .FirstOrDefaultAsync(x => x.EmailAddress == email)
             ?? throw new BackendException("User not found");

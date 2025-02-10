@@ -29,7 +29,6 @@ using UPT.Features.Services.News;
 using UPT.Infrastructure.Email;
 using UPT.Infrastructure.Email.Service;
 using UPT.Features.Services.Goal;
-using Microsoft.Extensions.Options;
 
 namespace UPT;
 
@@ -47,8 +46,8 @@ internal static class Settings
 
         builder.Services.AddDbContext<UPTDbContext>(opt =>
         {
-            opt.EnableDetailedErrors(); // Включает подробные ошибки
-            opt.EnableSensitiveDataLogging(); // Показывает параметры запросов
+            //opt.EnableDetailedErrors(); // Включает подробные ошибки
+            //opt.EnableSensitiveDataLogging(); // Показывает параметры запросов
 
             opt.UseNpgsql(
                 builder.Configuration.GetConnectionString("Default"),
