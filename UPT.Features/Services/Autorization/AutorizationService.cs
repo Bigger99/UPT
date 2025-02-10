@@ -19,11 +19,10 @@ public class AutorizationService(
         var emailAddressLower = email.ToLower();
 
         var existedUser = await dbContext.Users
-            .Include(x => x.City)
             .Where(x => !x.IsDeleted)
-            .FirstOrDefaultAsync(x => x.EmailAddress.ToLower() == emailAddressLower);
+            .AnyAsync(x => x.EmailAddress.ToLower() == emailAddressLower);
 
-        if (existedUser is not null)
+        if (existedUser)
         {
             throw new BackendException("User with current email already existed");
         }
