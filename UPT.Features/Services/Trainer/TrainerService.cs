@@ -156,6 +156,15 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         return trainerDto;
     }
 
+    public async Task<bool> AccessToPublishNews(int trainerId)
+    {
+        var trainer = await dbContext.Trainers
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => !x.IsDeleted && x.Id == trainerId) ?? throw new BackendException("Trainer not found");
+
+        return trainer.PurchasedProduct == PurchasedProduct.ProSubscribe || trainer.PurchasedProduct == PurchasedProduct.DeluxeSubscribe;
+    }
+
     public async Task Delete(int id)
     {
         var trainer = await dbContext.Trainers

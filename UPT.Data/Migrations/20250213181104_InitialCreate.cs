@@ -223,6 +223,7 @@ namespace UPT.Data.Migrations
                     training_programs = table.Column<int[]>(type: "integer[]", nullable: false),
                     gym_id = table.Column<int>(type: "integer", nullable: false),
                     dialog_count = table.Column<int>(type: "integer", nullable: true),
+                    purchased_product = table.Column<int>(type: "integer", nullable: true),
                     is_deleted = table.Column<bool>(type: "boolean", nullable: false),
                     favorite_id = table.Column<int>(type: "integer", nullable: true)
                 },

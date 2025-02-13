@@ -45,6 +45,8 @@ public class Trainer : HasIdBase
 
     public int? DialogCount { get; protected set; } = default!;
 
+    public PurchasedProduct? PurchasedProduct { get; set; }
+
     public bool IsDeleted { get; protected set; } = false;
 
     public Trainer(User user, int experience, bool medicGrade,
@@ -68,6 +70,11 @@ public class Trainer : HasIdBase
     public void SetDialogCount(int count)
     {
         DialogCount = count;
+    }
+
+    public void SetPurchasedProduct(PurchasedProduct purchasedProduct)
+    {
+        PurchasedProduct = purchasedProduct;
     }
 
     public void DialogCountDecrement()

@@ -461,6 +461,10 @@ namespace UPT.Data.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("medic_grade");
 
+                    b.Property<int?>("PurchasedProduct")
+                        .HasColumnType("integer")
+                        .HasColumnName("purchased_product");
+
                     b.Property<int[]>("TrainingPrograms")
                         .IsRequired()
                         .HasColumnType("integer[]")

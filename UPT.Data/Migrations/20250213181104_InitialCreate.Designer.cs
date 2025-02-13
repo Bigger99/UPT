@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20250210090629_InitialCreate")]
+    [Migration("20250213181104_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -463,6 +463,10 @@ namespace UPT.Data.Migrations
                     b.Property<bool>("MedicGrade")
                         .HasColumnType("boolean")
                         .HasColumnName("medic_grade");
+
+                    b.Property<int?>("PurchasedProduct")
+                        .HasColumnType("integer")
+                        .HasColumnName("purchased_product");
 
                     b.Property<int[]>("TrainingPrograms")
                         .IsRequired()

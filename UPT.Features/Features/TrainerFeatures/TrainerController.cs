@@ -32,6 +32,16 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     }
 
     /// <summary>
+    /// Может ли тренер публиковать новости
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> AccessToPublishNews([FromQuery] int trainerId)
+    {
+        var trainer = await trainerService.AccessToPublishNews(trainerId);
+        return Ok(trainer);
+    }
+
+    /// <summary>
     /// Получить список отфильтрованных тренеров
     /// </summary>
     [HttpPost]

@@ -46,6 +46,7 @@ public class PaymentService(UPTDbContext dbContext) : IPaymentService
             _ => throw new BackendException("Product not found")
         };
         trainer.SetDialogCount(count);
+        trainer.SetPurchasedProduct(purchasedProduct);
 
         var newNotification = new Domain.Entities.Notification(title, DateTime.UtcNow, "Ваша подписка успешно оформлена", user);
         await dbContext.Notifications.AddAsync(newNotification);
