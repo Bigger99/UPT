@@ -194,12 +194,14 @@ internal class UPTDbDataSeed
         var gyms = _dbContext.Gyms.Include(x => x.City).ToList();
         var trainers = new List<Trainer>();
 
-        for (int i = 0; i < userTrainers.Count; i++)
+        for (var i = 0; i < userTrainers.Count; i++)
         {
             var gym = gyms[i];
             var trainer = new Trainer(userTrainers[i], new Random().Next(3, 10), true, true, true,
                 GetRandomUniqueEnumValues<TrainingProgram>(3).ToList(),
                 gym, "Высококвалифицированный тренер.");
+            
+            trainer.SetPurchasedProduct(GetRandomEnumValue<PurchasedProduct>());
 
             trainers.Add(trainer);
         }
@@ -215,7 +217,7 @@ internal class UPTDbDataSeed
 
         var clients = new List<Client>();
 
-        for (int i = 0; i < userClients.Count; i++)
+        for (var i = 0; i < userClients.Count; i++)
         {
             var trainer = trainers[i];
             var client = new Client(userClients[i], height: 170 + new Random().Next(0, 10), weight: 70 + new Random().Next(0, 10),
