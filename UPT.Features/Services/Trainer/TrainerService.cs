@@ -200,11 +200,16 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
 
     private async Task<double> GetTrainerRating(Domain.Entities.Trainer trainer)
     {
-        var rating = await dbContext.Feedbacks
+        var feedbacks = await dbContext.Feedbacks
             .Where(x => x.Trainer == trainer)
             .ToListAsync();
 
-        var ratingSum = rating.Sum(x => x.Rating);
-        return ratingSum / rating.Count;
+        if (feedbacks is null or { Count:0 }) 
+        {
+            return 0;
+        }
+
+        var ratingSum = feedbacks.Sum(x => x.Rating);
+        return ratingSum / feedbacks.Count;
     }
 }
