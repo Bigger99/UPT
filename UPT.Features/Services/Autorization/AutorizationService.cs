@@ -19,7 +19,6 @@ public class AutorizationService(
         var emailAddressLower = email.ToLower();
 
         var existedUser = await dbContext.Users
-            .Where(x => !x.IsDeleted)
             .AnyAsync(x => x.EmailAddress.ToLower() == emailAddressLower);
 
         if (existedUser)
