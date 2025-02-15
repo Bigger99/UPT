@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using UPT.Infrastructure.Enums;
 
-namespace UPT.Features.Features.NewsFeatures.Requests;
+namespace UPT.Features.Features.GoalFeatures.Requests;
 
 public class CreateGoalCommand
 {

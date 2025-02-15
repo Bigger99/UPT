@@ -2,7 +2,6 @@
 using Refit;
 using UPT.Features.Features.GoalFeatures.Dto;
 using UPT.Features.Features.GoalFeatures.Requests;
-using UPT.Features.Features.NewsFeatures.Requests;
 
 namespace UPT.Tests.API.Frontend.GoalTests.Base;
 

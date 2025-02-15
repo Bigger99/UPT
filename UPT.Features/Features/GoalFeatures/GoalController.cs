@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UPT.Features.Base;
 using UPT.Features.Features.GoalFeatures.Requests;
-using UPT.Features.Features.NewsFeatures.Requests;
 using UPT.Features.Services.Goal;
 
 namespace UPT.Features.Features.GoalFeatures;

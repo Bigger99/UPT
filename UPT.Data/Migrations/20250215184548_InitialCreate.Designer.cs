@@ -12,7 +12,7 @@ using UPT.Data;
 namespace UPT.Data.Migrations
 {
     [DbContext(typeof(UPTDbContext))]
-    [Migration("20250213181104_InitialCreate")]
+    [Migration("20250215184548_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,32 +34,32 @@ namespace UPT.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("integer")
-                        .HasColumnName("client_id");
-
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)")
                         .HasColumnName("message");
 
+                    b.Property<int>("RecipientId")
+                        .HasColumnType("integer")
+                        .HasColumnName("recipient_id");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("integer")
+                        .HasColumnName("sender_id");
+
                     b.Property<DateTime>("Time")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("time");
 
-                    b.Property<int>("TrainerId")
-                        .HasColumnType("integer")
-                        .HasColumnName("trainer_id");
-
                     b.HasKey("Id")
                         .HasName("pk_chats");
 
-                    b.HasIndex("ClientId")
-                        .HasDatabaseName("ix_chats_client_id");
+                    b.HasIndex("RecipientId")
+                        .HasDatabaseName("ix_chats_recipient_id");
 
-                    b.HasIndex("TrainerId")
-                        .HasDatabaseName("ix_chats_trainer_id");
+                    b.HasIndex("SenderId")
+                        .HasDatabaseName("ix_chats_sender_id");
 
                     b.ToTable("chats", (string)null);
                 });
@@ -566,23 +566,23 @@ namespace UPT.Data.Migrations
 
             modelBuilder.Entity("UPT.Domain.Entities.Chat", b =>
                 {
-                    b.HasOne("UPT.Domain.Entities.Client", "Client")
+                    b.HasOne("UPT.Domain.Entities.User", "Recipient")
                         .WithMany()
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_chats_clients_client_id");
+                        .HasConstraintName("fk_chats_users_recipient_id");
 
-                    b.HasOne("UPT.Domain.Entities.Trainer", "Trainer")
+                    b.HasOne("UPT.Domain.Entities.User", "Sender")
                         .WithMany()
-                        .HasForeignKey("TrainerId")
+                        .HasForeignKey("SenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_chats_trainers_trainer_id");
+                        .HasConstraintName("fk_chats_users_sender_id");
 
-                    b.Navigation("Client");
+                    b.Navigation("Recipient");
 
-                    b.Navigation("Trainer");
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("UPT.Domain.Entities.Client", b =>

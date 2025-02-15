@@ -29,6 +29,7 @@ using UPT.Features.Services.News;
 using UPT.Infrastructure.Email;
 using UPT.Infrastructure.Email.Service;
 using UPT.Features.Services.Goal;
+using UPT.Features.Services.Chat;
 
 namespace UPT;
 
@@ -127,6 +128,7 @@ internal static class Settings
         builder.Services.AddScoped<INotificationService, NotificationService>();
         builder.Services.AddScoped<INewsService, NewsService>();
         builder.Services.AddScoped<IGoalService, GoalService>();
+        builder.Services.AddScoped<IChatService, ChatService>();
 
         return builder;
     }

@@ -77,6 +77,34 @@ namespace UPT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "chats",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    sender_id = table.Column<int>(type: "integer", nullable: false),
+                    recipient_id = table.Column<int>(type: "integer", nullable: false),
+                    message = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
+                    time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_chats", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_chats_users_recipient_id",
+                        column: x => x.recipient_id,
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "fk_chats_users_sender_id",
+                        column: x => x.sender_id,
+                        principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "news",
                 columns: table => new
                 {
@@ -143,22 +171,6 @@ namespace UPT.Data.Migrations
                         principalTable: "users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "chats",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    trainer_id = table.Column<int>(type: "integer", nullable: false),
-                    client_id = table.Column<int>(type: "integer", nullable: false),
-                    message = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: false),
-                    time = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_chats", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -311,14 +323,14 @@ namespace UPT.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "ix_chats_client_id",
+                name: "ix_chats_recipient_id",
                 table: "chats",
-                column: "client_id");
+                column: "recipient_id");
 
             migrationBuilder.CreateIndex(
-                name: "ix_chats_trainer_id",
+                name: "ix_chats_sender_id",
                 table: "chats",
-                column: "trainer_id");
+                column: "sender_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_clients_trainer_id",
@@ -396,22 +408,6 @@ namespace UPT.Data.Migrations
                 column: "city_id");
 
             migrationBuilder.AddForeignKey(
-                name: "fk_chats_clients_client_id",
-                table: "chats",
-                column: "client_id",
-                principalTable: "clients",
-                principalColumn: "id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "fk_chats_trainers_trainer_id",
-                table: "chats",
-                column: "trainer_id",
-                principalTable: "trainers",
-                principalColumn: "id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
                 name: "fk_clients_trainers_trainer_id",
                 table: "clients",
                 column: "trainer_id",
@@ -423,8 +419,16 @@ namespace UPT.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "fk_favorits_clients_client_id",
-                table: "favorits");
+                name: "fk_clients_users_user_id",
+                table: "clients");
+
+            migrationBuilder.DropForeignKey(
+                name: "fk_trainers_users_user_id",
+                table: "trainers");
+
+            migrationBuilder.DropForeignKey(
+                name: "fk_clients_trainers_trainer_id",
+                table: "clients");
 
             migrationBuilder.DropTable(
                 name: "chats");
@@ -445,7 +449,7 @@ namespace UPT.Data.Migrations
                 name: "payments");
 
             migrationBuilder.DropTable(
-                name: "clients");
+                name: "users");
 
             migrationBuilder.DropTable(
                 name: "trainers");
@@ -457,7 +461,7 @@ namespace UPT.Data.Migrations
                 name: "gyms");
 
             migrationBuilder.DropTable(
-                name: "users");
+                name: "clients");
 
             migrationBuilder.DropTable(
                 name: "cities");
