@@ -180,6 +180,7 @@ internal class UPTDbDataSeed
 
                 var gym = new Gym(gymNames[i], new TimeOnly(6, 0), new TimeOnly(22, 0), city, location);
                 gyms.Add(gym);
+                i++;
             }
 
             _dbContext.Gyms.AddRange(gyms);
