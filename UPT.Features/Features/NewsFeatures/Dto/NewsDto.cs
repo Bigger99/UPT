@@ -8,6 +8,7 @@ namespace UPT.Features.Features.NewsFeatures.Dto;
 public class NewsDto : IDto
 {
     public int Id { get; set; } = default!;
+
     public string? Name { get; set; } = default!;
 
     public DateTime CreationDate { get; set; } = default!;
@@ -17,6 +18,8 @@ public class NewsDto : IDto
     public string Text { get; set; } = default!;
 
     public UserDto User { get; set; } = default!;
+
+    public string? Image { get; set; } = default!;
 
     static NewsDto()
     {
