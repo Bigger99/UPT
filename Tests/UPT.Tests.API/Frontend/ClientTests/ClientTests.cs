@@ -6,7 +6,6 @@ using UPT.Data.SeedData;
 using UPT.Features.Features.AutorizationFeatures.Requests;
 using UPT.Features.Features.ClientFeatures.Requests;
 using UPT.Features.Features.UserFeatures.Requests;
-using UPT.Infrastructure.Jwt;
 using UPT.Infrastructure.Models;
 using UPT.Tests.API.Frontend.AuthorizeTests.Base;
 using UPT.Tests.API.Frontend.ClientTests.Base;
@@ -27,6 +26,19 @@ internal class ClientTests : ApiBaseTests<IClientProvider>
         response.IsSuccessStatusCode.Should().BeTrue();
         response.Content.Should().NotBeNull();
         response.Content!.VolumeButtock.Should().NotBe(0);
+    }
+
+    [Test]
+    public async Task GetAll_WhenValidCalled_ResponseMustBeNonEmpty()
+    {
+        // act
+        var response = await Provider.GetAll();
+
+        // assert
+        using var _ = new AssertionScope();
+        response.IsSuccessStatusCode.Should().BeTrue();
+        response.Content.Should().NotBeNull();
+        response.Content!.Count.Should().NotBe(0);
     }
 
     [Test]

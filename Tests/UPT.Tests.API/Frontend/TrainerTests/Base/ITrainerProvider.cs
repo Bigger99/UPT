@@ -8,7 +8,10 @@ namespace UPT.Tests.API.Frontend.TrainerTests.Base;
 internal interface ITrainerProvider
 {
     [Get("/api/web/trainer/get")]
-    Task<ApiResponse<TrainerDto>> Get([Query] int trainerId);
+    Task<ApiResponse<TrainerDto>> Get([Query] int trainerId);    
+    
+    [Get("/api/web/trainer/get-all")]
+    Task<ApiResponse<List<TrainerDto>>> GetAll();
 
     [Get("/api/web/trainer/get-by-user-id")]
     Task<ApiResponse<TrainerDto>> GetByUserId([Query] int userid);

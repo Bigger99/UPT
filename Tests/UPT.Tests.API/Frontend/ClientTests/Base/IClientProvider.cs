@@ -11,6 +11,9 @@ internal interface IClientProvider
     [Get("/api/web/client/get")]
     Task<ApiResponse<ClientDto>> Get([Query] int clientId);
 
+    [Get("/api/web/client/get-all")]
+    Task<ApiResponse<List<ClientDto>>> GetAll();
+
     [Get("/api/web/client/get-by-user-id")]
     Task<ApiResponse<ClientDto>> GetByUserId([Query] int userid);
 

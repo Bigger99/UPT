@@ -23,6 +23,19 @@ internal class TrainerTests : ApiBaseTests<ITrainerProvider>
     }
 
     [Test]
+    public async Task GetAll_WhenValidCalled_ResponseMustBeNonEmpty()
+    {
+        // act
+        var response = await Provider.GetAll();
+
+        // assert
+        using var _ = new AssertionScope();
+        response.IsSuccessStatusCode.Should().BeTrue();
+        response.Content.Should().NotBeNull();
+        response.Content!.Count.Should().NotBe(0);
+    }
+
+    [Test]
     public async Task GetByUserId_WhenValidCalled_ResponseMustBeNonEmpty()
     {
         // act
