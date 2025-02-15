@@ -27,6 +27,29 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
         return trainerDto;
     }
 
+    public async Task<List<TrainerDto>> GetAll()
+    {
+        var trainers = await dbContext.Trainers
+            .AsNoTrackingWithIdentityResolution()
+            .Include(x => x.User)
+                .ThenInclude(x => x.City)
+            .Include(x => x.Gym)
+            .Include(x => x.Clients)
+            .Where(x => !x.IsDeleted)
+            .ToListAsync();
+
+        var trainersDto = new List<TrainerDto>(trainers.Count);
+
+        foreach (var trainer in trainers)
+        {
+            var trainerDto = trainer.Adapt<TrainerDto>();
+            trainerDto.Rating = await GetTrainerRating(trainer);
+            trainersDto.Add(trainerDto);
+        }
+
+        return trainersDto;
+    }
+
     public async Task<TrainerDto> GetByUserId(int userId)
     {
         var trainer = await dbContext.Trainers

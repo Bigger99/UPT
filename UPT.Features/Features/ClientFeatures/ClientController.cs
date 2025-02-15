@@ -22,6 +22,16 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     }
 
     /// <summary>
+    /// Получить всех клиентов
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var user = await clientService.GetAll();
+        return Ok(user);
+    }
+
+    /// <summary>
     /// Получить клиента
     /// </summary>
     [HttpGet]

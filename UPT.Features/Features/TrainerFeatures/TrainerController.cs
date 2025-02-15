@@ -22,6 +22,16 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     }
 
     /// <summary>
+    /// Получить всех тренеров
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var user = await trainerService.GetAll();
+        return Ok(user);
+    }
+
+    /// <summary>
     /// Получить тренера
     /// </summary>
     [HttpGet]

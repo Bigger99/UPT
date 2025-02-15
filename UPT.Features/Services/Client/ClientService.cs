@@ -23,6 +23,19 @@ public class ClientService(UPTDbContext dbContext) : IClientService
         return client.Adapt<ClientDto>();
     }
 
+    public async Task<List<ClientDto>> GetAll()
+    {
+        var clients = await dbContext.Clients
+            .AsNoTracking()
+            .Include(x => x.User)
+                .ThenInclude(x => x.City)
+            .Include(x => x.Trainer)
+            .Where(x => !x.IsDeleted)
+            .ToListAsync();
+
+        return clients.Select(x => x.Adapt<ClientDto>()).ToList();
+    }
+
     public async Task<ClientDto> GetByUserId(int userId)
     {
         var client = await dbContext.Clients
