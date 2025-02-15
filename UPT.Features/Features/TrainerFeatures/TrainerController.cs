@@ -17,8 +17,8 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] int trainerId)
     {
-        var user = await trainerService.Get(trainerId);
-        return Ok(user);
+        var trainer = await trainerService.Get(trainerId);
+        return Ok(trainer);
     }
 
     /// <summary>
@@ -27,8 +27,8 @@ public class TrainerController(ITrainerService trainerService) : BaseAuthorizeCo
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var user = await trainerService.GetAll();
-        return Ok(user);
+        var trainers = await trainerService.GetAll();
+        return Ok(trainers);
     }
 
     /// <summary>
