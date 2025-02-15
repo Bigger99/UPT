@@ -7,6 +7,7 @@ namespace UPT.Features.Features.GymFeatures.Dto;
 
 public class GymDto : IDto
 {
+    public int Id { get; set; } = default!;
     public string? Name { get; set; } = default!;
     public TimeOnly OpenTime { get; set; } = default!;
     public TimeOnly CloseTime { get; set; } = default!;
