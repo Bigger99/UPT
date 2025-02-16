@@ -6,4 +6,5 @@ public interface IGymService
 {
     Task<GymDto> Get(int id);
     Task<List<GymDto>> GetAll();
+    Task<List<GymDtoWithTrainer>> GetAllWithTrainers();
 }

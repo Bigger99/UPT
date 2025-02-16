@@ -82,6 +82,16 @@ public class ClientController(IClientService clientService) : BaseAuthorizeContr
     }
 
     /// <summary>
+    /// Получить тренера клиента
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetTrainer([FromQuery] int clientId)
+    {
+        var client = await clientService.GetTrainer(clientId);
+        return Ok(client);
+    }
+
+    /// <summary>
     /// Удалить клиента
     /// </summary>
     [HttpDelete]

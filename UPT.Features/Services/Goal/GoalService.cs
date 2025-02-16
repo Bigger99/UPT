@@ -14,6 +14,12 @@ public class GoalService(UPTDbContext dbContext) : IGoalService
         var goal = await dbContext.Goals
             .AsNoTrackingWithIdentityResolution()
             .Include(x => x.TrainerForGoalAchievement)
+                .ThenInclude(x => x!.User)
+                    .ThenInclude(x => x.City)
+            .Include(x => x.TrainerForGoalAchievement)
+                .ThenInclude(x => x!.User)
+             .Include(x => x.TrainerForGoalAchievement)
+                .ThenInclude(x => x!.Gym)
             .Include(x => x.Client)
             .FirstOrDefaultAsync(x => x.Id == goalId)
              ?? throw new BackendException("Goal not found");
@@ -26,6 +32,12 @@ public class GoalService(UPTDbContext dbContext) : IGoalService
         var goals = await dbContext.Goals
             .AsNoTrackingWithIdentityResolution()
             .Include(x => x.TrainerForGoalAchievement)
+               .ThenInclude(x => x!.User)
+                    .ThenInclude(x => x.City)
+            .Include(x => x.TrainerForGoalAchievement)
+                .ThenInclude(x => x!.User)
+             .Include(x => x.TrainerForGoalAchievement)
+                .ThenInclude(x => x!.Gym)
             .Include(x => x.Client)
             .Where(x => x.Client.Id == clientId)
             .ToListAsync();

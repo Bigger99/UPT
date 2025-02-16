@@ -28,4 +28,14 @@ public class GymController(IGymService gymService) : BaseAuthorizeController
         var gyms = await gymService.GetAll();
         return Ok(gyms);
     }
+
+    /// <summary>
+    /// Получить все залы с тренерами
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetAllWithTrainers()
+    {
+        var gyms = await gymService.GetAllWithTrainers();
+        return Ok(gyms);
+    }
 }

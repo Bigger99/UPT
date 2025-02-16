@@ -14,6 +14,8 @@ public class UserDto : IDto
     public CityDto? City { get; set; } = default!;
     public Gender? Gender { get; set; } = default!;
     public string? Avatar { get; set; } = default!;
+    public bool IsNotificationEnable { get; set; } = true;
+    public bool IsEmailNotificationEnable { get; set; } = false;
 
     static UserDto()
     {

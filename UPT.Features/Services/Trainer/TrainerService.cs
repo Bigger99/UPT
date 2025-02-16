@@ -35,6 +35,7 @@ public class TrainerService(UPTDbContext dbContext) : ITrainerService
                 .ThenInclude(x => x.City)
             .Include(x => x.Gym)
             .Include(x => x.Clients)
+                .ThenInclude(x => x.User)
             .Where(x => !x.IsDeleted)
             .ToListAsync();
 

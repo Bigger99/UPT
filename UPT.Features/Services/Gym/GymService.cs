@@ -29,4 +29,17 @@ public class GymService(UPTDbContext dbContext) : IGymService
 
         return gym.Adapt<GymDto>();
     }
+
+    public async Task<List<GymDtoWithTrainer>> GetAllWithTrainers()
+    {
+        var gyms = await dbContext.Gyms
+            .AsNoTrackingWithIdentityResolution()
+            .Include(x => x.City)
+            .Include(x => x.Trainers.Where(x => !x.IsDeleted))
+                .ThenInclude(x => x.User)
+                    .ThenInclude(x => x.City)
+            .ToListAsync();
+
+        return gyms.Select(x => x.Adapt<GymDtoWithTrainer>()).ToList();
+    }
 }

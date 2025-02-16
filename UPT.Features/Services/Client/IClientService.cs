@@ -1,5 +1,6 @@
 ﻿using UPT.Features.Features.ClientFeatures.Dto;
 using UPT.Features.Features.ClientFeatures.Requests;
+using UPT.Features.Features.TrainerFeatures.Dto;
 using UPT.Infrastructure.Models;
 
 namespace UPT.Features.Services.Client;
@@ -13,5 +14,6 @@ public interface IClientService
     Task<ClientDto> GetByUserId(int userId);
     Task<IEnumerable<ClientWithGoalsDto>> GetFilteredClients(PagedFilterQuery<FilteredClientRequest> pagedFilter);
     Task<ClientDto> SetTrainer(int clientId, int trainerId);
+    Task<TrainerDto?> GetTrainer(int clientId);
     Task<ClientDto> Update(int clientId, int height, double weight, double volumeBreast, double volumeWaist, double volumeAbdomen, double volumeButtock, double volumeHip);
 }

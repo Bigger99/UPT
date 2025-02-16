@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using UPT.Data;
 using UPT.Features.Features.ClientFeatures.Dto;
 using UPT.Features.Features.ClientFeatures.Requests;
+using UPT.Features.Features.TrainerFeatures.Dto;
 using UPT.Infrastructure.Middlewars;
 using UPT.Infrastructure.Models;
 
@@ -155,5 +156,41 @@ public class ClientService(UPTDbContext dbContext) : IClientService
 
         trainer.Delete();
         await dbContext.SaveChangesAsync();
+    }
+
+    public async Task<TrainerDto?> GetTrainer(int clientId)
+    {
+        var trainer = await dbContext.Trainers
+            .AsNoTrackingWithIdentityResolution()
+            .Include(x => x.User)
+                .ThenInclude(x => x.City)
+            .Include(x => x.Gym)
+            .Include(x => x.Clients)
+            .Where(x => !x.IsDeleted)
+            .FirstOrDefaultAsync(x => x.Clients.Any(c => c.Id == clientId));
+
+        if (trainer is null)
+        {
+            return null;
+        }
+
+        var trainerDto = trainer.Adapt<TrainerDto>();
+        trainerDto.Rating = await GetTrainerRating(trainer);
+        return trainerDto;
+    }
+
+    private async Task<double> GetTrainerRating(Domain.Entities.Trainer trainer)
+    {
+        var feedbacks = await dbContext.Feedbacks
+            .Where(x => x.Trainer == trainer)
+            .ToListAsync();
+
+        if (feedbacks is null or { Count: 0 })
+        {
+            return 0;
+        }
+
+        var ratingSum = feedbacks.Sum(x => x.Rating);
+        return ratingSum / feedbacks.Count;
     }
 }
