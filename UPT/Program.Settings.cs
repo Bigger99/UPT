@@ -219,10 +219,10 @@ internal static class Settings
 
         var context = services.GetRequiredService<UPTDbContext>();
 
-        if (app.Environment.IsDevelopment())
-        {
-            context.Database.EnsureDeleted();
-        }
+        //if (app.Environment.IsDevelopment())
+        //{
+        //    context.Database.EnsureDeleted();
+        //}
 
         context.Database.Migrate();
         context.SeedData();

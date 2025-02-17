@@ -18,9 +18,9 @@ public class ChatHub(IMemoryCache cache, ILogger<ChatHub> logger) : Hub<IChatCli
         var stringConnection = JsonSerializer.Serialize(connection);
         cache.Set(connectionId, stringConnection);
 
-        await Clients
-            .Group(connection.ChatRoom)
-            .ReceiveMessage("Admin_bot", $"{connection.UserName} присоединился к чату");
+    //    await Clients
+    //.Group(connection.ChatRoom)
+    //.ReceiveMessage("Admin_bot", $"{connection.UserName} присоединился к чату");
     }
 
     public async Task SendMessage(string message)
@@ -46,9 +46,9 @@ public class ChatHub(IMemoryCache cache, ILogger<ChatHub> logger) : Hub<IChatCli
             cache.Remove(connectionId);
             await Groups.RemoveFromGroupAsync(connectionId, connection.ChatRoom);
 
-            await Clients
-                .Group(connection.ChatRoom)
-                .ReceiveMessage("Admin_bot", $"{connection.UserName} вышел из чата");
+            //await Clients
+            //    .Group(connection.ChatRoom)
+            //    .ReceiveMessage("Admin_bot", $"{connection.UserName} вышел из чата");
         }
 
         await base.OnDisconnectedAsync(exception);

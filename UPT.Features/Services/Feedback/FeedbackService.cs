@@ -17,6 +17,8 @@ public class FeedbackService(UPTDbContext dbContext) : IFeedbackService
                 .ThenInclude(x => x.User)
             .Include(x => x.Trainer)
                 .ThenInclude(x => x.User)
+            .Include(x => x.Trainer)
+                .ThenInclude(x => x.Clients)
             .Where(x => x.Trainer.Id == trainerId)
             .ToListAsync();
 

@@ -1,8 +1,11 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 using UPT.Data;
+using UPT.Domain.Entities;
 using UPT.Features.Features.ChatFeatures.Dto;
 using UPT.Infrastructure.Middlewars;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace UPT.Features.Services.Chat;
 
@@ -35,8 +38,11 @@ public class ChatService(UPTDbContext dbContext) : IChatService
             .FirstOrDefaultAsync(x => x.Id == recipientId) ?? throw new BackendException("Recipient not found");
 
         var chatMessage = new Domain.Entities.Chat(sender, recipient, message, DateTime.UtcNow);
-
         await dbContext.Chats.AddAsync(chatMessage);
+
+        var newNotification = new Domain.Entities.Notification(string.Empty, DateTime.UtcNow, $"Вам прислал сообщение пользователь: {sender.Name}", recipient);
+        await dbContext.Notifications.AddAsync(newNotification);
+
         await dbContext.SaveChangesAsync();
     }
 
