@@ -1,11 +1,8 @@
 ﻿using Mapster;
 using Microsoft.EntityFrameworkCore;
-using System.Xml.Linq;
 using UPT.Data;
-using UPT.Domain.Entities;
 using UPT.Features.Features.ChatFeatures.Dto;
 using UPT.Infrastructure.Middlewars;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace UPT.Features.Services.Chat;
 
